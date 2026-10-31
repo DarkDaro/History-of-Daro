@@ -16,6 +16,7 @@ export const NAV_LINKS = [
   { href: "/characters", label: "Персонажи" },
   { href: "/implants", label: "Импланты" },
   { href: "/armory", label: "Вооружение" },
+  { href: "/chronicles", label: "Хроники" },
   { href: "/story", label: "Суть" },
   { href: "/author", label: "Автор" },
 ];
@@ -47,7 +48,7 @@ export function SiteNav() {
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-5 font-mono-cyber text-xs uppercase tracking-[0.2em] text-white/70 lg:flex xl:gap-7 xl:tracking-[0.25em]">
+        <ul className="hidden items-center gap-4 font-mono-cyber text-xs uppercase tracking-[0.2em] text-white/70 lg:flex xl:gap-6 xl:tracking-[0.25em]">
           {NAV_LINKS.map((l) => (
             <li key={l.href}>
               <Link
@@ -137,6 +138,7 @@ export function SiteFooter() {
                 <li><Link href="/characters" className="hover:text-[var(--neon-cyan)]">Персонажи</Link></li>
                 <li><Link href="/implants" className="hover:text-[var(--neon-cyan)]">Импланты</Link></li>
                 <li><Link href="/armory" className="hover:text-[var(--neon-cyan)]">Вооружение</Link></li>
+                <li><Link href="/chronicles" className="hover:text-[var(--neon-cyan)]">Хроники</Link></li>
               </ul>
             </div>
             <div className="col-span-2 sm:col-span-1">

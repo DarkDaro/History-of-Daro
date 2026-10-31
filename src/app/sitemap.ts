@@ -21,6 +21,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/characters", priority: 0.8, freq: "monthly" },
     { path: "/implants", priority: 0.7, freq: "monthly" },
     { path: "/armory", priority: 0.7, freq: "monthly" },
+    { path: "/chronicles", priority: 0.8, freq: "weekly" },
+    { path: "/chronicles/pobeg-ohotnika", priority: 0.7, freq: "monthly" },
     { path: "/story", priority: 0.7, freq: "monthly" },
     { path: "/author", priority: 0.6, freq: "monthly" },
   ];

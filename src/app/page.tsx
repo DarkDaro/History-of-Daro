@@ -13,13 +13,14 @@ import {
   Heart,
   Microchip,
   Quote,
+  ScrollText,
   User,
   Users,
   Globe,
 } from "lucide-react";
 import { BootOverlay, Corners, Rain, Skyline } from "@/components/cyber";
 import { SubscribeForm } from "@/components/subscribe-form";
-import { BOOKS, HUMAN_STORIES, MARQUEE_ITEMS } from "@/lib/content";
+import { BOOKS, CHRONICLES, HUMAN_STORIES, MARQUEE_ITEMS } from "@/lib/content";
 
 /* ============================================================
    ИСТОРИЯ ДАРО — главная страница-хаб.
@@ -431,6 +432,84 @@ export default function Home() {
               </div>
             </div>
           </motion.blockquote>
+        </div>
+      </section>
+
+      {/* ======================= ХРОНИКИ (тизер) ======================= */}
+      <section className="relative border-t border-white/10 py-24 sm:py-28">
+        <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <motion.div
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            >
+              <p className="font-mono-cyber text-xs uppercase tracking-[0.4em] text-[var(--neon-amber)]">
+                Восстановленные записи
+              </p>
+              <h2 className="font-display mt-3 text-3xl uppercase tracking-wide text-white sm:text-4xl">
+                Хроники
+              </h2>
+              <p className="font-cyber mt-6 text-base leading-relaxed text-white/70">
+                Флешбеки и расшифрованные файлы, которые не вошли в тома, но
+                случились в этом мире. Первый — запись объекта «РХ», которого
+                реестры консорциума считают мёртвым: ночь, когда Резонансный
+                Охотник перестал быть машиной убийства и вышел из лаборатории
+                сам решать, кого убивать.
+              </p>
+              <div className="mt-8">
+                <Link
+                  href="/chronicles"
+                  className="btn-beam group inline-flex items-center gap-2 border border-white/15 bg-white/5 px-6 py-3.5 font-mono-cyber text-xs uppercase tracking-widest text-white/80 transition-colors hover:border-[var(--neon-amber)] hover:text-[var(--neon-amber)]"
+                >
+                  <ScrollText className="h-3.5 w-3.5" aria-hidden />
+                  Открыть архив хроник
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden />
+                </Link>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+              className="relative"
+            >
+              <Corners color="amber" />
+              <div className="beam-border-static">
+                <div className="flex items-center gap-2 border-b border-white/10 px-5 py-3">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[var(--neon-magenta)]/70" aria-hidden />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[var(--neon-amber)]/70" aria-hidden />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[var(--neon-cyan)]/70" aria-hidden />
+                  <span className="font-mono-cyber ml-3 text-[10px] uppercase tracking-[0.3em] text-white/40">
+                    {CHRONICLES[0].code} · {CHRONICLES[0].sourceLabel}
+                  </span>
+                </div>
+                <div className="p-6 sm:p-8">
+                  <p className="font-mono-cyber text-[11px] leading-relaxed tracking-[0.08em] text-[var(--neon-amber)]/90">
+                    «Система идентификации целей активирована. Код 87-А:
+                    Ликвидация». — ИСКИН
+                  </p>
+                  <p className="font-cyber mt-5 text-sm leading-relaxed text-white/75 sm:text-base">
+                    Сирены заливали лабораторию кроваво-красным светом. Так много
+                    лет его импланты управляли им… но теперь он мог
+                    сопротивляться. Он был охотником — и на этот раз он сам решал,
+                    кого убивать.
+                  </p>
+                  <Link
+                    href={`/chronicles/${CHRONICLES[0].slug}`}
+                    className="font-mono-cyber mt-6 inline-flex items-center gap-2 border border-[var(--neon-amber)]/50 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-[var(--neon-amber)] transition-colors hover:bg-[var(--neon-amber)]/10"
+                  >
+                    Файл {CHRONICLES[0].code} — читать
+                    <ArrowRight className="h-3 w-3" aria-hidden />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 

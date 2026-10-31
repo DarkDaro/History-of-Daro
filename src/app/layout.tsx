@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Russo_One, Play, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { SiteNav, SiteFooter } from "@/components/site-chrome";
+import { AtmosphereFX } from "@/components/cyber";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 
 const displayFont = Russo_One({
@@ -24,16 +26,21 @@ const monoFont = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: `${SITE_NAME} — цикл романов | Киберпанк. Дистопия. Неонуар.`,
+  title: {
+    default: `${SITE_NAME} — цикл романов | Антиутопия. Боевик. Неонуар.`,
+    template: `%s — ${SITE_NAME}`,
+  },
   description: SITE_DESCRIPTION,
   keywords: [
     "История Даро",
+    "антиутопия",
+    "постапокалипсис",
     "киберпанк",
-    "дистопия",
     "неонуар",
     "фантастика",
     "книги",
     "романы",
+    "Хи-Мигата",
   ],
   alternates: {
     canonical: "/",
@@ -41,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${SITE_NAME} — цикл романов`,
     description:
-      "Киберпанк-дистопия, боевик, неонуар. Мегаполис Даро ждёт.",
+      "Антиутопия с элементами постапокалипсиса. Город Хи-Мигата, семь корпораций и мятежный антигерой Даро. 2147 год.",
     type: "website",
     locale: "ru_RU",
     siteName: SITE_NAME,
@@ -51,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_NAME} — цикл романов`,
     description:
-      "Киберпанк-дистопия, боевик, неонуар. Мегаполис Даро ждёт.",
+      "Антиутопия с элементами постапокалипсиса. Город Хи-Мигата, семь корпораций и мятежный антигерой Даро. 2147 год.",
   },
   robots: {
     index: true,
@@ -71,9 +78,16 @@ export default function RootLayout({
   return (
     <html lang="ru" suppressHydrationWarning>
       <body
-        className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} antialiased bg-[#05050a] text-foreground`}
+        className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} antialiased flex min-h-screen flex-col bg-[#05050a] text-foreground`}
       >
+        {/* глобальные атмосферные эффекты — на всех страницах */}
+        <div className="noise-overlay" aria-hidden />
+        <div className="vignette" aria-hidden />
+        <AtmosphereFX />
+
+        <SiteNav />
         {children}
+        <SiteFooter />
         <Toaster />
       </body>
     </html>

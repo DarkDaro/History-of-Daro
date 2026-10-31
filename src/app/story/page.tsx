@@ -1,0 +1,196 @@
+import type { Metadata } from "next";
+import { PageHero, SectionHeading } from "@/components/blocks";
+import { Reveal } from "@/components/cyber";
+import { HUMAN_STORIES, INFLUENCES, PRINCIPLES } from "@/lib/content";
+
+export const metadata: Metadata = {
+  title: "Суть истории",
+  description:
+    "О чём цикл «История Даро» на самом деле: люди, которые пытаются остаться собой в мире, который хочет их сломать. Темы, влияния и принципы повествования.",
+  alternates: { canonical: "/story" },
+};
+
+const ACCENT_LINE: Record<string, string> = {
+  cyan: "bg-[var(--neon-cyan)]",
+  magenta: "bg-[var(--neon-magenta)]",
+  amber: "bg-[var(--neon-amber)]",
+};
+
+const ACCENT_TEXT: Record<string, string> = {
+  cyan: "neon-cyan",
+  magenta: "neon-magenta",
+  amber: "text-[var(--neon-amber)]",
+};
+
+export default function StoryPage() {
+  return (
+    <main className="min-h-screen bg-[#05050a] text-white">
+      <PageHero
+        kicker="Ядро цикла · без неона и корпораций"
+        title="Суть истории"
+        glitch
+        lead="Убери киберпанк — и останется история о людях, которые пытаются остаться собой в мире, который хочет их сломать. Это не история о победе над корпорациями. Это история о победе над собой — или о поражении."
+        accent="magenta"
+        breadcrumb={[{ href: "/story", label: "Суть" }]}
+      />
+
+      {/* пять человеческих историй */}
+      <section className="relative py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <SectionHeading kicker="Действующие лица войны" title="Пять историй" num="01" />
+          <div className="space-y-5">
+            {HUMAN_STORIES.map((s, i) => (
+              <Reveal key={s.title} delay={i * 0.06}>
+                <article className="group relative grid gap-4 border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors hover:border-white/25 sm:grid-cols-[auto_1fr] sm:gap-8 sm:p-8">
+                  <span
+                    aria-hidden
+                    className={`ghost-num font-display text-6xl sm:text-7xl ${ACCENT_TEXT[s.accent]} opacity-40`}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-xl uppercase leading-snug tracking-wide text-white/95 sm:text-2xl">
+                      {s.title}
+                    </h3>
+                    <div className={`mt-3 h-px w-16 ${ACCENT_LINE[s.accent]}`} aria-hidden />
+                    <p className="font-cyber mt-4 text-sm leading-relaxed text-white/65 sm:text-base">
+                      {s.text}
+                    </p>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* антиутопия с надеждой */}
+      <section className="relative border-t border-white/10 py-20 sm:py-24">
+        <div className="cyber-grid absolute inset-0 opacity-[0.06]" aria-hidden />
+        <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
+          <SectionHeading kicker="Жанровое ядро" title="Антиутопия с надеждой" num="02" accent="magenta" />
+          <Reveal>
+            <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2">
+              <div className="bg-[#0a0a16] p-7 text-left sm:p-9">
+                <p className="font-mono-cyber text-[10px] uppercase tracking-[0.35em] neon-magenta">
+                  Что это за мир
+                </p>
+                <p className="font-cyber mt-4 text-sm leading-relaxed text-white/70 sm:text-base">
+                  Корпорации контролируют всё. Люди — ресурс. Свобода — иллюзия.
+                  Мир не разрушен — он контролируется, и это хуже постапокалипсиса.
+                  Но это антиутопия с надеждой: герои не сдаются, они борются и
+                  верят, что можно что-то изменить.
+                </p>
+              </div>
+              <div className="bg-[#0a0a16] p-7 text-left sm:p-9">
+                <p className="font-mono-cyber text-[10px] uppercase tracking-[0.35em] neon-cyan">
+                  Что это за история
+                </p>
+                <p className="font-cyber mt-4 text-sm leading-relaxed text-white/70 sm:text-base">
+                  История об идентичности. История об одиночестве. История о цене
+                  жертвенности. О людях, которые боятся — но продолжают идти.
+                  Форма — антиутопия с элементами постапокалипсиса, боевик и
+                  неонуар. Содержание — выбор между тем, кем тебя сделали, и тем,
+                  кем ты решил быть.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* принципы повествования */}
+      <section className="relative border-t border-white/10 py-20 sm:py-24">
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <SectionHeading kicker="Как устроено повествование" title="Принципы" num="03" />
+          <div className="grid gap-6 sm:grid-cols-2">
+            {PRINCIPLES.map((p, i) => (
+              <Reveal key={p.title} delay={(i % 2) * 0.08}>
+                <article className="relative h-full border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors hover:border-white/25 sm:p-8">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/35">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="font-display text-xl uppercase tracking-wide">{p.title}</h3>
+                  </div>
+                  <p className="font-cyber mt-4 text-sm leading-relaxed text-white/70">{p.text}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mt-10">
+            <div className="beam-border-static p-7 sm:p-9">
+              <p className="font-mono-cyber text-[10px] uppercase tracking-[0.35em] neon-cyan">
+                Параллельные линии одного мира
+              </p>
+              <p className="font-cyber mt-4 text-sm leading-relaxed text-white/70 sm:text-base">
+                Линия Николаса/Даро. Линия Лины. Линия сопротивления. Линия
+                корпораций. Линия Хьюго. И линия читателя, который постепенно
+                собирает из них целое — и понимает героев лучше, чем герои
+                понимают себя. Хронология ведётся не «за героем», а «за миром»:
+                так белые пятна в истории становятся частью замысла, а не ошибкой.
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* влияния */}
+      <section className="relative border-t border-white/10 py-20 sm:py-24">
+        <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <SectionHeading kicker="Система координат" title="Влияния" num="04" accent="amber" />
+          <Reveal>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[560px] border border-white/10 text-left">
+                <thead>
+                  <tr className="border-b border-white/10 bg-black/60">
+                    <th className="font-mono-cyber px-5 py-4 text-[10px] uppercase tracking-[0.3em] text-white/50">
+                      Источник
+                    </th>
+                    <th className="font-mono-cyber px-5 py-4 text-[10px] uppercase tracking-[0.3em] text-white/50">
+                      Что взято
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {INFLUENCES.map((inf, i) => (
+                    <tr
+                      key={inf.source}
+                      className={`border-b border-white/5 transition-colors hover:bg-white/[0.04] ${
+                        i % 2 === 0 ? "bg-white/[0.02]" : ""
+                      }`}
+                    >
+                      <td className="font-display px-5 py-4 text-sm uppercase tracking-wide text-white/90">
+                        {inf.source}
+                      </td>
+                      <td className="font-cyber px-5 py-4 text-sm leading-relaxed text-white/65">
+                        {inf.taken}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* финальная цитата */}
+      <section className="relative border-t border-white/10 py-20 sm:py-24">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
+          <Reveal>
+            <p className="font-cyber text-xl italic leading-relaxed text-white/85 sm:text-2xl">
+              «Люди, которые боятся, но продолжают идти, — единственная сила,
+              которую корпорации не могут посчитать в балансе».
+            </p>
+            <p className="font-mono-cyber mt-5 text-xs uppercase tracking-[0.3em] text-white/50">
+              — материалы цикла
+            </p>
+          </Reveal>
+        </div>
+      </section>
+    </main>
+  );
+}

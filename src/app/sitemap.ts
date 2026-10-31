@@ -6,16 +6,29 @@ export const dynamic = "force-static";
 
 /**
  * Карта сайта: https://<домен>/sitemap.xml
- * У сайта одна страница-лендинг; разделы — это якоря на ней,
- * поэтому в sitemap входит только корневой URL.
+ * Сайт многостраничный: главная + разделы мира цикла.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: SITE_URL,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
+  const now = new Date();
+
+  const routes: { path: string; priority: number; freq: "weekly" | "monthly" }[] = [
+    { path: "", priority: 1, freq: "weekly" },
+    { path: "/books", priority: 0.9, freq: "weekly" },
+    { path: "/books/tom-1", priority: 0.9, freq: "monthly" },
+    { path: "/books/tom-2", priority: 0.9, freq: "monthly" },
+    { path: "/books/tom-3", priority: 0.8, freq: "monthly" },
+    { path: "/world", priority: 0.8, freq: "monthly" },
+    { path: "/characters", priority: 0.8, freq: "monthly" },
+    { path: "/implants", priority: 0.7, freq: "monthly" },
+    { path: "/armory", priority: 0.7, freq: "monthly" },
+    { path: "/story", priority: 0.7, freq: "monthly" },
+    { path: "/author", priority: 0.6, freq: "monthly" },
   ];
+
+  return routes.map((r) => ({
+    url: `${SITE_URL}${r.path}`,
+    lastModified: now,
+    changeFrequency: r.freq,
+    priority: r.priority,
+  }));
 }

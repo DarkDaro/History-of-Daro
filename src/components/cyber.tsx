@@ -27,6 +27,29 @@ const ACCENT_TEXT: Record<Accent, string> = {
   amber: "text-[var(--neon-amber)]",
 };
 
+/** Появление блока при прокрутке (обёртка для серверных страниц) */
+export function Reveal({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, ease: "easeOut", delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 /** Угловые HUD-скобки для панелей */
 export function Corners({ color = "cyan" }: { color?: Accent }) {
   return (

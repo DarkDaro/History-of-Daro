@@ -56,6 +56,10 @@ server.log
 *.db
 /db/
 
+# local tools & sandbox infra (not part of the Windows project)
+/_local/
+/.zscripts/
+
 # archive: anything we don't delete but don't track
 /_archive/
 /tool-results/

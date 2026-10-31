@@ -25,14 +25,18 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
+  AtmosphereFX,
   BootOverlay,
   Corners,
   Counter,
+  Lightning,
   Rain,
   Skyline,
+  Splashes,
   StatBar,
   Typewriter,
 } from "@/components/cyber";
+import { CyberAmbientButton } from "@/components/ambient-audio";
 
 /* ============================================================
    ИСТОРИЯ ДАРО — лендинг книжного цикла · v2
@@ -463,6 +467,7 @@ export default function Home() {
       <div className="scanlines" aria-hidden />
       <div className="noise-overlay" aria-hidden />
       <div className="vignette" aria-hidden />
+      <AtmosphereFX />
 
       {/* ======================= NAV ======================= */}
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#05050a]/85 backdrop-blur-md">
@@ -485,6 +490,7 @@ export default function Home() {
           </ul>
 
           <div className="flex items-center gap-3">
+            <CyberAmbientButton />
             <a
               href="#subscribe"
               className="btn-beam hidden px-4 py-2 font-mono-cyber text-xs uppercase tracking-widest neon-border-cyan text-[var(--neon-cyan)] transition-colors hover:bg-[var(--neon-cyan)]/10 sm:inline-flex"
@@ -534,14 +540,51 @@ export default function Home() {
           <Skyline />
         </motion.div>
 
-        {/* дождь и перспективная сетка */}
+        {/* дождь, брызги и перспективная сетка */}
         <div aria-hidden className="absolute inset-0 z-[2]">
-          <Rain count={52} />
+          <Rain count={64} />
           <div className="grid-floor" />
+          <Splashes count={14} />
         </div>
 
         {/* затемнение текста */}
         <div aria-hidden className="absolute inset-0 z-[3] bg-gradient-to-b from-[#05050a]/80 via-[#05050a]/30 to-[#05050a]" />
+
+        {/* дождь по стеклу */}
+        <motion.div
+          style={{ y: ySky }}
+          aria-hidden
+          className="absolute inset-0 z-[4] overflow-hidden"
+        >
+          <Image
+            src="/assets/rain-glass.png"
+            alt=""
+            fill
+            sizes="100vw"
+            className="glass-rain object-cover opacity-20 mix-blend-screen"
+          />
+        </motion.div>
+
+        {/* дрейфующий туман */}
+        <div aria-hidden className="absolute inset-x-0 bottom-0 z-[4] h-[45%] overflow-hidden">
+          <Image
+            src="/assets/fog.png"
+            alt=""
+            fill
+            sizes="100vw"
+            className="fog-drift object-cover opacity-30 mix-blend-screen"
+          />
+          <Image
+            src="/assets/fog.png"
+            alt=""
+            fill
+            sizes="100vw"
+            className="fog-drift-rev object-cover opacity-20 mix-blend-screen"
+          />
+        </div>
+
+        {/* молнии */}
+        <Lightning />
 
         {/* HUD-чипы по краям */}
         <div aria-hidden className="float-y absolute left-6 top-28 z-10 hidden lg:block">

@@ -304,3 +304,154 @@ export function Skyline() {
     </svg>
   );
 }
+
+/* ============================================================
+   Атмосферные эффекты v3
+   ============================================================ */
+
+interface Particle {
+  x: number;
+  y: number;
+  r: number;
+  vx: number;
+  vy: number;
+  hue: number;
+  alpha: number;
+  phase: number;
+  spark: boolean;
+}
+
+/** Плавающие частицы-спрайты: неоновая пыль и редкие искры (canvas) */
+export function AtmosphereFX() {
+  const ref = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const ctx2d = canvas.getContext("2d");
+    if (!ctx2d) return;
+
+    let raf = 0;
+    let w = 0;
+    let h = 0;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const particles: Particle[] = [];
+
+    const spawn = (initial: boolean): Particle => ({
+      x: Math.random() * w,
+      y: initial ? Math.random() * h : h + 10,
+      r: 0.6 + Math.random() * 1.8,
+      vx: (Math.random() - 0.5) * 0.16,
+      vy: -(0.06 + Math.random() * 0.22),
+      hue: Math.random() > 0.82 ? 330 : 186,
+      alpha: 0.12 + Math.random() * 0.5,
+      phase: Math.random() * Math.PI * 2,
+      spark: Math.random() > 0.93,
+    });
+
+    const resize = () => {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx2d.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    resize();
+    const COUNT = Math.min(90, Math.floor(w / 16));
+    for (let i = 0; i < COUNT; i++) particles.push(spawn(true));
+
+    let t = 0;
+    const draw = () => {
+      t += 0.016;
+      ctx2d.clearRect(0, 0, w, h);
+      for (const p of particles) {
+        p.x += p.vx + Math.sin(t * 0.6 + p.phase) * 0.08;
+        p.y += p.vy;
+        if (p.y < -12 || p.x < -12 || p.x > w + 12) Object.assign(p, spawn(false));
+        const twinkle = 0.55 + 0.45 * Math.sin(t * 1.4 + p.phase * 3);
+        const a = p.alpha * twinkle;
+        const s = p.spark ? p.r * 2.2 : p.r;
+        const grad = ctx2d.createRadialGradient(p.x, p.y, 0, p.x, p.y, s * 4);
+        grad.addColorStop(0, `hsla(${p.hue}, 100%, 72%, ${a})`);
+        grad.addColorStop(1, `hsla(${p.hue}, 100%, 60%, 0)`);
+        ctx2d.fillStyle = grad;
+        ctx2d.beginPath();
+        ctx2d.arc(p.x, p.y, s * 4, 0, Math.PI * 2);
+        ctx2d.fill();
+        if (p.spark) {
+          ctx2d.strokeStyle = `hsla(${p.hue}, 100%, 80%, ${a * 0.6})`;
+          ctx2d.lineWidth = 1;
+          ctx2d.beginPath();
+          ctx2d.moveTo(p.x - s * 5, p.y);
+          ctx2d.lineTo(p.x + s * 5, p.y);
+          ctx2d.moveTo(p.x, p.y - s * 5);
+          ctx2d.lineTo(p.x, p.y + s * 5);
+          ctx2d.stroke();
+        }
+      }
+      raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+
+    const onResize = () => resize();
+    window.addEventListener("resize", onResize);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={ref}
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-[40] opacity-70"
+    />
+  );
+}
+
+/** Брызги-круги на мокром полу (CSS, детерминированные) */
+export function Splashes({ count = 12 }: { count?: number }) {
+  const drops = useMemo(
+    () =>
+      Array.from({ length: count }, (_, i) => ({
+        left: 4 + seeded(i, 11) * 92,
+        bottom: 2 + seeded(i, 12) * 14,
+        dur: 1.6 + seeded(i, 13) * 1.8,
+        delay: seeded(i, 14) * 4,
+        size: 10 + seeded(i, 15) * 18,
+      })),
+    [count]
+  );
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-[26%] overflow-hidden">
+      {drops.map((d, i) => (
+        <span
+          key={i}
+          className="splash-ripple"
+          style={{
+            left: `${d.left}%`,
+            bottom: `${d.bottom}%`,
+            width: d.size,
+            height: d.size / 2.6,
+            animationDuration: `${d.dur}s`,
+            animationDelay: `${d.delay}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+/** Вспышки молний (CSS) */
+export function Lightning() {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="lightning-flash absolute inset-0" />
+    </div>
+  );
+}

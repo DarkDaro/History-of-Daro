@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Russo_One, Play, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 
 const displayFont = Russo_One({
   variable: "--font-display",
@@ -22,9 +23,9 @@ const monoFont = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "История Даро — цикл романов | Киберпанк. Дистопия. Неонуар.",
-  description:
-    "Официальный сайт литературного цикла «История Даро»: романы в жанре киберпанк-дистопии, боевика и неонуара. Атмосфера Blade Runner и Ghost in the Shell — мегаполис, корпорации, неон и те, кто выживает между ними.",
+  metadataBase: new URL(SITE_URL),
+  title: `${SITE_NAME} — цикл романов | Киберпанк. Дистопия. Неонуар.`,
+  description: SITE_DESCRIPTION,
   keywords: [
     "История Даро",
     "киберпанк",
@@ -34,11 +35,27 @@ export const metadata: Metadata = {
     "книги",
     "романы",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "История Даро — цикл романов",
+    title: `${SITE_NAME} — цикл романов`,
     description:
       "Киберпанк-дистопия, боевик, неонуар. Мегаполис Даро ждёт.",
     type: "website",
+    locale: "ru_RU",
+    siteName: SITE_NAME,
+    url: SITE_URL,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — цикл романов`,
+    description:
+      "Киберпанк-дистопия, боевик, неонуар. Мегаполис Даро ждёт.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

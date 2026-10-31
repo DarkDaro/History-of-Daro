@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { PageHero, SectionHeading } from "@/components/blocks";
+import { PageHero, SectionHeading, SceneBanner } from "@/components/blocks";
 import { CodexCard } from "@/components/codex-card";
 import { Reveal } from "@/components/cyber";
-import { IMPLANTS } from "@/lib/content";
+import { IMPLANTS, VISUALS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Импланты",
@@ -22,6 +22,19 @@ export default function ImplantsPage() {
         accent="magenta"
         breadcrumb={[{ href: "/implants", label: "Импланты" }]}
       />
+
+      {/* реконструкция: позвоночный интерфейс */}
+      <section className="relative pb-6 pt-14">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <SceneBanner
+            src={VISUALS.implants}
+            alt="Крупный план кибернетического импланта позвоночника со светящимися нейропортами"
+            caption="ЛАБОРАТОРИЯ «СИНТЕЗА» · ХИРУРГИЧЕСКИЙ ЖУРНАЛ · КАДР 07"
+            accent="magenta"
+            priority
+          />
+        </div>
+      </section>
 
       <section className="relative py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />

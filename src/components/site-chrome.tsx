@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Radio, X } from "lucide-react";
 import { CyberAmbientButton } from "@/components/ambient-audio";
+import { sfx } from "@/lib/sfx";
 
 /* ============================================================
    Общая «обвязка» сайта: навигация + футер.
@@ -57,6 +58,8 @@ export function SiteNav() {
                 href={l.href}
                 className="nav-link"
                 data-active={isActive(pathname, l.href) ? "true" : "false"}
+                onMouseEnter={() => sfx("hover")}
+                onClick={() => sfx("click")}
               >
                 {l.label}
               </Link>
@@ -74,7 +77,10 @@ export function SiteNav() {
           </Link>
           <button
             type="button"
-            onClick={() => setMenuOpen((v) => !v)}
+            onClick={() => {
+              sfx("click");
+              setMenuOpen((v) => !v);
+            }}
             aria-expanded={menuOpen}
             aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
             className="neon-border-cyan p-2 text-[var(--neon-cyan)] lg:hidden"
@@ -91,7 +97,10 @@ export function SiteNav() {
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => {
+                    sfx("click");
+                    setMenuOpen(false);
+                  }}
                   className="block px-2 py-3 font-mono-cyber text-sm uppercase tracking-[0.25em] text-white/80 hover:text-[var(--neon-cyan)]"
                   data-active={isActive(pathname, l.href) ? "true" : undefined}
                 >

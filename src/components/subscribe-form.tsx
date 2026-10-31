@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { sfx } from "@/lib/sfx";
 
 /* ============================================================
    Форма подписки (toast «Сигнал принят»).
@@ -14,6 +15,7 @@ export function SubscribeForm() {
 
   const handleSubscribe = () => {
     if (!email.includes("@")) {
+      sfx("deny");
       toast({
         variant: "destructive",
         title: "Проверьте адрес",
@@ -21,6 +23,7 @@ export function SubscribeForm() {
       });
       return;
     }
+    sfx("confirm");
     toast({
       title: "Сигнал принят",
       description: "Вы в списке. «Периметр Зеро» выйдет на связь.",

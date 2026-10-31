@@ -10,7 +10,7 @@ import {
   Users,
   Wrench,
 } from "lucide-react";
-import { PageHero, SectionHeading, Chip } from "@/components/blocks";
+import { PageHero, SectionHeading, Chip, SceneBanner } from "@/components/blocks";
 import { Counter, Reveal } from "@/components/cyber";
 import {
   ANOMALIES,
@@ -18,6 +18,7 @@ import {
   DAILY_LIFE,
   FACTIONS,
   TECH,
+  VISUALS,
   WORLD_OVERVIEW,
   WORLD_STATS,
   type Accent,
@@ -59,6 +60,19 @@ export default function WorldPage() {
         lead="Даро — не место. Даро — человек. Город называется Хи-Мигата: город-завод под куполами, вечный фильтрованный дождь и семь корпораций, которые называют это «стабилизацией». Мир не разрушен — он контролируется. Это хуже."
         breadcrumb={[{ href: "/world", label: "Мир" }]}
       />
+
+      {/* реконструкция улицы города */}
+      <section className="relative pb-6 pt-14">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <SceneBanner
+            src={VISUALS.world}
+            alt="Улица Хи-Мигаты под куполом: дождь, неон, толпа в тёмных пальто"
+            caption="КУПОЛ В-3 · УЛИЦА 47 · РЕКОНСТРУКЦИЯ ПО ПОКАЗАНИЯМ ОЧЕВИДЦЕВ"
+            accent="cyan"
+            priority
+          />
+        </div>
+      </section>
 
       {/* счётчики */}
       <section className="relative py-16">

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { animate, motion, useInView } from "framer-motion";
+import { sfx } from "@/lib/sfx";
 
 /* ============================================================
    Переиспользуемые киберпанк-компоненты
@@ -211,6 +212,8 @@ export function BootOverlay() {
 
   useEffect(() => {
     if (!closing) return;
+    // «Пуск систем» — только если включён «Эфир» (иначе тишина)
+    sfx("boot");
     const t = setTimeout(() => setGone(true), 650);
     return () => clearTimeout(t);
   }, [closing]);

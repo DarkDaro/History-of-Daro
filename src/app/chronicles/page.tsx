@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, FileLock2, Radio } from "lucide-react";
 import { PageHero, SectionHeading } from "@/components/blocks";
@@ -77,6 +78,21 @@ export default function ChroniclesPage() {
                     </div>
                   </div>
                   <div className="flex flex-col justify-between gap-5 border-t border-white/10 pt-5 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+                    {c.cover && (
+                      <div className="relative aspect-[2/1] overflow-hidden border border-white/10">
+                        <Image
+                          src={c.cover}
+                          alt={`Реконструкция сцены: ${c.title}`}
+                          fill
+                          sizes="(max-width: 1024px) 100vw, 280px"
+                          className="cover-tone object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a0a16] via-transparent to-transparent" />
+                        <p className="font-mono-cyber absolute bottom-2 left-2 text-[8px] uppercase tracking-[0.25em] text-white/60">
+                          реконструкция сцены
+                        </p>
+                      </div>
+                    )}
                     <div>
                       <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/40">Источник</p>
                       <p className="font-cyber mt-2 text-sm leading-relaxed text-white/70">{c.sourceLabel}</p>

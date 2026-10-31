@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SiteNav, SiteFooter } from "@/components/site-chrome";
 import { AtmosphereFX } from "@/components/cyber";
+import { ScrollTopButton } from "@/components/scroll-top";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 
 const displayFont = Russo_One({
@@ -99,6 +100,7 @@ export default function RootLayout({
         <SiteNav />
         {children}
         <SiteFooter />
+        <ScrollTopButton />
         <Toaster />
       </body>
     </html>

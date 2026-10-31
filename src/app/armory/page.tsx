@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { PageHero, SectionHeading } from "@/components/blocks";
+import { PageHero, SectionHeading, SceneBanner } from "@/components/blocks";
 import { Corners, Reveal, StatBar } from "@/components/cyber";
 import { Chip } from "@/components/blocks";
-import { WEAPONS, type Weapon } from "@/lib/content";
+import { VISUALS, WEAPONS, type Weapon } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Вооружение",
@@ -56,6 +56,19 @@ export default function ArmoryPage() {
         lead="Оружие в этой войне делится не на «летающее и стреляющее», а на «украденное» и «серийное». У сопротивления — катана, которая слушается телекинеза, и ЭМИ-излучатель. У корпораций — дроны, стражи и «Каратели», которых уже нельзя выключить импульсом."
         breadcrumb={[{ href: "/armory", label: "Вооружение" }]}
       />
+
+      {/* реконструкция: оружейная стена */}
+      <section className="relative pb-6 pt-14">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <SceneBanner
+            src={VISUALS.armory}
+            alt="Оружейная стена: катана, энергетический карабин и импульсные винтовки на магнитных креплениях"
+            caption="АРСЕНАЛ «ПЕРИМЕТРА ЗЕРО» · СЕКТОР Д-2 · УЧЁТ СЕНЫ"
+            accent="amber"
+            priority
+          />
+        </div>
+      </section>
 
       {/* арсенал сопротивления */}
       <section className="relative py-20 sm:py-24">

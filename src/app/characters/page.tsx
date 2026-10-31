@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PageHero, SectionHeading } from "@/components/blocks";
 import { CodexCard } from "@/components/codex-card";
-import { Reveal } from "@/components/cyber";
+import { Corners, Reveal } from "@/components/cyber";
 import { CHARACTERS } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -55,6 +56,25 @@ export default function CharactersPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-4">
+                {hero.portrait && (
+                  <div className="relative">
+                    <Corners color="cyan" />
+                    <div className="relative aspect-[3/4] overflow-hidden border border-white/10">
+                      <Image
+                        src={hero.portrait}
+                        alt="Визуальная запись досье: Николас / Даро"
+                        fill
+                        sizes="(max-width: 1024px) 60vw, 320px"
+                        className="cover-tone object-cover"
+                        priority
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a16] via-transparent to-transparent" />
+                      <p className="font-mono-cyber absolute bottom-3 left-3 text-[9px] uppercase tracking-[0.3em] text-white/60">
+                        {hero.id} · визуальная запись восстановлена
+                      </p>
+                    </div>
+                  </div>
+                )}
                 <MiniStat label="Угроза" value={10} />
                 <MiniStat label="Воля" value={7} />
                 <MiniStat label="Целостность личности" value={4} />

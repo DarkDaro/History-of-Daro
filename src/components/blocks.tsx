@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import type { Accent } from "@/lib/content";
 import { Corners, Reveal } from "@/components/cyber";
@@ -186,5 +187,41 @@ export function MoreLink({ href, children }: { href: string; children: string })
       {children}
       <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden />
     </Link>
+  );
+}
+
+/** Широкий кадр-«реконструкция сцены» для страницы раздела. */
+export function SceneBanner({
+  src,
+  alt,
+  caption,
+  accent = "cyan",
+  priority = false,
+}: {
+  src: string;
+  alt: string;
+  caption: string;
+  accent?: Accent;
+  priority?: boolean;
+}) {
+  return (
+    <Reveal className="relative">
+      <Corners color={accent} />
+      <div className="relative aspect-[21/9] overflow-hidden border border-white/10 sm:aspect-[2/1]">
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority={priority}
+          sizes="(max-width: 1152px) 100vw, 1152px"
+          className="cover-tone object-cover"
+        />
+        <div className="scanlines-box pointer-events-none absolute inset-0 opacity-60" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#05050a] via-transparent to-[#05050a]/40" />
+        <p className="font-mono-cyber absolute bottom-3 left-3 border border-white/15 bg-black/70 px-3 py-1.5 text-[9px] uppercase tracking-[0.3em] text-white/60">
+          {caption}
+        </p>
+      </div>
+    </Reveal>
   );
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, FileWarning } from "lucide-react";
-import { PageHero, TerminalQuote } from "@/components/blocks";
+import { PageHero, SceneBanner, TerminalQuote } from "@/components/blocks";
 import { Corners, Reveal } from "@/components/cyber";
 import type { Chronicle } from "@/lib/content";
 
@@ -51,6 +51,21 @@ export function ChronicleDetail({
           { href: `/chronicles/${c.slug}`, label: c.code },
         ]}
       />
+
+      {/* реконструкция сцены */}
+      {c.cover && (
+        <section className="relative pb-6 pt-14">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <SceneBanner
+              src={c.cover}
+              alt={`Реконструкция сцены хроники ${c.code}: ${c.title}`}
+              caption={`${c.code} · РЕКОНСТРУКЦИЯ ПО ЗАПИСИ ОБЪЕКТА · ТОЧНОСТЬ 87%`}
+              accent={c.accent}
+              priority
+            />
+          </div>
+        </section>
+      )}
 
       <section className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">

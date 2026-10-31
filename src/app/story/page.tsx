@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { PageHero, SectionHeading } from "@/components/blocks";
+import { PageHero, SectionHeading, SceneBanner } from "@/components/blocks";
 import { Reveal } from "@/components/cyber";
-import { HUMAN_STORIES, INFLUENCES, PRINCIPLES } from "@/lib/content";
+import { HUMAN_STORIES, INFLUENCES, PRINCIPLES, VISUALS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Суть истории",
@@ -33,6 +33,19 @@ export default function StoryPage() {
         accent="magenta"
         breadcrumb={[{ href: "/story", label: "Суть" }]}
       />
+
+      {/* те, ради кого всё это */}
+      <section className="relative pb-6 pt-14">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <SceneBanner
+            src={VISUALS.story}
+            alt="Силуэты героев цикла на крыше перед неоновым мегаполисом в дожде"
+            caption="ПЯТЕРО ПРОТИВ ГОРОДА · ХУДОЖЕСТВЕННАЯ РЕКОНСТРУКЦИЯ"
+            accent="magenta"
+            priority
+          />
+        </div>
+      </section>
 
       {/* пять человеческих историй */}
       <section className="relative py-20 sm:py-24">

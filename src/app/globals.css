@@ -212,6 +212,20 @@
   mix-blend-mode: overlay;
 }
 
+/* Сканлайны внутри конкретного блока (не fixed!) —
+   позиционирование задаётся утилитами Tailwind. */
+.scanlines-box {
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.14) 3px,
+    transparent 4px
+  );
+  mix-blend-mode: overlay;
+}
+
 /* --- Сетка-перспектива под hero (synthwave floor) --- */
 .cyber-grid {
   background-image:

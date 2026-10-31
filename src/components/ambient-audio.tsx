@@ -2,11 +2,15 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
+import { etherEnabled, setEtherEnabled } from "@/lib/sfx";
 
 /* ============================================================
    CyberAmbient — генеративный дарк-эмбиент на Web Audio API.
    Слои: шум дождя, низкий дрон, медленный пэд-аккорд,
    суб-пульс и случайные раскаты грома. Без внешних файлов.
+   Состояние запоминается: при следующем визите эмбиент
+   оживёт сам, на первом жесте пользователя (требование
+   браузеров к автозапуску звука). Туда же привязаны SFX.
    ============================================================ */
 
 const AUDIO_OK = typeof window !== "undefined" && "AudioContext" in window;
@@ -171,6 +175,7 @@ function createEngine(ctx: AudioContext) {
 
 export function CyberAmbientButton() {
   const [playing, setPlaying] = useState(false);
+  const [armed, setArmed] = useState(false); // pref «on», ждём первый жест
   const [supported, setSupported] = useState(true);
   const engineRef = useRef<{
     ctx: AudioContext;
@@ -178,10 +183,39 @@ export function CyberAmbientButton() {
     cleanup: () => void;
   } | null>(null);
 
+  // Читаем предпочтение один раз — паттерн «setState во время рендера»
+  // (см. react.dev/learn/you-might-not-need-an-effect), как в SiteNav.
+  const [prefChecked, setPrefChecked] = useState(false);
+  if (!prefChecked) {
+    setPrefChecked(true);
+    if (etherEnabled()) setArmed(true);
+  }
+
   useEffect(() => {
     const raf = requestAnimationFrame(() => setSupported(AUDIO_OK));
     return () => cancelAnimationFrame(raf);
   }, []);
+
+  // Восстановление включённого «Эфира» с прошлого визита: браузеры
+  // запрещают автозапуск звука, поэтому стартуем на первом жесте.
+  useEffect(() => {
+    if (!armed) return;
+    const startOnGesture = () => {
+      if (engineRef.current) return;
+      const ac = new AudioContext();
+      const engine = createEngine(ac);
+      engineRef.current = { ctx: ac, ...engine };
+      void ac.resume();
+      setPlaying(true);
+      setArmed(false);
+    };
+    window.addEventListener("pointerdown", startOnGesture, { once: true });
+    window.addEventListener("keydown", startOnGesture, { once: true });
+    return () => {
+      window.removeEventListener("pointerdown", startOnGesture);
+      window.removeEventListener("keydown", startOnGesture);
+    };
+  }, [armed]);
 
   useEffect(
     () => () => {
@@ -209,6 +243,7 @@ export function CyberAmbientButton() {
     if (engineRef.current) {
       stop();
       setPlaying(false);
+      setEtherEnabled(false);
       return;
     }
     const ctx = new AudioContext();
@@ -216,7 +251,15 @@ export function CyberAmbientButton() {
     engineRef.current = { ctx, ...engine };
     ctx.resume().catch(() => undefined);
     setPlaying(true);
+    setArmed(false);
+    setEtherEnabled(true);
   }, [stop]);
+
+  const label = playing
+    ? "Эфир"
+    : armed
+      ? "Эфир…"
+      : "Эфир OFF";
 
   return (
     <button
@@ -226,12 +269,16 @@ export function CyberAmbientButton() {
       data-playing={playing}
       aria-pressed={playing}
       aria-label={
-        playing ? "Выключить атмосферный звук" : "Включить атмосферный звук Даро"
+        playing
+          ? "Выключить атмосферный звук"
+          : "Включить атмосферный звук Даро"
       }
       title={
         playing
-          ? "Атмосферный звук: ВКЛ (дождь · дрон · гром)"
-          : "Атмосферный звук: ВЫКЛ — включить дарк-эмбиент"
+          ? "Атмосферный звук: ВКЛ (дождь · дрон · гром · звуки интерфейса)"
+          : armed
+            ? "«Эфир» включён — оживёт при первом клике на странице"
+            : "Атмосферный звук: ВЫКЛ — включить дарк-эмбиент и звуки интерфейса"
       }
       className={`group inline-flex h-9 items-center gap-2 px-3 font-mono-cyber text-[10px] uppercase tracking-[0.2em] transition-colors ${
         playing
@@ -239,13 +286,13 @@ export function CyberAmbientButton() {
           : "border border-white/15 text-white/50 hover:text-white/80"
       } disabled:opacity-40`}
     >
-      {playing ? (
+      {playing || armed ? (
         <>
           <Volume2 className="h-4 w-4" aria-hidden />
           <span className="eq-bars hidden sm:inline-flex" aria-hidden>
             <i /><i /><i /><i />
           </span>
-          <span className="hidden sm:inline">Эфир</span>
+          <span className="hidden sm:inline">{label}</span>
         </>
       ) : (
         <>

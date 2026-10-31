@@ -1,4 +1,4 @@
-/* CYBERPUNK THEME v2 */
+/* CYBERPUNK THEME v3 */
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -284,4 +284,270 @@ html {
     rgba(255, 42, 109, 0.04) 241px,
     transparent 243px
   );
+}
+
+/* =====================================================================
+   ИСТОРИЯ ДАРО — CYBERPUNK UI v2: анимации и эффекты
+   ===================================================================== */
+
+/* --- Падающий CSS-дождь (капли генерируются в React) --- */
+@keyframes rain-drop {
+  0%   { transform: translateY(-20vh); }
+  100% { transform: translateY(115vh); }
+}
+.rain-drop {
+  position: absolute;
+  top: 0;
+  width: 1.5px;
+  border-radius: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 240, 255, 0.55) 60%,
+    rgba(255, 255, 255, 0.7)
+  );
+  animation: rain-drop linear infinite;
+  will-change: transform;
+}
+.rain-drop.magenta {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 42, 109, 0.55) 60%,
+    rgba(255, 255, 255, 0.7)
+  );
+}
+
+/* --- Синтвейв-пол: перспективная сетка с бегущими линиями --- */
+.grid-floor {
+  position: absolute;
+  left: -60%;
+  right: -60%;
+  bottom: -2px;
+  height: 52vh;
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.28) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.28) 1px, transparent 1px);
+  background-size: 56px 56px;
+  transform: perspective(420px) rotateX(63deg);
+  transform-origin: center top;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 26%, #000 72%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 26%, #000 72%, transparent);
+  animation: grid-move 2.4s linear infinite;
+  will-change: background-position;
+}
+@keyframes grid-move {
+  to { background-position-y: 56px; }
+}
+
+/* --- Неоновое солнце с полосами (synthwave) --- */
+.neon-sun {
+  background: linear-gradient(to bottom, var(--neon-cyan), var(--neon-magenta) 70%, var(--neon-purple));
+  -webkit-mask-image: repeating-linear-gradient(
+    to bottom,
+    #000 0px, #000 14px, transparent 15px, transparent 19px
+  );
+  mask-image: repeating-linear-gradient(
+    to bottom,
+    #000 0px, #000 14px, transparent 15px, transparent 19px
+  );
+  border-radius: 9999px;
+  filter: blur(1px) drop-shadow(0 0 34px rgba(255, 42, 109, 0.55))
+    drop-shadow(0 0 80px rgba(0, 240, 255, 0.3));
+}
+
+/* --- Голографическая рамка с бегущим лучом --- */
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.beam-border {
+  position: relative;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#0a0a16, #0a0a16) padding-box,
+    conic-gradient(
+      from var(--beam-angle),
+      rgba(0, 240, 255, 0.65),
+      rgba(0, 240, 255, 0.06) 25%,
+      rgba(255, 42, 109, 0.06) 50%,
+      rgba(255, 42, 109, 0.65) 75%,
+      rgba(0, 240, 255, 0.65)
+    ) border-box;
+  animation: beam-rotate 7s linear infinite;
+}
+.beam-border-static {
+  position: relative;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#0a0a16, #0a0a16) padding-box,
+    conic-gradient(
+      from 40deg,
+      rgba(0, 240, 255, 0.35),
+      rgba(0, 240, 255, 0.04) 30%,
+      rgba(255, 42, 109, 0.04) 60%,
+      rgba(255, 42, 109, 0.35)
+    ) border-box;
+}
+@keyframes beam-rotate {
+  to { --beam-angle: 360deg; }
+}
+
+/* --- Скан-волна при наведении на карточки --- */
+.scan-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.scan-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 240, 255, 0.12) 48%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(0, 240, 255, 0.12) 52%,
+    transparent 100%
+  );
+  transform: translateY(-110%);
+  opacity: 0;
+}
+.scan-sweep:hover::after {
+  animation: scan-move 0.9s ease;
+  opacity: 1;
+}
+@keyframes scan-move {
+  to { transform: translateY(110%); }
+}
+
+/* --- Плёночный шум (зерно) --- */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 61;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* --- Виньетка по краям экрана --- */
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 59;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 58%,
+    rgba(0, 0, 0, 0.42) 100%
+  );
+}
+
+/* --- Левитация HUD-элементов --- */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-9px); }
+}
+.float-y     { animation: float-y 5.5s ease-in-out infinite; }
+.float-y-slow{ animation: float-y 8s ease-in-out infinite; }
+
+/* --- Курсор терминала --- */
+@keyframes caret-blink-cyber {
+  0%, 49%  { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.tw-caret {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.12em;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 8px var(--neon-cyan);
+  animation: caret-blink-cyber 1s steps(1) infinite;
+}
+
+/* --- Хроматическая аберрация текста --- */
+.text-chromatic {
+  text-shadow:
+    -2px 0 rgba(255, 42, 109, 0.55),
+    2px 0 rgba(0, 240, 255, 0.55),
+    0 0 18px rgba(0, 240, 255, 0.25);
+}
+
+/* --- Навигация: неоновое подчёркивание --- */
+.nav-link {
+  position: relative;
+  transition: color 0.25s ease;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 1px;
+  width: 100%;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 8px var(--neon-cyan);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.nav-link:hover { color: var(--neon-cyan); }
+.nav-link:hover::after { transform: scaleX(1); }
+
+/* --- Кнопка с лучом-пробегом при наведении --- */
+.btn-beam {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-beam::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 45%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.55s ease;
+}
+.btn-beam:hover::before { transform: translateX(120%); }
+
+/* --- Бут-заставка --- */
+.boot-overlay {
+  transition: transform 0.65s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.5s ease;
+}
+.boot-closed {
+  transform: translateY(-100%);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* --- Выделение текста --- */
+::selection {
+  background: rgba(255, 42, 109, 0.55);
+  color: #fff;
+}
+
+/* --- Призрачные цифры секций --- */
+.ghost-num {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.14);
+  color: transparent;
+  user-select: none;
+}
+
+/* --- Уважение к reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .rain-drop, .grid-floor, .flicker, .marquee-track, .beam-border,
+  .float-y, .float-y-slow, .pulse-dot, .glitch::before, .glitch::after {
+    animation: none !important;
+  }
 }

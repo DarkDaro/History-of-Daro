@@ -479,8 +479,8 @@ export const FACTIONS: Faction[] = [
 
 /* ------------------------- МИР ------------------------- */
 
-export const WORLD_STATS = [
-  { to: 2147, suffix: "", label: "год действия цикла" },
+export const WORLD_STATS: { to: number; suffix: string; group?: boolean; label: string }[] = [
+  { to: 2147, suffix: "", group: false, label: "год действия цикла" },
   { to: 7, suffix: "", label: "корпораций у власти" },
   { to: 1, suffix: "", label: "мятежный антигерой" },
   { to: 3, suffix: "", label: "тома: готов · редактура · в работе" },
@@ -1111,7 +1111,7 @@ export const PRINCIPLES: { title: string; text: string }[] = [
 ];
 
 export const MARQUEE_ITEMS = [
-  "НОВЫЙ ФАЙЛ · ХРОНИКА «ПОБЕГ ОХОТНИКА» РАСШИФРОВАНА",
+  "НОВЫЙ ФАЙЛ · ХРОНИКА «ПОБЕГ И ОХОТА ЗА ОТВЕТАМИ» РАСШИФРОВАНА",
   "ТОМ I · «КРАСНЫЙ СДВИГ» — ГОТОВ К ПУБЛИКАЦИИ",
   "ТОМ II · «СТЕКЛЯННЫЕ НЕБЕСА» — РЕДАКТУРА",
   "ТОМ III · «ПЕПЕЛ И НЕОН» — В РАБОТЕ",

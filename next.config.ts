@@ -22,7 +22,6 @@ const basePath = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/+$/, "");
 
 const shared: NextConfig = {
   reactStrictMode: false,
-  typescript: { ignoreBuildErrors: true },
 };
 
 const nextConfig: NextConfig = isStaticExport

@@ -68,7 +68,7 @@ export default function WorldPage() {
               {WORLD_STATS.map((s) => (
                 <div key={s.label} className="bg-[#0a0a16] p-6 text-center sm:p-8">
                   <p className="font-display neon-cyan text-3xl sm:text-4xl">
-                    <Counter to={s.to} suffix={s.suffix} />
+                    <Counter to={s.to} suffix={s.suffix} group={s.group} />
                   </p>
                   <p className="font-mono-cyber mt-2 text-[9px] uppercase tracking-[0.25em] text-white/45 sm:text-[10px]">
                     {s.label}

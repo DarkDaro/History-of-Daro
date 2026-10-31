@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Radio, X } from "lucide-react";
@@ -29,11 +29,13 @@ function isActive(pathname: string, href: string): boolean {
 export function SiteNav() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // При смене страницы мобильное меню закрывается
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+  // При смене страницы мобильное меню закрывается (setState во время рендера —
+  // рекомендуемый React-паттерн вместо эффекта: см. react.dev/learn/you-might-not-need-an-effect)
+  const [prevPath, setPrevPath] = useState(pathname);
+  if (prevPath !== pathname) {
+    setPrevPath(pathname);
+    if (menuOpen) setMenuOpen(false);
+  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#05050a]/85 text-white backdrop-blur-md">
@@ -74,7 +76,7 @@ export function SiteNav() {
             type="button"
             onClick={() => setMenuOpen((v) => !v)}
             aria-expanded={menuOpen}
-            aria-label="Открыть меню"
+            aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
             className="neon-border-cyan p-2 text-[var(--neon-cyan)] lg:hidden"
           >
             {menuOpen ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}

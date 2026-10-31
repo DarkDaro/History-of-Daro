@@ -129,10 +129,13 @@ export function Typewriter({
 export function Counter({
   to,
   suffix = "",
+  group = true,
   className = "",
 }: {
   to: number;
   suffix?: string;
+  /** Группировка разрядов: 2147 → «2 147». Для годов отключаем. */
+  group?: boolean;
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -149,7 +152,7 @@ export function Counter({
   }, [inView, to]);
   return (
     <span ref={ref} className={className}>
-      {v.toLocaleString("ru-RU")}
+      {group ? v.toLocaleString("ru-RU") : String(v)}
       {suffix}
     </span>
   );

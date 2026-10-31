@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
+// Для статического экспорта (GitHub Pages) роут должен быть статическим.
+export const dynamic = "force-static";
+
 /**
  * robots.txt: https://<домен>/robots.txt
  * Генерируется динамически, чтобы Sitemap всегда указывал

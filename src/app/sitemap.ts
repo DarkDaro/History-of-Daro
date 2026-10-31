@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
+// Для статического экспорта (GitHub Pages) роут должен быть статическим.
+export const dynamic = "force-static";
+
 /**
  * Карта сайта: https://<домен>/sitemap.xml
  * У сайта одна страница-лендинг; разделы — это якоря на ней,

@@ -24,18 +24,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  AtmosphereFX,
-  BootOverlay,
-  Corners,
-  Counter,
-  Lightning,
-  Rain,
-  Skyline,
-  Splashes,
-  StatBar,
-  Typewriter,
-} from "@/components/cyber";
+import { AtmosphereFX, BootOverlay, Corners, Counter, Rain, Skyline, StatBar } from "@/components/cyber";
 import { CyberAmbientButton } from "@/components/ambient-audio";
 
 /* ============================================================
@@ -366,13 +355,11 @@ const STATS = [
 ];
 
 const MARQUEE_ITEMS = [
-  "КИБЕРПАНК",
-  "ДИСТОПИЯ",
-  "БОЕВИК",
-  "НЕОНУАР",
-  "КОДЕКС ОБНОВЛЁН",
-  "МЕГАПОЛИС ДАРО",
-  "ТОМ I — КРАСНЫЙ СДВИГ",
+  "ТОМ I · «КРАСНЫЙ СДВИГ» — ГОТОВ К ПУБЛИКАЦИИ",
+  "ТОМ II · «СТЕКЛЯННЫЕ НЕБЕСА» — РЕДАКТУРА",
+  "ТОМ III · «ПЕПЕЛ И НЕОН» — В РАБОТЕ",
+  "МЕГАПОЛИС ДАРО · 2147",
+  "ХРОНИКИ НИЖНЕГО ЯРУСА",
 ];
 
 const NAV_LINKS = [
@@ -413,8 +400,7 @@ function SectionHeading({
           accent === "cyan" ? "neon-cyan" : accent === "magenta" ? "neon-magenta" : "text-[var(--neon-amber)]"
         }`}
       >
-        {"// "}
-        {kicker}
+        {num} / {kicker}
       </p>
       <h2 className="relative mt-3 font-display text-3xl uppercase tracking-wide text-white sm:text-5xl">
         {title}
@@ -498,7 +484,7 @@ function ExcerptModal({ book, onClose }: { book: BookEntry; onClose: () => void 
         <div className="beam-border-static excerpt-scroll max-h-[86vh] overflow-y-auto">
           <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-white/10 bg-[#0a0a16]/95 px-5 py-3 backdrop-blur-sm">
             <span className="font-mono-cyber truncate text-[10px] uppercase tracking-[0.3em] text-white/40">
-              log://daro/tom-{book.id}/fragment
+              {book.volume} · фрагмент
             </span>
             <button
               ref={closeRef}
@@ -516,7 +502,7 @@ function ExcerptModal({ book, onClose }: { book: BookEntry; onClose: () => void 
                 book.accent === "magenta" ? "neon-magenta" : "neon-cyan"
               }`}
             >
-              {book.volume} {"//"} {book.title}
+              {book.volume} · {book.title}
             </p>
             <div className="mt-6 space-y-5">
               {book.excerpt?.map((para, i) => (
@@ -573,14 +559,14 @@ export default function Home() {
     if (!email.includes("@")) {
       toast({
         variant: "destructive",
-        title: "ОШИБКА СИНХРОНИЗАЦИИ",
-        description: "Введите корректный адрес сигнала (email).",
+        title: "Проверьте адрес",
+        description: "Похоже, в адресе опечатка.",
       });
       return;
     }
     toast({
-      title: "СИГНАЛ ПРИНЯТ",
-      description: "Вы в списке на связь. Даро напомнит о себе.",
+      title: "Готово",
+      description: "Вы в списке. Даро напомнит о себе.",
     });
     setEmail("");
   };
@@ -588,7 +574,6 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col overflow-x-clip bg-[#05050a] text-white">
       <BootOverlay />
-      <div className="scanlines" aria-hidden />
       <div className="noise-overlay" aria-hidden />
       <div className="vignette" aria-hidden />
       <AtmosphereFX />
@@ -623,7 +608,7 @@ export default function Home() {
               href="#subscribe"
               className="btn-beam hidden px-4 py-2 font-mono-cyber text-xs uppercase tracking-widest neon-border-cyan text-[var(--neon-cyan)] transition-colors hover:bg-[var(--neon-cyan)]/10 sm:inline-flex"
             >
-              Подключиться
+              Подписаться
             </a>
             <button
               type="button"
@@ -658,9 +643,9 @@ export default function Home() {
 
       {/* ======================= HERO ======================= */}
       <section id="top" className="relative flex min-h-screen items-center justify-center overflow-hidden">
-        {/* неоновое солнце */}
-        <motion.div style={{ y: ySun }} aria-hidden className="absolute inset-x-0 top-[8%] z-0 flex justify-center">
-          <div className="neon-sun h-64 w-64 sm:h-80 sm:w-80" />
+        {/* «Затмение» — тонкий светящийся обод над городом */}
+        <motion.div style={{ y: ySun }} aria-hidden className="absolute inset-x-0 top-[6%] z-0 flex justify-center">
+          <div className="eclipse h-64 w-64 sm:h-80 sm:w-80" />
         </motion.div>
 
         {/* город + туман */}
@@ -668,74 +653,22 @@ export default function Home() {
           <Skyline />
         </motion.div>
 
-        {/* дождь, брызги и перспективная сетка */}
+        {/* дождь и город */}
         <div aria-hidden className="absolute inset-0 z-[2]">
-          <Rain count={64} />
-          <div className="grid-floor" />
-          <Splashes count={14} />
+          <Rain count={46} />
         </div>
 
         {/* затемнение текста */}
-        <div aria-hidden className="absolute inset-0 z-[3] bg-gradient-to-b from-[#05050a]/80 via-[#05050a]/30 to-[#05050a]" />
-
-        {/* дождь по стеклу */}
-        <motion.div
-          style={{ y: ySky }}
-          aria-hidden
-          className="glass-mask absolute inset-0 z-[4] overflow-hidden"
-        >
-          <Image
-            src="/assets/rain-glass.png"
-            alt=""
-            fill
-            sizes="100vw"
-            className="glass-rain object-cover opacity-20 mix-blend-screen"
-          />
-        </motion.div>
-
-        {/* дрейфующий туман */}
-        <div aria-hidden className="fog-mask absolute inset-x-0 bottom-0 z-[4] h-[45%] overflow-hidden">
-          <Image
-            src="/assets/fog.png"
-            alt=""
-            fill
-            sizes="100vw"
-            loading="eager"
-            className="fog-drift object-cover opacity-30 mix-blend-screen"
-          />
-          <Image
-            src="/assets/fog.png"
-            alt=""
-            fill
-            sizes="100vw"
-            loading="eager"
-            className="fog-drift-rev object-cover opacity-20 mix-blend-screen"
-          />
-        </div>
-
-        {/* молнии */}
-        <Lightning />
-
-        {/* HUD-чипы по краям */}
-        <div aria-hidden className="float-y absolute left-6 top-28 z-10 hidden lg:block">
-          <p className="font-mono-cyber border border-white/15 bg-black/50 px-3 py-2 text-[10px] uppercase tracking-[0.3em] text-white/50">
-            ЯРУС-1 {"//"} ШТОРМ 78<span className="neon-cyan">%</span>
-          </p>
-        </div>
-        <div aria-hidden className="float-y-slow absolute right-6 top-32 z-10 hidden lg:block">
-          <p className="font-mono-cyber border border-white/15 bg-black/50 px-3 py-2 text-[10px] uppercase tracking-[0.3em] text-white/50">
-            СИГНАЛ: <span className="neon-magenta">СТАБИЛЕН</span>
-          </p>
-        </div>
+        <div aria-hidden className="absolute inset-0 z-[3] bg-gradient-to-b from-[#05050a]/85 via-[#05050a]/35 to-[#05050a]" />
 
         <motion.div style={{ opacity: opacityHero }} className="relative z-10 mx-auto max-w-5xl px-4 pb-20 pt-28 text-center sm:px-6">
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.15, duration: 0.7 }}
-            className="font-mono-cyber mb-7 text-[10px] uppercase tracking-[0.16em] text-white/60 sm:tracking-[0.5em] sm:text-xs"
+            className="font-mono-cyber mb-7 text-[10px] uppercase tracking-[0.4em] text-white/55 sm:text-xs"
           >
-            <Typewriter text="SYS.BOOT // СИГНАЛ ПОЛУЧЕН · ГОД 2147 · ДОСТУП РАЗРЕШЁН" speed={30} />
+            Сага в трёх томах · Мегаполис Даро · 2147 год
           </motion.p>
 
           <motion.h1
@@ -744,27 +677,17 @@ export default function Home() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="font-display text-5xl uppercase leading-none sm:text-7xl md:text-8xl"
           >
-            <span className="glitch flicker text-white" data-text="ИСТОРИЯ">
-              ИСТОРИЯ
-            </span>{" "}
-            <span className="glitch neon-cyan" data-text="ДАРО">
-              ДАРО
-            </span>
+            <span className="text-white">История</span>{" "}
+            <span className="text-gradient-cyan">Даро</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45, duration: 0.8 }}
-            className="font-mono-cyber text-chromatic mt-7 text-sm tracking-[0.3em] sm:text-base"
+            className="font-mono-cyber mt-7 text-xs tracking-[0.35em] text-white/55 sm:text-sm"
           >
-            <span className="neon-magenta">КИБЕРПАНК</span>
-            {" · "}
-            <span className="neon-cyan">ДИСТОПИЯ</span>
-            {" · "}
-            <span className="neon-magenta">БОЕВИК</span>
-            {" · "}
-            <span className="neon-cyan">НЕОНУАР</span>
+            киберпанк · дистопия · боевик · неонуар
           </motion.p>
 
           <motion.p
@@ -797,7 +720,7 @@ export default function Home() {
               className="inline-flex items-center gap-2 px-8 py-4 font-mono-cyber text-sm uppercase tracking-widest neon-border-cyan text-[var(--neon-cyan)] transition-colors hover:bg-[var(--neon-cyan)]/10"
             >
               <Database className="h-4 w-4" aria-hidden />
-              Кодекс Даро
+              Справочник мира
             </a>
           </motion.div>
         </motion.div>
@@ -817,9 +740,9 @@ export default function Home() {
           {[0, 1].map((copy) => (
             <div key={copy} className="flex shrink-0">
               {MARQUEE_ITEMS.map((item, i) => (
-                <span key={`${copy}-${i}`} className="font-mono-cyber px-6 text-xs tracking-[0.3em] text-white/50">
+                <span key={`${copy}-${i}`} className="font-mono-cyber px-8 text-[11px] tracking-[0.25em] text-white/40">
                   {item}
-                  <span className="neon-magenta ml-6">{"//"}</span>
+                  <span className="ml-8 text-white/20">·</span>
                 </span>
               ))}
             </div>
@@ -840,8 +763,7 @@ export default function Home() {
                 transition={{ ...fadeUp.transition, delay: i * 0.12 }}
                 className="group relative flex flex-col transition-transform duration-300 hover:-translate-y-2"
               >
-                <Corners color={book.accent} />
-                <div className="scan-sweep relative flex flex-1 flex-col bg-[#0a0a16]">
+                <div className="relative flex flex-1 flex-col border border-white/10 bg-white/[0.03] backdrop-blur-sm">
                   {/* призрачный номер */}
                   <span
                     aria-hidden
@@ -856,7 +778,7 @@ export default function Home() {
                       alt={`Обложка тома «${book.title}»`}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="cover-tone object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a16] via-transparent to-transparent" />
                     <span className="font-mono-cyber absolute left-3 top-3 bg-black/70 px-3 py-1.5 text-[10px] tracking-[0.3em] border border-white/20">
@@ -898,7 +820,7 @@ export default function Home() {
                           : "cursor-pointer border border-white/15 bg-white/5 hover:border-[var(--neon-cyan)] hover:text-[var(--neon-cyan)]"
                       }`}
                     >
-                      {book.accent === "amber" ? "Анонс позже" : "Читать фрагмент"}
+                      {book.accent === "amber" ? "Готовится" : "Читать фрагмент"}
                       {book.accent !== "amber" && <ArrowRight className="h-3.5 w-3.5" aria-hidden />}
                     </button>
                   </div>
@@ -925,7 +847,7 @@ export default function Home() {
       <section id="codex" className="relative border-t border-white/10 py-24 sm:py-28">
         <div className="cyber-grid absolute inset-0 opacity-10" aria-hidden />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-          <SectionHeading kicker="База данных 7С" title="Кодекс Даро" num="02" accent="magenta" />
+          <SectionHeading kicker="Справочник мира" title="Кодекс Даро" num="02" accent="magenta" />
 
           <motion.p {...fadeUp} className="font-cyber mx-auto -mt-6 mb-10 max-w-2xl text-center text-sm text-white/60">
             Справочник вселенной: личности, технологии и арсенал Нижнего яруса.
@@ -973,15 +895,14 @@ export default function Home() {
                   transition={{ duration: 0.45, ease: "easeOut" }}
                 >
                   <p className="font-mono-cyber mb-6 text-center text-[10px] uppercase tracking-[0.35em] text-white/35">
-                    {kicker} {"//"} записей: {CODEX[key].length}
+                    {kicker} · записей: {CODEX[key].length}
                   </p>
                   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {CODEX[key].map((r) => (
                       <article
                         key={r.id}
-                        className="scan-sweep group relative bg-[#0a0a16]/90 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_36px_rgba(0,240,255,0.12)]"
+                        className="group relative border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors duration-300 hover:border-white/25"
                       >
-                        <Corners color={accent} />
                         <div className="flex items-center justify-between">
                           <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/40">
                             {r.id}
@@ -1024,7 +945,7 @@ export default function Home() {
       {/* ======================= WORLD ======================= */}
       <section id="world" className="relative border-t border-white/10 py-24 sm:py-28">
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-          <SectionHeading kicker="Досье // Вселенная" title="Мир Даро" num="03" />
+          <SectionHeading kicker="Вселенная" title="Мир Даро" num="03" />
 
           {/* счётчики */}
           <motion.div {...fadeUp} className="mb-14 grid grid-cols-2 gap-px border border-white/10 bg-white/10 lg:grid-cols-4">
@@ -1046,9 +967,8 @@ export default function Home() {
                 key={item.title}
                 {...fadeUp}
                 transition={{ ...fadeUp.transition, delay: i * 0.1 }}
-                className="scan-sweep group relative bg-[#0a0a16]/90 p-6 transition-shadow hover:shadow-[0_0_40px_rgba(0,240,255,0.15)] sm:p-8"
+                className="group relative border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors hover:border-white/25 sm:p-8"
               >
-                <Corners color={item.accent} />
                 <div className="flex items-center gap-4">
                   <span
                     className={`flex h-12 w-12 items-center justify-center border ${
@@ -1084,7 +1004,7 @@ export default function Home() {
                 <span className="h-2.5 w-2.5 rounded-full bg-[var(--neon-amber)]/70" aria-hidden />
                 <span className="h-2.5 w-2.5 rounded-full bg-[var(--neon-cyan)]/70" aria-hidden />
                 <span className="font-mono-cyber ml-3 text-[10px] uppercase tracking-[0.3em] text-white/40">
-                  log://daro/redshift_ch1
+                  «Красный сдвиг» · глава 1
                 </span>
               </div>
               <div className="p-6 sm:p-8">
@@ -1105,13 +1025,13 @@ export default function Home() {
       {/* ======================= AUTHOR ======================= */}
       <section id="author" className="relative border-t border-white/10 py-24 sm:py-28">
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
-          <SectionHeading kicker="Передатчик" title="Автор" num="04" accent="magenta" />
+          <SectionHeading kicker="Об авторе" title="Автор" num="04" accent="magenta" />
           <motion.div {...fadeUp} className="relative">
             <Corners color="cyan" />
             <div className="beam-border flex flex-col items-start gap-8 p-8 sm:flex-row sm:items-start">
               <div className="relative h-32 w-32 shrink-0 overflow-hidden">
                 <Corners color="magenta" />
-                <div className="flicker flex h-full w-full items-center justify-center bg-gradient-to-br from-[var(--neon-cyan)]/15 to-[var(--neon-magenta)]/15">
+                <div className="flex h-full w-full items-center justify-center border border-white/10 bg-gradient-to-br from-[var(--neon-cyan)]/10 to-[var(--neon-magenta)]/10">
                   <Feather className="neon-cyan h-12 w-12" aria-hidden />
                 </div>
               </div>
@@ -1132,7 +1052,7 @@ export default function Home() {
                   границе личности из «Призрака в доспехах» и цена прогресса из
                   Cyberpunk 2077. Задумано 3–5 романов: первый готов к публикации,
                   второй проходит редактуру, третий уже горит под пальцами. Даро не
-                  заканчивается на одном курьере — подключайтесь к сигналу.
+                  заканчивается на одном курьере — подписывайтесь на рассылку.
                 </p>
               </div>
             </div>
@@ -1142,12 +1062,14 @@ export default function Home() {
 
       {/* ======================= SUBSCRIBE ======================= */}
       <section id="subscribe" className="relative overflow-hidden border-t border-white/10 py-24 sm:py-28">
-        <div className="grid-floor absolute inset-x-0 bottom-0 h-64 opacity-40" aria-hidden />
+        <div aria-hidden className="aurora-blob cyan left-[8%] top-[10%] h-72 w-72" />
+        <div aria-hidden className="aurora-blob magenta bottom-[5%] right-[6%] h-80 w-80" />
         <div className="relative mx-auto max-w-2xl px-4 text-center sm:px-6">
-          <SectionHeading kicker="Открытый канал" title="Следить за сигналом" num="05" />
+          <SectionHeading kicker="Рассылка" title="Подписка" num="05" />
           <motion.div {...fadeUp}>
             <p className="font-cyber text-white/70">
-              Анонсы томов, фрагменты глав и мир Даро — до того, как это увидит Консорциум.
+              Анонсы томов, фрагменты глав и заметки о мире Даро — без спама,
+              раз-два в месяц.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <div className="relative flex-1 text-left">
@@ -1158,7 +1080,7 @@ export default function Home() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="ваш@сигнал.ru"
+                  placeholder="ваш@email.ru"
                   aria-label="Email для подписки"
                   className="neon-border-cyan font-mono-cyber w-full bg-black/60 py-4 pl-9 pr-5 text-sm text-white outline-none transition-shadow placeholder:text-white/30 focus:shadow-[0_0_24px_rgba(0,240,255,0.35)]"
                 />
@@ -1169,11 +1091,11 @@ export default function Home() {
                 className="btn-beam inline-flex items-center justify-center gap-2 bg-[var(--neon-cyan)] px-8 py-4 font-mono-cyber text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_28px_rgba(0,240,255,0.4)] transition-shadow hover:shadow-[0_0_44px_var(--neon-cyan)]"
               >
                 <Send className="h-4 w-4" aria-hidden />
-                Подключиться
+                Подписаться
               </button>
             </div>
             <p className="font-mono-cyber mt-5 text-[10px] uppercase tracking-[0.25em] text-white/40">
-              Без спама. Отписка — одной командой.
+              Отписка — в один клик
             </p>
           </motion.div>
         </div>
@@ -1190,14 +1112,7 @@ export default function Home() {
             ДАРО<span className="neon-magenta">{"//"}</span>
           </p>
           <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/40">
-            © 2147 · Цикл романов «История Даро» · Киберпанк-дистопия, боевик, неонуар
-          </p>
-          <p className="font-mono-cyber flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-white/30">
-            <span
-              className="pulse-dot h-1.5 w-1.5 rounded-full bg-[var(--neon-cyan)] text-[var(--neon-cyan)]"
-              aria-hidden
-            />
-            Сигнал стабилен
+            © 2026 · Вселенная «Истории Даро» · Киберпанк · Дистопия · Неонуар
           </p>
         </div>
       </footer>

@@ -162,33 +162,30 @@ export function StatBar({
   );
 }
 
-const BOOT_LINES = [
-  "ДАРО-OS // BOOT SEQUENCE v4.7",
-  "ПРОВЕРКА ПАМЯТИ.......... 40 ТБ · ОК",
-  "НЕЙРОСЕТКА............... ПОДКЛЮЧЕНО",
-  "ИДЕНТИФИКАЦИЯ............ ГОСТЬ-7",
-  "ДОСТУП РАЗРЕШЁН",
-];
-
-/** Загрузочная заставка при первом входе */
+/** Минималистичный прелоадер: логотип, тонкая линия прогресса, процент */
 export function BootOverlay() {
-  const [step, setStep] = useState(0);
+  const [progress, setProgress] = useState(0);
   const [closing, setClosing] = useState(false);
   const [gone, setGone] = useState(false);
 
   useEffect(() => {
     if (closing) return;
-    if (step < BOOT_LINES.length) {
-      const t = setTimeout(() => setStep((s) => s + 1), 230);
-      return () => clearTimeout(t);
-    }
-    const t2 = setTimeout(() => setClosing(true), 420);
-    return () => clearTimeout(t2);
-  }, [step, closing]);
+    const t = setInterval(() => {
+      setProgress((p) => {
+        if (p >= 100) {
+          clearInterval(t);
+          setClosing(true);
+          return 100;
+        }
+        return Math.min(100, p + Math.floor(7 + Math.random() * 11));
+      });
+    }, 90);
+    return () => clearInterval(t);
+  }, [closing]);
 
   useEffect(() => {
     if (!closing) return;
-    const t = setTimeout(() => setGone(true), 700);
+    const t = setTimeout(() => setGone(true), 650);
     return () => clearTimeout(t);
   }, [closing]);
 
@@ -198,34 +195,26 @@ export function BootOverlay() {
     <div
       role="status"
       aria-label="Загрузка сайта"
-      onClick={() => setStep(BOOT_LINES.length)}
-      className={`boot-overlay fixed inset-0 z-[100] flex cursor-pointer items-center justify-center bg-[#05050a] ${
+      onClick={() => setProgress(100)}
+      className={`boot-overlay fixed inset-0 z-[100] flex cursor-pointer flex-col items-center justify-center bg-[#05050a] ${
         closing ? "boot-closed" : ""
       }`}
     >
-      <div className="font-mono-cyber text-[11px] leading-7 tracking-[0.2em] sm:text-xs">
-        {BOOT_LINES.slice(0, step).map((line, i) => (
-          <p
-            key={line}
-            className={
-              i === BOOT_LINES.length - 1
-                ? "neon-magenta mt-3 text-sm"
-                : i === 0
-                  ? "text-white/60"
-                  : "neon-cyan"
-            }
-          >
-            {line}
-          </p>
-        ))}
-        {step < BOOT_LINES.length && (
-          <p className="text-white/30">
-            <span className="tw-caret" aria-hidden />
-          </p>
-        )}
+      <p className="font-display text-3xl tracking-[0.35em] text-white sm:text-4xl">
+        ДАРО<span className="neon-cyan">{"//"}</span>
+      </p>
+      <p className="font-mono-cyber mt-4 text-[10px] uppercase tracking-[0.4em] text-white/40">
+        Установка соединения
+      </p>
+
+      <div className="mt-8 h-px w-52 overflow-hidden bg-white/10 sm:w-64">
+        <div
+          className="h-full bg-gradient-to-r from-[var(--neon-cyan)] to-[var(--neon-magenta)] transition-[width] duration-150 ease-out"
+          style={{ width: `${progress}%`, boxShadow: "0 0 12px rgba(0,240,255,0.6)" }}
+        />
       </div>
-      <p className="absolute bottom-8 font-mono-cyber text-[9px] uppercase tracking-[0.35em] text-white/25">
-        клик — пропустить
+      <p className="font-mono-cyber mt-3 text-[10px] tracking-[0.3em] text-white/30">
+        {progress}%
       </p>
     </div>
   );

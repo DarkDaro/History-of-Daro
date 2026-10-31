@@ -33,10 +33,30 @@ _archive/           — архив: всё старое не удаляется,
 ## Команды
 
 ```bash
-bun install        # установка зависимостей
-bun run dev        # dev-сервер → http://localhost:3000
-bun run lint       # ESLint
-bun run build      # production-сборка
+bun install         # или npm install — установка зависимостей
+bun run dev         # dev-сервер → http://localhost:3000
+bun run lint        # ESLint
+bun run build       # production-сборка (бэкенд-версия, standalone)
+bun run start       # запуск production-версии → http://localhost:3000
+bun run build:static  # статический экспорт для GitHub Pages → папка out/
+```
+
+## Публикация на GitHub Pages (бесплатно, статическая версия)
+
+Статическая версия собирается командой `npm run build:static` в папку `out/`
+(без бэкенда: лендинг, эффекты, справочник — всё работает; API-роут не нужен).
+
+1. Залей репозиторий на GitHub (ветка `main`).
+2. В настройках репозитория: **Settings → Pages → Source → GitHub Actions**.
+3. Готово: workflow `.github/workflows/deploy.yml` сам соберёт сайт и выложит
+   его по адресу `https://<ник>.github.io/<репозиторий>/`. При каждом пуше в
+   `main` сайт будет обновляться автоматически.
+
+Посмотреть статическую версию локально:
+
+```bash
+npm run build:static
+npx serve out        # или любой статический сервер
 ```
 
 ## Правила репозитория

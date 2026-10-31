@@ -59,6 +59,8 @@ server.log
 # local tools & sandbox infra (not part of the Windows project)
 /_local/
 /.zscripts/
+# delivery folder for chat downloads (not part of the repo)
+/download/
 
 # archive: anything we don't delete but don't track
 /_archive/

@@ -53,12 +53,23 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     siteName: SITE_NAME,
     url: SITE_URL,
+    images: [
+      {
+        // Относительный путь: Next.js соберёт абсолютный URL из metadataBase
+        // (SITE_URL), а в CI он уже включает basePath project-сайта.
+        url: "/covers/hero-city.png",
+        width: 1344,
+        height: 768,
+        alt: "Хи-Мигата — ночной неоновый мегаполис из цикла «История Даро»",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE_NAME} — цикл романов`,
     description:
       "Антиутопия с элементами постапокалипсиса. Город Хи-Мигата, семь корпораций и мятежный антигерой Даро. 2147 год.",
+    images: ["/covers/hero-city.png"],
   },
   robots: {
     index: true,

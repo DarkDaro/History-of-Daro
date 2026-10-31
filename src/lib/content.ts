@@ -7,6 +7,19 @@
 
 export type Accent = "cyan" | "magenta" | "amber";
 
+/* ------------------------------------------------------------
+   Пути к ассетам с учётом basePath.
+   GitHub Pages project-сайт живёт в подпапке (/<repo>), а
+   next/image с images.unoptimized НЕ добавляет basePath к src
+   автоматически — поэтому префикс делаем сами на уровне данных.
+   В обычной сборке и dev-режиме переменная пустая и ничего не меняет.
+   ------------------------------------------------------------ */
+const BASE_PATH = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/+$/, "");
+
+export function asset(path: string): string {
+  return `${BASE_PATH}${path}`;
+}
+
 /* ------------------------- КНИГИ ------------------------- */
 
 export interface BookAct {
@@ -39,7 +52,7 @@ export const BOOKS: Book[] = [
     title: "Красный сдвиг",
     status: "Готов к публикации",
     accent: "cyan",
-    cover: "/covers/book1.png",
+    cover: asset("/covers/book1.png"),
     pages: "512 стр.",
     tags: ["#антигерой", "#телекинез", "#расщепление личности"],
     logline:
@@ -67,7 +80,7 @@ export const BOOKS: Book[] = [
     title: "Стеклянные небеса",
     status: "Завершён · редактура",
     accent: "magenta",
-    cover: "/covers/book2.png",
+    cover: asset("/covers/book2.png"),
     pages: "608 стр.",
     tags: ["#война", "#Немезида", "#цифровое удушение"],
     logline:
@@ -129,7 +142,7 @@ export const BOOKS: Book[] = [
     title: "Пепел и неон",
     status: "В работе",
     accent: "amber",
-    cover: "/covers/book3.png",
+    cover: asset("/covers/book3.png"),
     pages: "анонс",
     tags: ["#финал цикла", "#война не окончена"],
     logline:

@@ -263,7 +263,7 @@ export function Skyline() {
       {front.map(([x, w, h], bi) => {
         const cols = Math.floor(w / 22);
         const rows = Math.floor(h / 34);
-        const windows = [];
+        const windows: React.ReactElement[] = [];
         for (let ci = 0; ci < cols; ci++) {
           for (let ri = 0; ri < rows; ri++) {
             const s = bi * 131 + ci * 17 + ri * 7;

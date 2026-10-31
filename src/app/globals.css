@@ -647,3 +647,44 @@ html {
   animation: glass-leak 18s linear infinite;
   will-change: transform;
 }
+
+/* =====================================================================
+   POLISH v4.1: маски краёв, scroll-spy, модаль фрагмента
+   ===================================================================== */
+
+/* --- Мягкие края атмосферных слоёв (убирает жёсткий шов) --- */
+.fog-mask {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 100%);
+}
+.glass-mask {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+}
+
+/* --- Активный пункт навигации (scroll-spy) --- */
+.nav-link[data-active="true"] {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+.nav-link[data-active="true"]::after {
+  transform: scaleX(1);
+}
+
+/* --- Скроллбар внутри модали фрагмента --- */
+.excerpt-scroll::-webkit-scrollbar {
+  width: 7px;
+}
+.excerpt-scroll::-webkit-scrollbar-track {
+  background: #0a0a16;
+}
+.excerpt-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0.4), rgba(255, 42, 109, 0.4));
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-rain, .fog-drift, .fog-drift-rev {
+    animation: none !important;
+  }
+}

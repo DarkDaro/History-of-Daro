@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import {
   BookOpen,
   ChevronDown,
@@ -19,7 +19,7 @@ import {
   X,
   Database,
   PersonStanding,
-  Armchair,
+  Microchip,
   Crosshair,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -57,6 +57,14 @@ const BOOKS = [
     description:
       "Курьер-дистанционщик Гекс перевозит чужие воспоминания через стены мегаполиса Даро. Очередной заказ оказывается сознанием человека, которого официально не существует, — и теперь за курьером охотятся и корпоративная служба, и те, кто послал груз.",
     tags: ["#неонуар", "#боевик", "#детектив"],
+    excerpt: [
+      "Дождь в Даро не кончается — он просто меняет адресата.",
+      "Гекс стоял на крыше паркинга в 14-м секторе и смотрел, как под неоновыми вывесками просыпается Нижний ярус. В руках он держал груз-капсулу: восемь часов чужой жизни, запечатанные в мнемокассету «МК-9». Правило курьера простое: не открывать груз. Гекс придумал его сам — и за семь лет не нарушил ни разу.",
+      "До этой ночи.",
+      "Капсула пахла грозой и чужим страхом. Обычная мнемокассета молчит под сканером. Эта — нет. Она повторяла одно и то же на всех частотах, какие знал Гекс: «Меня не существует. Проверьте реестр. Меня не существует».",
+      "Таймер доставки отсчитывал одиннадцать минут до Верхнего яруса. Ровно столько же оставалось до конца его прежней жизни.",
+    ],
+    excerptSource: "— «КРАСНЫЙ СДВИГ», ГЛАВА 1",
   },
   {
     id: 2,
@@ -70,6 +78,14 @@ const BOOKS = [
     description:
       "Верхний ярус Даро впервые открывает свои лифты для человека с Нижнего. Гекс должен проникнуть в стеклянные небеса — кварталы, где правит алгоритм, — чтобы вернуть то, что у него забрали в первую ночь Красного сдвига.",
     tags: ["#дистопия", "#интриги", "#вертикаль города"],
+    excerpt: [
+      "На девяносто первом этаже лифт «Синтеза» останавливался только для тех, чей гражданский код начинался с двойки. Код Гекса начинался с нуля. Нулей не пропускали даже в служебные шахты.",
+      "— Дыши, — сказала Ая в наушник. Её голос шёл в обход Нейросетки, по протоколу, которого формально не существовало. — Для них ты сейчас цифра в очереди. Цифры не боятся.",
+      "— Цифры не потеют, — ответил Гекс.",
+      "Стеклянные небеса начались внезапно: дождь остался внизу, за герметичной мембраной, и город впервые открылся целиком — сорок миллионов огней, три яруса и он сам, ползущий вверх, как сигнал по кабелю. Наверху пахло озоном и деньгами.",
+      "Здесь каждый был кем-то зарегистрирован. И никто — живым.",
+    ],
+    excerptSource: "— «СТЕКЛЯННЫЕ НЕБЕСА», ГЛАВА 3",
   },
   {
     id: 3,
@@ -346,7 +362,7 @@ const STATS = [
   { to: 40, suffix: " млн", label: "жителей в трёх ярусах" },
   { to: 7, suffix: "", label: "корпораций в Консорциуме" },
   { to: 2147, suffix: "", label: "год действия саги" },
-  { to: 5, suffix: "", label: "романов в цикле" },
+  { to: 3, suffix: "", label: "тома: готов · редактура · в работе" },
 ];
 
 const MARQUEE_ITEMS = [
@@ -436,10 +452,117 @@ function Chip({ children, accent }: { children: string; accent: Accent }) {
   );
 }
 
+type BookEntry = (typeof BOOKS)[number];
+
+/** Модальное окно с фрагментом тома (терминал-стиль) */
+function ExcerptModal({ book, onClose }: { book: BookEntry; onClose: () => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Фрагмент тома «${book.title}»`}
+      className="fixed inset-0 z-[90] flex items-center justify-center p-4 sm:p-8"
+    >
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        onClick={onClose}
+        aria-hidden
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+      />
+      <motion.div
+        initial={{ opacity: 0, y: 32, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 24, scale: 0.97 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+        className="relative z-10 max-h-[86vh] w-full max-w-2xl"
+      >
+        <Corners color={book.accent} />
+        <div className="beam-border-static excerpt-scroll max-h-[86vh] overflow-y-auto">
+          <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-white/10 bg-[#0a0a16]/95 px-5 py-3 backdrop-blur-sm">
+            <span className="font-mono-cyber truncate text-[10px] uppercase tracking-[0.3em] text-white/40">
+              log://daro/tom-{book.id}/fragment
+            </span>
+            <button
+              ref={closeRef}
+              type="button"
+              onClick={onClose}
+              aria-label="Закрыть фрагмент"
+              className="neon-border-magenta shrink-0 p-1.5 text-[var(--neon-magenta)] transition-colors hover:bg-[var(--neon-magenta)]/10"
+            >
+              <X className="h-4 w-4" aria-hidden />
+            </button>
+          </div>
+          <div className="p-6 sm:p-9">
+            <p
+              className={`font-mono-cyber text-[10px] uppercase tracking-[0.35em] ${
+                book.accent === "magenta" ? "neon-magenta" : "neon-cyan"
+              }`}
+            >
+              {book.volume} {"//"} {book.title}
+            </p>
+            <div className="mt-6 space-y-5">
+              {book.excerpt?.map((para, i) => (
+                <p
+                  key={i}
+                  className={`font-cyber leading-relaxed text-white/80 ${
+                    i === 0 ? "text-lg italic text-white/95 sm:text-xl" : "text-sm sm:text-[15px]"
+                  }`}
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
+            <cite className="font-mono-cyber mt-8 block border-t border-white/10 pt-4 text-xs uppercase not-italic tracking-[0.3em] text-white/45">
+              {book.excerptSource}
+            </cite>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 export default function Home() {
   const { toast } = useToast();
   const [email, setEmail] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [excerptBook, setExcerptBook] = useState<BookEntry | null>(null);
+  const [activeSection, setActiveSection] = useState<string>("");
+
+  useEffect(() => {
+    const ids = ["books", "codex", "world", "author"];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        }
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
 
   const { scrollY } = useScroll();
   const ySun = useTransform(scrollY, [0, 700], [0, 160]);
@@ -449,6 +572,7 @@ export default function Home() {
   const handleSubscribe = () => {
     if (!email.includes("@")) {
       toast({
+        variant: "destructive",
         title: "ОШИБКА СИНХРОНИЗАЦИИ",
         description: "Введите корректный адрес сигнала (email).",
       });
@@ -482,7 +606,11 @@ export default function Home() {
           <ul className="hidden items-center gap-9 font-mono-cyber text-xs uppercase tracking-[0.25em] text-white/70 md:flex">
             {NAV_LINKS.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="nav-link">
+                <a
+                  href={l.href}
+                  className="nav-link"
+                  data-active={l.href === `#${activeSection}` ? "true" : "false"}
+                >
                   {l.label}
                 </a>
               </li>
@@ -554,7 +682,7 @@ export default function Home() {
         <motion.div
           style={{ y: ySky }}
           aria-hidden
-          className="absolute inset-0 z-[4] overflow-hidden"
+          className="glass-mask absolute inset-0 z-[4] overflow-hidden"
         >
           <Image
             src="/assets/rain-glass.png"
@@ -566,12 +694,13 @@ export default function Home() {
         </motion.div>
 
         {/* дрейфующий туман */}
-        <div aria-hidden className="absolute inset-x-0 bottom-0 z-[4] h-[45%] overflow-hidden">
+        <div aria-hidden className="fog-mask absolute inset-x-0 bottom-0 z-[4] h-[45%] overflow-hidden">
           <Image
             src="/assets/fog.png"
             alt=""
             fill
             sizes="100vw"
+            loading="eager"
             className="fog-drift object-cover opacity-30 mix-blend-screen"
           />
           <Image
@@ -579,6 +708,7 @@ export default function Home() {
             alt=""
             fill
             sizes="100vw"
+            loading="eager"
             className="fog-drift-rev object-cover opacity-20 mix-blend-screen"
           />
         </div>
@@ -603,7 +733,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.15, duration: 0.7 }}
-            className="font-mono-cyber mb-7 text-[10px] uppercase tracking-[0.5em] text-white/60 sm:text-xs"
+            className="font-mono-cyber mb-7 text-[10px] uppercase tracking-[0.16em] text-white/60 sm:tracking-[0.5em] sm:text-xs"
           >
             <Typewriter text="SYS.BOOT // СИГНАЛ ПОЛУЧЕН · ГОД 2147 · ДОСТУП РАЗРЕШЁН" speed={30} />
           </motion.p>
@@ -755,10 +885,17 @@ export default function Home() {
                     <button
                       type="button"
                       disabled={book.accent === "amber"}
+                      aria-haspopup={book.accent === "amber" ? undefined : "dialog"}
+                      onClick={() => {
+                        if (book.excerpt) {
+                          setExcerptBook(book);
+                          setMenuOpen(false);
+                        }
+                      }}
                       className={`btn-beam mt-6 inline-flex items-center justify-center gap-2 px-5 py-3 font-mono-cyber text-xs uppercase tracking-widest transition-all ${
                         book.accent === "amber"
                           ? "cursor-default border border-[var(--neon-amber)]/40 text-[var(--neon-amber)]/80"
-                          : "border border-white/15 bg-white/5 hover:border-[var(--neon-cyan)] hover:text-[var(--neon-cyan)]"
+                          : "cursor-pointer border border-white/15 bg-white/5 hover:border-[var(--neon-cyan)] hover:text-[var(--neon-cyan)]"
                       }`}
                     >
                       {book.accent === "amber" ? "Анонс позже" : "Читать фрагмент"}
@@ -770,9 +907,9 @@ export default function Home() {
             ))}
           </div>
 
-          <motion.div {...fadeUp} className="relative mt-10 p-8 text-center">
-            <Corners color="magenta" />
-            <div className="beam-border-static p-8">
+          <motion.div {...fadeUp} className="mt-10">
+            <div className="beam-border-static p-8 text-center">
+              <Corners color="magenta" />
               <p className="font-mono-cyber text-xs uppercase tracking-[0.35em] text-white/40">
                 ТОМ IV+ {"//"} СЮЖЕТ КЛАССИФИЦИРОВАН
               </p>
@@ -809,7 +946,7 @@ export default function Home() {
                   value="implants"
                   className="h-auto min-w-0 font-mono-cyber gap-2 rounded-none px-4 py-3 text-[11px] uppercase tracking-[0.25em] text-white/60 data-[state=active]:bg-[var(--neon-magenta)]/10 data-[state=active]:text-[var(--neon-magenta)] data-[state=active]:shadow-[0_0_18px_rgba(255,42,109,0.3)] sm:px-6"
                 >
-                  <Armchair className="h-4 w-4" aria-hidden />
+                  <Microchip className="h-4 w-4" aria-hidden />
                   Импланты
                 </TabsTrigger>
                 <TabsTrigger
@@ -979,15 +1116,23 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <h3 className="font-display text-2xl uppercase tracking-wide">Имя автора</h3>
+                <h3 className="font-display text-2xl uppercase tracking-wide">Автор цикла</h3>
                 <div className="mt-2">
                   <Chip accent="magenta">Идентификация не завершена</Chip>
                 </div>
                 <p className="font-cyber mt-4 text-sm leading-relaxed text-white/70">
-                  Здесь будет манифест: почему киберпанк, откуда мегаполис Даро и
-                  что общего у Blade Runner, «Призрака в доспехах» и вашей
-                  рукописи. Пара абзацев о пути автора, любимых референсах и
-                  планах на следующие тома цикла.
+                  Пишу о городах, которых нет, — о людях, которые в них очень даже
+                  есть. «История Даро» началась с вопроса: если память можно
+                  перенести, продать и переписать, то что вообще значит «быть
+                  собой»? Так появились мегаполис на вечном дожде, курьер с чужими
+                  жизнями в голове и три яруса, где каждый живёт по своей версии правды.
+                </p>
+                <p className="font-cyber mt-3 text-sm leading-relaxed text-white/70">
+                  Ориентиры цикла — мокрый неон «Бегущего по лезвию», вопрос о
+                  границе личности из «Призрака в доспехах» и цена прогресса из
+                  Cyberpunk 2077. Задумано 3–5 романов: первый готов к публикации,
+                  второй проходит редактуру, третий уже горит под пальцами. Даро не
+                  заканчивается на одном курьере — подключайтесь к сигналу.
                 </p>
               </div>
             </div>
@@ -1056,6 +1201,13 @@ export default function Home() {
           </p>
         </div>
       </footer>
+
+      {/* ======================= МОДАЛ ФРАГМЕНТА ======================= */}
+      <AnimatePresence>
+        {excerptBook && (
+          <ExcerptModal book={excerptBook} onClose={() => setExcerptBook(null)} />
+        )}
+      </AnimatePresence>
     </main>
   );
 }

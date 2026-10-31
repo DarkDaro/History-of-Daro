@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Russo_One, Play, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
@@ -40,6 +40,10 @@ export const metadata: Metadata = {
       "Киберпанк-дистопия, боевик, неонуар. Мегаполис Даро ждёт.",
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#05050a",
 };
 
 export default function RootLayout({

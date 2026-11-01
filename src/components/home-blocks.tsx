@@ -39,7 +39,7 @@ function BlockHead({
       {href && linkLabel && (
         <Link
           href={href}
-          className="font-mono-cyber text-xs uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[var(--neon-cyan)]"
+          className="font-mono-cyber inline-flex items-center py-3 -my-3 text-xs uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[var(--neon-cyan)]"
         >
           {linkLabel} <span aria-hidden>→</span>
         </Link>

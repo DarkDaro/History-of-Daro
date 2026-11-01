@@ -179,33 +179,33 @@ export function SiteFooter() {
             <div>
               <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/50">Цикл</p>
               <ul className="font-mono-cyber mt-3 space-y-2 text-[11px] uppercase tracking-[0.2em] text-white/45">
-                <li><Link href="/books" className="hover:text-[var(--neon-cyan)]">Все тома</Link></li>
-                <li><Link href="/books/tom-1" className="hover:text-[var(--neon-cyan)]">Том I</Link></li>
-                <li><Link href="/books/tom-2" className="hover:text-[var(--neon-cyan)]">Том II</Link></li>
-                <li><Link href="/books/tom-3" className="hover:text-[var(--neon-cyan)]">Том III</Link></li>
+                <li><Link href="/books" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Все тома</Link></li>
+                <li><Link href="/books/tom-1" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Том I</Link></li>
+                <li><Link href="/books/tom-2" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Том II</Link></li>
+                <li><Link href="/books/tom-3" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Том III</Link></li>
               </ul>
             </div>
             <div>
               <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/50">Мир</p>
               <ul className="font-mono-cyber mt-3 space-y-2 text-[11px] uppercase tracking-[0.2em] text-white/45">
-                <li><Link href="/world" className="hover:text-[var(--neon-cyan)]">Хи-Мигата</Link></li>
-                <li><Link href="/corporations" className="hover:text-[var(--neon-cyan)]">Корпорации</Link></li>
-                <li><Link href="/timeline" className="hover:text-[var(--neon-cyan)]">Таймлайн 2147</Link></li>
-                <li><Link href="/characters" className="hover:text-[var(--neon-cyan)]">Персонажи</Link></li>
-                <li><Link href="/implants" className="hover:text-[var(--neon-cyan)]">Импланты</Link></li>
-                <li><Link href="/armory" className="hover:text-[var(--neon-cyan)]">Вооружение</Link></li>
-                <li><Link href="/chronicles" className="hover:text-[var(--neon-cyan)]">Хроники</Link></li>
-                <li><Link href="/gallery" className="hover:text-[var(--neon-cyan)]">Галерея</Link></li>
+                <li><Link href="/world" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Хи-Мигата</Link></li>
+                <li><Link href="/corporations" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Корпорации</Link></li>
+                <li><Link href="/timeline" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Таймлайн 2147</Link></li>
+                <li><Link href="/characters" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Персонажи</Link></li>
+                <li><Link href="/implants" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Импланты</Link></li>
+                <li><Link href="/armory" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Вооружение</Link></li>
+                <li><Link href="/chronicles" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Хроники</Link></li>
+                <li><Link href="/gallery" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Галерея</Link></li>
               </ul>
             </div>
             <div className="col-span-2 sm:col-span-1">
               <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/50">Прочее</p>
               <ul className="font-mono-cyber mt-3 space-y-2 text-[11px] uppercase tracking-[0.2em] text-white/45">
-                <li><Link href="/story" className="hover:text-[var(--neon-cyan)]">Суть истории</Link></li>
-                <li><Link href="/author" className="hover:text-[var(--neon-cyan)]">Автор</Link></li>
-                <li><Link href="/#subscribe" className="hover:text-[var(--neon-cyan)]">Подписка</Link></li>
-                <li><Link href="/feed.xml" className="hover:text-[var(--neon-cyan)]">RSS-лента</Link></li>
-                <li><a href={asset("/download.html")} className="hover:text-[var(--neon-cyan)]">Скачать сборку</a></li>
+                <li><Link href="/story" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Суть истории</Link></li>
+                <li><Link href="/author" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Автор</Link></li>
+                <li><Link href="/#subscribe" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Подписка</Link></li>
+                <li><Link href="/feed.xml" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">RSS-лента</Link></li>
+                <li><a href={asset("/download.html")} className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Скачать сборку</a></li>
               </ul>
             </div>
           </div>

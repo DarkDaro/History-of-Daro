@@ -385,7 +385,7 @@ export default function Home() {
             </div>
             <Link
               href="/books"
-              className="font-mono-cyber text-xs uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[var(--neon-cyan)]"
+              className="font-mono-cyber inline-flex items-center py-3 -my-3 text-xs uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[var(--neon-cyan)]"
             >
               Все тома {"//"} подробнее →
             </Link>
@@ -658,7 +658,7 @@ export default function Home() {
           </p>
           <Link
             href="/author"
-            className="font-mono-cyber inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[var(--neon-cyan)]"
+            className="font-mono-cyber inline-flex items-center gap-2 py-3 -my-3 text-xs uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[var(--neon-cyan)]"
           >
             <User className="h-3.5 w-3.5" aria-hidden />
             Страница автора →

@@ -79,7 +79,7 @@
       <p class="meta">Размер: <b data-m="static">…</b> · файлов: <b>200+</b><br>
       SHA-256: <span data-hash="static">…</span></p>
       <div class="btnrow">
-        <button class="dl" data-file="daro-site-static.zip">Скачать архив</button>
+        <button class="dl" data-file="daro-site-static.zip" data-key="static">Скачать архив</button>
         <a class="alt-link" href="releases/daro-site-static.zip" download>прямая ссылка</a>
       </div>
       <p class="status" data-status="static"></p>
@@ -100,7 +100,7 @@
       <p class="meta">Размер: <b data-m="source">…</b><br>
       SHA-256: <span data-hash="source">…</span></p>
       <div class="btnrow">
-        <button class="dl" data-file="daro-site-source.zip">Скачать архив</button>
+        <button class="dl" data-file="daro-site-source.zip" data-key="source">Скачать архив</button>
         <a class="alt-link" href="releases/daro-site-source.zip" download>прямая ссылка</a>
       </div>
       <p class="status" data-status="source"></p>
@@ -110,6 +110,26 @@
 npm run dev      → http://localhost:3000
 npm run build:static   → готовый сайт в out/</span>
         Для обеих сборок: <code>npm run build</code> — серверная версия (VPS/Vercel).
+        </p>
+      </details>
+    </section>
+
+    <section class="card">
+      <p class="tag">Серверная версия · standalone</p>
+      <p class="name">daro-site-standalone.zip</p>
+      <p class="desc">Готовый сервер целиком: сайт + бэкенд + все зависимости. Не требует npm install —
+      распаковать и запустить одной командой (нужен только Node.js 20+).</p>
+      <p class="meta">Размер: <b data-m="standalone">…</b><br>
+      SHA-256: <span data-hash="standalone">…</span></p>
+      <div class="btnrow">
+        <button class="dl" data-file="daro-site-standalone.zip" data-key="standalone">Скачать архив</button>
+        <a class="alt-link" href="releases/daro-site-standalone.zip" download>прямая ссылка</a>
+      </div>
+      <p class="status" data-status="standalone"></p>
+      <details><summary>Как запустить (Node.js 20+)</summary>
+        <p class="desc">
+        <span class="cmd">node server.js        → http://localhost:3000</span>
+        Порт можно сменить: <code>PORT=8080 node server.js</code>. npm install не нужен.
         </p>
       </details>
     </section>
@@ -141,7 +161,7 @@ npm run build:static   → готовый сайт в out/</span>
   fetch('releases/manifest.json',{cache:'no-store'})
     .then(function(r){ if(!r.ok) throw 0; return r.json(); })
     .then(function(m){
-      ['static','source'].forEach(function(k){
+      ['static','source','standalone'].forEach(function(k){
         var it = m[k]; if(!it) return;
         var el;
         if((el = document.querySelector('[data-m="'+k+'"]')) && it.size) el.textContent = fmt(it.size);
@@ -171,7 +191,7 @@ npm run build:static   → готовый сайт в out/</span>
   document.querySelectorAll('button.dl').forEach(function(btn){
     btn.addEventListener('click', function(){
       var name = btn.getAttribute('data-file');
-      var key = btn.closest('.card').classList.contains('alt') ? 'source' : 'static';
+      var key = btn.getAttribute('data-key');
       btn.disabled = true;
       setStatus(key,'Подготовка…','');
       fetch('releases/' + name, {cache:'no-store'})

@@ -1603,3 +1603,176 @@ export const EXCERPTS: Excerpt[] = [
     note: "Тизер финального тома. Текст черновой и будет переписан — но тон установлен: пепел не спорит с неоном, он просто дольше остаётся.",
   },
 ];
+
+/* ------------------------- ГАЛЕРЕЯ ------------------------- */
+
+/** Карточка галереи /gallery: существующий арт из public/ с канон-подписью. */
+export interface GalleryItem {
+  id: string;
+  /** Путь через asset() — работает в обеих сборках (Pages и корень). */
+  src: string;
+  title: string;
+  /** Метка группы: сцена / портрет / обложка. */
+  kind: "СЦЕНА" | "ПОРТРЕТ" | "ОБЛОЖКА";
+  caption: string;
+  accent: Accent;
+}
+
+export const GALLERY: GalleryItem[] = [
+  /* — сцены — */
+  {
+    id: "art-city",
+    src: asset("/covers/hero-city.png"),
+    title: "Хи-Мигата",
+    kind: "СЦЕНА",
+    caption:
+      "Город-завод «Хи-Гамы»: купола, промышленные ярусы и вечный фильтрованный дождь с привкусом озона.",
+    accent: "cyan",
+  },
+  {
+    id: "art-world",
+    src: asset("/img/scenes/world.webp"),
+    title: "Мир под куполами",
+    kind: "СЦЕНА",
+    caption:
+      "Мир не разрушен — он обслуживается: воздух, вода и даже дождь идут через счётчики.",
+    accent: "cyan",
+  },
+  {
+    id: "art-implants",
+    src: asset("/img/scenes/implants.webp"),
+    title: "Импланты «Синтеза»",
+    kind: "СЦЕНА",
+    caption:
+      "«Синтез» продаёт человеку его же тело в рассрочку: память, эмоции, рефлексы — по подписке.",
+    accent: "magenta",
+  },
+  {
+    id: "art-armory",
+    src: asset("/img/scenes/armory.webp"),
+    title: "Арсенал «Бергинатора»",
+    kind: "СЦЕНА",
+    caption:
+      "Дроны, стражи и прототипы «Карателей»: для дирекции война — плановая единица отчётности.",
+    accent: "amber",
+  },
+  {
+    id: "art-story",
+    src: asset("/img/scenes/story.webp"),
+    title: "Хроника Перелома",
+    kind: "СЦЕНА",
+    caption:
+      "Перепись населения не проводилась с момента Перелома: реестр не считает людьми тех, кого не считает.",
+    accent: "magenta",
+  },
+  {
+    id: "art-pobeg",
+    src: asset("/img/scenes/pobeg.webp"),
+    title: "Побег объекта «РХ»",
+    kind: "СЦЕНА",
+    caption:
+      "Сирены, красный свет и шесть кибернетов на пересечении коридора. Объект «РХ» впервые сам решает, кого убивать.",
+    accent: "amber",
+  },
+  /* — портреты — */
+  {
+    id: "art-daro",
+    src: asset("/img/chars/daro.webp"),
+    title: "Николас / Даро",
+    kind: "ПОРТРЕТ",
+    caption: "«Я не вторая личность. Я — тот, кто остаётся, когда Николас прячется».",
+    accent: "cyan",
+  },
+  {
+    id: "art-ohotnik",
+    src: asset("/img/chars/ohotnik.webp"),
+    title: "Резонансный Охотник",
+    kind: "ПОРТРЕТ",
+    caption: "«Ты его не дождёшься».",
+    accent: "amber",
+  },
+  {
+    id: "art-lina",
+    src: asset("/img/chars/lina.webp"),
+    title: "Лина",
+    kind: "ПОРТРЕТ",
+    caption: "«Кто-то должен вести. Лучше я, чем очередь из корпорации».",
+    accent: "magenta",
+  },
+  {
+    id: "art-aya",
+    src: asset("/img/chars/aya.webp"),
+    title: "Айя",
+    kind: "ПОРТРЕТ",
+    caption: "«Если меня можно любить просто так — покажите инструкции».",
+    accent: "cyan",
+  },
+  {
+    id: "art-nemezida",
+    src: asset("/img/chars/nemezida.webp"),
+    title: "Немезида",
+    kind: "ПОРТРЕТ",
+    caption: "«Я помню имя Кира. Не помню, чьё оно — моё или то, что мне выдали».",
+    accent: "magenta",
+  },
+  {
+    id: "art-hugo",
+    src: asset("/img/chars/hugo.webp"),
+    title: "Хьюго",
+    kind: "ПОРТРЕТ",
+    caption: "«Я не на вашей стороне. Я просто не на их».",
+    accent: "amber",
+  },
+  {
+    id: "art-raiz",
+    src: asset("/img/chars/raiz.webp"),
+    title: "Сандерс Райз",
+    kind: "ПОРТРЕТ",
+    caption: "«Я не ваш союзник. Я враг моего врага. Пока».",
+    accent: "magenta",
+  },
+  {
+    id: "art-skorpion",
+    src: asset("/img/chars/skorpion.webp"),
+    title: "Лорд Скорпион",
+    kind: "ПОРТРЕТ",
+    caption: "«Люди ломаются. Машины — улучшаются».",
+    accent: "amber",
+  },
+  {
+    id: "art-darkdarus",
+    src: asset("/img/chars/darkdarus.webp"),
+    title: "Даркдарус",
+    kind: "ПОРТРЕТ",
+    caption: "«Ты звал меня всю жизнь. Не останавливайся на середине».",
+    accent: "magenta",
+  },
+  /* — обложки — */
+  {
+    id: "art-tom-1",
+    src: asset("/covers/book1.png"),
+    title: "Том I · Красный сдвиг",
+    kind: "ОБЛОЖКА",
+    caption:
+      "В Хи-Мигате у всякой силы есть владелец. Телекинез Даро не принадлежит никому — и потому он опаснее любого оружия.",
+    accent: "cyan",
+  },
+  {
+    id: "art-tom-2",
+    src: asset("/covers/book2.png"),
+    title: "Том II · Стеклянные небеса",
+    kind: "ОБЛОЖКА",
+    caption:
+      "Плен на «Авангарде» закончился сделкой, о которой Даро молчит. А молчание в Хи-Мигате дороже слов.",
+    accent: "magenta",
+  },
+  {
+    id: "art-tom-3",
+    src: asset("/covers/book3.png"),
+    title: "Том III · Пепел и неон",
+    kind: "ОБЛОЖКА",
+    caption:
+      "Финальный том — о том, сколько человеческого остаётся в человеке, когда всё остальное отнято.",
+    accent: "amber",
+  },
+];

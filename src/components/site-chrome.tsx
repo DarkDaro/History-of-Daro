@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Radio, X } from "lucide-react";
+import { Menu, Radio, Search, X } from "lucide-react";
 import { CyberAmbientButton } from "@/components/ambient-audio";
+import { SearchPalette } from "@/components/search-palette";
 import { sfx } from "@/lib/sfx";
 import { asset } from "@/lib/content";
 
@@ -32,6 +33,7 @@ function isActive(pathname: string, href: string): boolean {
 export function SiteNav() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   // При смене страницы мобильное меню закрывается (setState во время рендера —
   // рекомендуемый React-паттерн вместо эффекта: см. react.dev/learn/you-might-not-need-an-effect)
   const [prevPath, setPrevPath] = useState(pathname);
@@ -39,6 +41,18 @@ export function SiteNav() {
     setPrevPath(pathname);
     if (menuOpen) setMenuOpen(false);
   }
+
+  // Ctrl+K / Cmd+K открывает палитру поиска с любой страницы.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#05050a]/85 text-white backdrop-blur-md">
@@ -70,6 +84,22 @@ export function SiteNav() {
         </ul>
 
         <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => {
+              sfx("click");
+              setSearchOpen(true);
+            }}
+            aria-label="Поиск по сайту · Ctrl+K"
+            title="Поиск · Ctrl+K"
+            className="group flex items-center gap-2 border border-white/15 bg-white/[0.03] px-3 py-2 font-mono-cyber text-[10px] uppercase tracking-[0.2em] text-white/60 transition-colors hover:border-[var(--neon-cyan)]/50 hover:text-[var(--neon-cyan)]"
+          >
+            <Search className="h-4 w-4" aria-hidden />
+            <span className="hidden md:inline">Поиск</span>
+            <kbd className="hidden border border-white/15 px-1.5 py-0.5 text-[9px] tracking-[0.15em] text-white/40 group-hover:text-white/60 xl:inline">
+              Ctrl K
+            </kbd>
+          </button>
           <CyberAmbientButton />
           <Link
             href="/#subscribe"
@@ -113,6 +143,8 @@ export function SiteNav() {
           </ul>
         </div>
       )}
+
+      <SearchPalette open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

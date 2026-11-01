@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
 import { PageHero, SectionHeading, SceneBanner } from "@/components/blocks";
 import { Reveal } from "@/components/cyber";
-import { HUMAN_STORIES, INFLUENCES, PRINCIPLES, VISUALS } from "@/lib/content";
+import {
+  HUMAN_STORIES,
+  INFLUENCES,
+  LOGLINE,
+  PRINCIPLES,
+  SYNOPSIS_FULL,
+  THEMES,
+  VISUALS,
+  type Accent,
+} from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Суть истории",
   description:
-    "Ядро цикла «История Даро» без неона: пять людей, у которых война забрала память, имя и покой. Мир и счёт, принципы повествования и влияния.",
+    "Синопсис цикла «История Даро. Проект Восход»: логлайн, полный синопсис и темы. Пять людей, у которых война забрала память, имя и покой; принципы повествования и влияния.",
   alternates: { canonical: "/story" },
 };
 
@@ -21,6 +30,9 @@ const ACCENT_TEXT: Record<string, string> = {
   magenta: "neon-magenta",
   amber: "text-[var(--neon-amber)]",
 };
+
+/** Акценты карточек тем: цикл cyan → magenta → amber. */
+const THEME_ACCENTS: Accent[] = ["cyan", "magenta", "amber", "cyan", "magenta", "amber"];
 
 export default function StoryPage() {
   return (
@@ -47,10 +59,67 @@ export default function StoryPage() {
         </div>
       </section>
 
-      {/* пять человеческих историй */}
+      {/* синопсис · проект восход */}
       <section className="relative py-20 sm:py-24">
+        <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <SectionHeading kicker="«История Даро» · Проект Восход" title="Синопсис" num="01" />
+
+          <Reveal>
+            <div className="beam-border-static p-7 sm:p-10">
+              <p className="font-mono-cyber text-[10px] uppercase tracking-[0.35em] neon-magenta">
+                Логлайн
+              </p>
+              <p className="font-cyber mt-4 text-base italic leading-relaxed text-white/85 sm:text-lg">
+                {LOGLINE}
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal className="mt-6">
+            <div className="border border-white/10 bg-white/[0.02] p-6 backdrop-blur-sm sm:p-10">
+              <p className="font-mono-cyber text-[10px] uppercase tracking-[0.35em] text-white/45">
+                Полный синопсис · текст автора
+              </p>
+              <div className="mt-6 max-w-4xl space-y-5">
+                {SYNOPSIS_FULL.map((p, i) => (
+                  <p
+                    key={i}
+                    className={`font-cyber leading-relaxed ${
+                      i === 0 ? "text-white/85 sm:text-base" : "text-sm text-white/70 sm:text-base"
+                    }`}
+                  >
+                    {p}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {THEMES.map((t, i) => (
+              <Reveal key={t.title} delay={(i % 3) * 0.08}>
+                <article className="relative h-full border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors hover:border-white/25">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/35">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className={`font-display text-lg uppercase tracking-wide ${ACCENT_TEXT[THEME_ACCENTS[i]]}`}>
+                      {t.title}
+                    </h3>
+                  </div>
+                  <p className="font-cyber mt-3 text-sm leading-relaxed text-white/70">{t.text}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* пять человеческих историй */}
+      <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <SectionHeading kicker="Действующие лица войны" title="Пять историй" num="01" />
+          <SectionHeading kicker="Действующие лица войны" title="Пять историй" num="02" />
           <div className="space-y-5">
             {HUMAN_STORIES.map((s, i) => (
               <Reveal key={s.title} delay={i * 0.06}>
@@ -81,7 +150,7 @@ export default function StoryPage() {
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.06]" aria-hidden />
         <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
-          <SectionHeading kicker="Две записи реестра" title="Мир и счёт" num="02" accent="magenta" />
+          <SectionHeading kicker="Две записи реестра" title="Мир и счёт" num="03" accent="magenta" />
           <Reveal>
             <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2">
               <div className="bg-[#0a0a16] p-7 text-left sm:p-9">
@@ -116,7 +185,7 @@ export default function StoryPage() {
       {/* принципы повествования */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-          <SectionHeading kicker="Как устроено повествование" title="Принципы" num="03" />
+          <SectionHeading kicker="Как устроено повествование" title="Принципы" num="04" />
           <div className="grid gap-6 sm:grid-cols-2">
             {PRINCIPLES.map((p, i) => (
               <Reveal key={p.title} delay={(i % 2) * 0.08}>
@@ -154,7 +223,7 @@ export default function StoryPage() {
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-          <SectionHeading kicker="Система координат" title="Влияния" num="04" accent="amber" />
+          <SectionHeading kicker="Система координат" title="Влияния" num="05" accent="amber" />
           <Reveal>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[560px] border border-white/10 text-left">

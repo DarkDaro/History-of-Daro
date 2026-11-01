@@ -71,6 +71,16 @@ export function ResistanceGrid({ items }: { items: Faction[] }) {
               {f.role}
             </p>
             <p className="font-cyber mt-4 text-sm leading-relaxed text-white/70">{f.text}</p>
+            {f.log && (
+              <div className="mt-5 border-l-2 border-white/15 bg-black/30 py-3 pl-4 pr-3">
+                <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/40">
+                  ▸ перехват · {f.log.speaker}
+                </p>
+                <p className="font-mono-cyber mt-1.5 text-xs leading-relaxed text-white/65">
+                  «{f.log.text}»
+                </p>
+              </div>
+            )}
             {links && (
               <div className="mt-5 border-t border-white/5 pt-4">
                 <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/35">

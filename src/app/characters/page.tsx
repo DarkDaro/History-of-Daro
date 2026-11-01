@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { PageHero, SectionHeading } from "@/components/blocks";
-import { CodexCard } from "@/components/codex-card";
+import { CharacterDossier } from "@/components/character-dossier";
 import { Corners, Reveal } from "@/components/cyber";
 import { CHARACTERS } from "@/lib/content";
 
@@ -98,13 +98,14 @@ export default function CharactersPage() {
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
           <SectionHeading kicker="Файлы-codeкс" title="Соперники и соратники" num="01" accent="magenta" />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {CHARACTERS.slice(1).map((r, i) => (
-              <Reveal key={r.id} delay={(i % 3) * 0.08}>
-                <CodexCard r={r} accent={r.accent} />
-              </Reveal>
-            ))}
-          </div>
+          <Reveal className="mb-10">
+            <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
+              Каждая карточка — вкладка личного дела. Нажмите, чтобы открыть
+              файл целиком: визуальная запись, показатели и то, что аналитики
+              сопротивления внесли в графу «цитата».
+            </p>
+          </Reveal>
+          <CharacterDossier items={CHARACTERS.slice(1)} />
         </div>
       </section>
     </main>

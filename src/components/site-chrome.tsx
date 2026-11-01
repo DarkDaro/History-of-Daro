@@ -14,6 +14,7 @@ import { asset } from "@/lib/content";
 
 export const NAV_LINKS = [
   { href: "/books", label: "Книги" },
+  { href: "/excerpts", label: "Фрагменты" },
   { href: "/world", label: "Мир" },
   { href: "/characters", label: "Персонажи" },
   { href: "/implants", label: "Импланты" },
@@ -52,7 +53,7 @@ export function SiteNav() {
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-4 font-mono-cyber text-xs uppercase tracking-[0.2em] text-white/70 lg:flex xl:gap-6 xl:tracking-[0.25em]">
+        <ul className="hidden items-center gap-3 font-mono-cyber text-[11px] uppercase tracking-[0.15em] text-white/70 lg:flex xl:gap-6 xl:text-xs xl:tracking-[0.25em]">
           {NAV_LINKS.map((l) => (
             <li key={l.href}>
               <Link

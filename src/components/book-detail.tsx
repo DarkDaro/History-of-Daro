@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { PageHero, Chip, TerminalQuote } from "@/components/blocks";
+import { PageHero, Chip, TerminalQuote, MoreLink } from "@/components/blocks";
 import { Corners, Reveal } from "@/components/cyber";
 import { AUTHOR_NODE, JsonLd } from "@/components/seo";
 import { SITE_URL } from "@/lib/site";
-import type { Book } from "@/lib/content";
+import { EXCERPTS, type Book } from "@/lib/content";
 
 /* ============================================================
    Детальная страница тома: обложка, факты, аннотация,
@@ -27,6 +27,9 @@ export function BookDetail({
       : book.accent === "magenta"
         ? "neon-magenta"
         : "text-[var(--neon-amber)]";
+
+  // Фрагмент этого тома в читалке (если уже опубликован)
+  const excerpt = EXCERPTS.find((e) => e.bookSlug === book.slug);
 
   return (
     <main className="min-h-screen bg-[#05050a] text-white">
@@ -122,6 +125,13 @@ export function BookDetail({
                     </span>
                   ))}
                 </div>
+                {excerpt && (
+                  <div className="mt-8">
+                    <MoreLink href={`/excerpts/${excerpt.slug}`}>
+                      {`Читать фрагмент · «${excerpt.title}»`}
+                    </MoreLink>
+                  </div>
+                )}
               </Reveal>
 
               {/* узлы сюжета */}

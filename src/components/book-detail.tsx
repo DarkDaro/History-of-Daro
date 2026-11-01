@@ -238,9 +238,28 @@ export function BookDetail({
 }
 
 export function bookMeta(book: Book) {
+  // B2: у каждого тома своя OG-картинка (public/covers/og-<slug>.png,
+  // генерируется scripts/make-og.py из обложки и title/logline content.ts).
+  const ogImage = `/covers/og-${book.slug}.png`;
   return {
     title: `${book.volume} — «${book.title}»`,
     description: book.logline,
     alternates: { canonical: `/books/${book.slug}` },
+    openGraph: {
+      title: `${book.volume} — «${book.title}»`,
+      description: book.logline,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: `«${book.title}» — обложка тома цикла «История Даро»`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      images: [ogImage],
+    },
   };
 }

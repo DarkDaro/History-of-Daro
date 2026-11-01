@@ -129,7 +129,7 @@ export function SiteFooter() {
               ДАРО<span className="neon-magenta">{"//"}</span>
             </p>
             <p className="font-mono-cyber mt-3 max-w-xs text-[10px] uppercase leading-relaxed tracking-[0.25em] text-white/35">
-              Цикл романов · антиутопия с элементами постапокалипсиса · город Хи-Мигата · 2147
+              Цикл романов · город Хи-Мигата · 2147 год · дождь не заканчивается
             </p>
           </div>
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
@@ -163,7 +163,7 @@ export function SiteFooter() {
           </div>
         </div>
         <p className="font-mono-cyber mt-10 border-t border-white/5 pt-6 text-center text-[10px] uppercase tracking-[0.3em] text-white/40">
-          © 2026 · Вселенная «Истории Даро» · Антиутопия · Неонуар
+          © 2026 · Вселенная «Истории Даро»
         </p>
       </div>
     </footer>

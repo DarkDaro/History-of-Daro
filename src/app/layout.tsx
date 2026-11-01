@@ -47,6 +47,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: `${SITE_NAME} — цикл романов`,
     description:

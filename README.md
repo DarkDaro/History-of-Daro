@@ -2,7 +2,7 @@
 
 Официальный сайт-портфолио серии романов **«История Даро»** — антиутопия с элементами постапокалипсиса, боевик и неонуар. Атмосфера — *Blade Runner*, *Ghost in the Shell*, *Cyberpunk 2077*.
 
-**Канон цикла:** Даро — мятежный антигерой (не город). Город — **Хи-Мигата**, 2147 год, семь корпораций, сопротивление «Периметр Зеро».
+**Канон цикла:** в центре — Даро, актив семи корпораций, ушедший с баланса. Город — **Хи-Мигата**, 2147 год, семь корпораций, сопротивление «Периметр Зеро».
 
 Сайт **многостраничный**:
 
@@ -50,14 +50,17 @@ src/app/
   chronicles/       — архив хроник + детальная страница хроники
   author/           — автор + подписка
   globals.css       — киберпанк-тема: glitch, scanlines, neon-border, cyber-grid, marquee…
+  not-found.tsx     — 404 «Сигнал потерян» (стиль терминала)
   robots.ts         — динамический robots.txt (с Sitemap)
   sitemap.ts        — карта сайта: все страницы
+  feed.xml/route.ts — RSS-лента: статусы томов + расшифрованные хроники
+  manifest.ts       — PWA-манифест
   icon.svg          — фавикон
   api/route.ts      — health-check API
 src/components/     — cyber.tsx (эффекты), site-chrome.tsx (нав/футер), blocks.tsx,
                       book-detail.tsx, codex-card.tsx, chronicle-detail.tsx,
                       subscribe-form.tsx, scroll-top.tsx (кнопка «наверх»),
-                      ambient-audio.tsx (звуковой слой), ui/*
+                      ambient-audio.tsx (звуковой слой), seo.tsx (JSON-LD), ui/*
 src/lib/content.ts  — ЕДИНЫЙ ФАЙЛ КАНОНА: книги, персонажи, корпорации, импланты, оружие
 src/lib/sfx.ts      — UI-звуки (hover/click), хранятся локально в localStorage
 src/lib/site.ts     — центральная SEO-конфигурация (SITE_URL, имя, описание)
@@ -105,6 +108,9 @@ npx serve out        # или любой статический сервер
 
 - `robots.txt` — генерируется из `src/app/robots.ts`, содержит `Sitemap: <домен>/sitemap.xml`
 - `sitemap.xml` — из `src/app/sitemap.ts`
+- `feed.xml` — RSS-лента (`src/app/feed.xml/route.ts`), только фактология: тома и хроники
+- JSON-LD (Schema.org): `WebSite` в layout, `BookSeries`/`Book` на страницах книг,
+  `ProfilePage` на /author (см. `src/components/seo.tsx`)
 - Метаданные: title/description, canonical, Open Graph (`ru_RU`), Twitter Card, `robots: index, follow`, `themeColor`
 - `lang="ru"`, фавикон `icon.svg`
 

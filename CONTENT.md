@@ -15,6 +15,9 @@
 | `BOOKS` | аннотации, синопсисы, узлы, цитаты трёх томов | `/books`, `/books/tom-*` |
 | `CHARACTERS` | досье персонажей (текст, роль, цитата) | `/characters`, `/implants` |
 | `CORPORATIONS`, `FACTIONS` | семь корпораций и стороны конфликта | `/world` |
+| `DOSSIER_FILES` | интерактивное досье: город + семь корпораций (активы, шкалы, перехваты) | `/world` |
+| `TIMELINE`, `TIMELINE_ERAS` | хронология событий (том II собирается из актов `BOOKS`) | `/timeline` |
+| `CHARACTER_SIDES` | группы фильтра личных дел | `/characters` |
 | `WORLD_STATS`, `WORLD_OVERVIEW` | счётчики и обзор мира | `/world` |
 | `TECH`, `ANOMALIES` | технологии войны и аномалии | `/world` |
 | `DAILY_LIFE` | повседневность Хи-Мигаты | `/world` |

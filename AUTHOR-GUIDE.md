@@ -16,7 +16,8 @@
   `implants.ts`, оружие — `weapons.ts` и `weapon-specs.ts`, хроники —
   `chronicles.ts`, таймлайн — `timeline.ts`, фрагменты — `excerpts.ts`,
   галерея — `gallery.ts`, синопсис — `synopsis.ts`, суть истории —
-  `story.ts`, общее (акценты, пути к картинкам) — `shared.ts`.
+  `story.ts`, главная (маркиза, блоки) — `home.ts`, общее
+  (акценты, пути к картинкам) — `shared.ts`.
   Страницы — шаблоны, которые сами рисуют всё, что найдут в данных.
 - `src/lib/content.ts` — точка входа: только ре-экспорты модулей,
   его править не нужно.
@@ -384,7 +385,7 @@ synopsis (абзацы), acts, facts, terminalQuote. Копируй целико
 ### 5.13 Обновить синопсис, логлайн или темы цикла
 
 Канон-тексты цикла живут в `src/content/synopsis.ts` (синопсис,
-логлайн, темы, принципы, маркиза) и `src/content/story.ts`
+логлайн, темы, принципы) и `src/content/story.ts`
 (`HUMAN_STORIES`, `INFLUENCES`):
 
 - `SYNOPSIS_FULL` — полный синопсис «Проекта Восход» (массив

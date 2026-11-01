@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { PageHero, SectionHeading, MoreLink } from "@/components/blocks";
 import { Reveal } from "@/components/cyber";
 import { CorporationRegistry } from "@/components/corporation-registry";
-import { CORPORATIONS } from "@/lib/content";
+import { ResistanceGrid } from "@/components/resistance-grid";
+import { CORPORATIONS, RESISTANCE_GROUPS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Организации и корпорации",
@@ -92,6 +93,29 @@ export default function CorporationsPage() {
             </p>
           </Reveal>
           <CorporationRegistry items={CORPORATIONS} />
+        </div>
+      </section>
+
+      {/* сопротивление и независимые */}
+      <section className="relative border-t border-white/10 py-20 sm:py-24">
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <SectionHeading
+            kicker="Те, кто вне консорциума"
+            title="Сопротивление и независимые"
+            num="02"
+            accent="cyan"
+          />
+          <Reveal className="-mt-6 mb-12 text-center">
+            <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
+              У реестра есть обратная сторона: те, кого нельзя купить
+              карточками «Истока» и не найти в файлах HMD. Сводка «Периметра
+              Зеро» — здесь; полные файлы групп — в досье мира.
+            </p>
+          </Reveal>
+          <ResistanceGrid items={RESISTANCE_GROUPS} />
+          <Reveal className="mt-10 text-center">
+            <MoreLink href="/world">Полные файлы групп · досье мира</MoreLink>
+          </Reveal>
         </div>
       </section>
 

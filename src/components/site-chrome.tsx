@@ -158,6 +158,7 @@ export function SiteFooter() {
                 <li><Link href="/story" className="hover:text-[var(--neon-cyan)]">Суть истории</Link></li>
                 <li><Link href="/author" className="hover:text-[var(--neon-cyan)]">Автор</Link></li>
                 <li><Link href="/#subscribe" className="hover:text-[var(--neon-cyan)]">Подписка</Link></li>
+                <li><Link href="/feed.xml" className="hover:text-[var(--neon-cyan)]">RSS-лента</Link></li>
               </ul>
             </div>
           </div>

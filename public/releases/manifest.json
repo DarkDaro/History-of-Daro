@@ -1,0 +1,13 @@
+{
+  "generated": "2026-11-01",
+  "static": {
+    "file": "daro-site-static.zip",
+    "size": 6541759,
+    "sha256": "ee882d440810694a00c2eb3d3efa917ae78e638d9f831114d30f844be0bc3258"
+  },
+  "source": {
+    "file": "daro-site-source.zip",
+    "size": 2853259,
+    "sha256": "bcff5e8d73fd29829e7325f734e51a39322d07d99887af24354c2b71d43621a3"
+  }
+}

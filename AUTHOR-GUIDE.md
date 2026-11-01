@@ -416,6 +416,8 @@ synopsis (абзацы), acts, facts, terminalQuote. Копируй целико
 - карточка корпорации на `/corporations` — из массива `CORPORATIONS`;
 - фракция с `outside: true` — в блоке «Сопротивление и независимые»
   на `/corporations` (массив `RESISTANCE_GROUPS` собирается сам);
+- запись в `WEAPON_SPECS` — карточка на `/armory` в своей подгруппе
+  (`group` + порядок `WEAPON_SPEC_GROUPS`) и в поиске;
 - арт из `GALLERY` — на `/gallery`: сетка, фильтр и счётчики типов;
 - запись в поиске (Ctrl+K);
 - строка в sitemap.xml — но проверь, что маршрут внесён в

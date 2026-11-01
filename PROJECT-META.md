@@ -31,8 +31,9 @@ glitch, неон, бегущая строка (marquee), дождь, HUD-эле�
 | `src/app/corporations/` + `src/components/corporation-registry.tsx` | Страница «Организации и корпорации» | Реестр семи корпораций: данные из `CORPORATIONS` (content.ts), карточки открывают досье-панель; перекрёстные ссылки — словарь `CORP_LINKS` в компоненте. Автор добавляет корпорацию в content.ts — страница обновляется сама. Второй блок «Сопротивление и независимые» — `resistance-grid.tsx` из `RESISTANCE_GROUPS` (фракции с `outside: true`) |
 | `src/app/armory/` + `src/components/weapon-specs.tsx` | Страница «Вооружение» | Два среза арсенала: карточки войны из `WEAPONS` (сопротивление/корпорации) и канон-каталог «Оружие и владельцы» из `WEAPON_SPECS` — 17 записей с владельцами, параметрами, звук/светом и режимами; подгруппы — `WEAPON_SPEC_GROUPS`. Выжимка авторского каталога: без референсов и заметок художнику. В конец страницы добавлен блок «куда дальше» (персонажи/хроники) |
 | `src/app/gallery/` + `src/components/gallery-grid.tsx` | Страница «Галерея» | Визуальный архив: данные из `GALLERY` (content.ts) — 18 существующих артов из `public/` (сцены/портреты/обложки) с канон-подписями. Фильтр по типу, лайтбокс (Esc), CSS-колонки под разновысокие записи. Автор добавляет арт по рецепту 5.12 |
+| `src/content/home.ts` + `src/components/home-blocks.tsx` | Главная: маркиза и блоки-из-контента (C2) | `HOMEPAGE_BLOCKS`: порядок массива = порядок секций на главной (между хрониками и подпиской). 5 видов: stats / timeline / arsenal / quote / links; href проверяется линтером. Автор собирает главную правкой конфига — рецепт 5.14 |
 | `src/components/` | Переиспользуемые блоки | Шапка/футер (`site-chrome.tsx`), метатеги и Schema.org (`seo.tsx`), эффекты (glitch, rain, HUD…). Описаны один раз — работают на всех страницах |
-| `src/content/*.ts` | **«База данных» сайта** | Канон разбит на 15 модулей по темам (B3, 2026-11-02): books, characters, corporations, dossier, world, implants, weapons, weapon-specs, chronicles, timeline, story, synopsis, excerpts, gallery, shared. `src/lib/content.ts` — точка входа с ре-экспортами (импорты по сайту не менялись). Менять тексты = править модуль, а не десятки страниц |
+| `src/content/*.ts` | **«База данных» сайта** | Канон разбит на 16 модулей по темам (B3, 2026-11-02): books, characters, corporations, dossier, home, implants, weapons, weapon-specs, chronicles, timeline, story, synopsis, excerpts, gallery, world, shared. `src/lib/content.ts` — точка входа с ре-экспортами (импорты по сайту не менялись). Менять тексты = править модуль, а не десятки страниц |
 | `src/lib/search-index.ts` | Индекс поиска (Ctrl+K) | Собирается из модулей канона при сборке; клиент получает готовый массив записей. Fuse.js ищет по title/keywords/text |
 | `src/lib/site.ts` | Настройки сайта | Название, адреса, ссылки |
 | `src/lib/sfx.ts` | Звуки интерфейса (SFX) | Синтез на Web Audio API, без файлов: hover/click/confirm/deny/boot/whoosh + glitch/type/transition/palette/open/close. Выводится в шину «ui». Архитектура — п. 11 |
@@ -236,6 +237,10 @@ force-push `d5a6273`).
   `content.ts` — барел с ре-экспортами, 32 импортёра по сайту не
   тронуты, 49 экспортов до/после идентичны; линтер читает все файлы
   канона, make-og.py переведён на `books.ts`.
+- **C2: блоки-из-контента главной** (2026-11-02): `home.ts` (маркиза +
+  конфиг `HOMEPAGE_BLOCKS`) и `home-blocks.tsx` (5 шаблонов). Дефолт —
+  цифры мира и тизер таймлайна. Календарь событий мира — по-прежнему
+  ждёт датированных событий (без них `/timeline` покрывает хронологию).
 
 ## 9. Куда расти: формы, поиск, продающая страница
 

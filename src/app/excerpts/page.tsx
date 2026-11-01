@@ -7,6 +7,10 @@ import { Corners, Reveal } from "@/components/cyber";
 import { BOOKS, EXCERPTS } from "@/lib/content";
 
 export const metadata: Metadata = {
+  openGraph: {
+    title: "Фрагменты",
+    images: [{ url: "/covers/og-excerpts.png", width: 1200, height: 630, alt: "Фрагменты — История Даро" }],
+  },
   title: "Фрагменты",
   description:
     "Читалка вселенной «Истории Даро»: эпизоды из трёх томов — пролог «Красного сдвига», сделка на «Авангарде» из «Стеклянных небес» и тизер финального «Пепла и неона». Тексты в сопровождении перехваченных логов Хи-Мигаты.",

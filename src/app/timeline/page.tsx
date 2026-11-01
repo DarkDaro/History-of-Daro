@@ -5,6 +5,10 @@ import { CalendarView } from "@/components/calendar-view";
 import { TIMELINE, CALENDAR_EVENTS, CALENDAR_NOTE } from "@/lib/content";
 
 export const metadata: Metadata = {
+  openGraph: {
+    title: "Таймлайн 2147",
+    images: [{ url: "/covers/og-timeline.png", width: 1200, height: 630, alt: "Таймлайн 2147 — История Даро" }],
+  },
   title: "Таймлайн 2147",
   description:
     "Хронология и календарь событий цикла «История Даро»: от города-завода и Перелома — через «Красный сдвиг» и «Стеклянные небеса» к засекреченному финалу «Пепла и неона». Собрано из реестров, сводок и перехватов Хи-Мигаты.",

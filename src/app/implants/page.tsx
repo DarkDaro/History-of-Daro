@@ -5,6 +5,10 @@ import { Reveal } from "@/components/cyber";
 import { IMPLANTS, VISUALS } from "@/lib/content";
 
 export const metadata: Metadata = {
+  openGraph: {
+    title: "Импланты",
+    images: [{ url: "/covers/og-implants.png", width: 1200, height: 630, alt: "Импланты — История Даро" }],
+  },
   title: "Импланты",
   description:
     "Каталог имплантов вселенной «Истории Даро»: мнемокассета «МК-9», эмоциональный кодекс «Слепок», нейроинтерфейс «Проводник», каркас «Немезида-7» и мифический «Пустой слот».",

@@ -7,6 +7,10 @@ import { AUTHOR_NODE, JsonLd } from "@/components/seo";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
+  openGraph: {
+    title: "Автор",
+    images: [{ url: "/covers/og-author.png", width: 1200, height: 630, alt: "Автор — История Даро" }],
+  },
   title: "Автор",
   description:
     "Автор цикла «История Даро»: как начинался Хи-Мигата, откуда взялся Даро и почему в этой истории главное — люди, а не корпорации.",

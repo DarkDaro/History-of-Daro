@@ -7,6 +7,10 @@ import { Corners, Reveal } from "@/components/cyber";
 import { CHRONICLES } from "@/lib/content";
 
 export const metadata: Metadata = {
+  openGraph: {
+    title: "Хроники",
+    images: [{ url: "/covers/og-chronicles.png", width: 1200, height: 630, alt: "Хроники — История Даро" }],
+  },
   title: "Хроники",
   description:
     "Хроники вселенной «Истории Даро»: восстановленные фрагменты, флешбеки и расшифрованные записи мира Хи-Мигаты. Первый файл — флешбек Резонансного Охотника: побег из лабораторий консорциума.",

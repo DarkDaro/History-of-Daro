@@ -6,6 +6,10 @@ import { ResistanceGrid } from "@/components/resistance-grid";
 import { CORPORATIONS, RESISTANCE_GROUPS } from "@/lib/content";
 
 export const metadata: Metadata = {
+  openGraph: {
+    title: "Корпорации",
+    images: [{ url: "/covers/og-corporations.png", width: 1200, height: 630, alt: "Корпорации — История Даро" }],
+  },
   title: "Организации и корпорации",
   description:
     "Семь корпораций Хи-Мигаты — консорциум, который пишет законы и раздаёт гражданство как премиум-подписку: Технодоминус, Хи-Гама, Бергинатор, Синтез, Спектр, Исток, Купол. Реестр «Периметра Зеро».",

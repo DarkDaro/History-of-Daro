@@ -5,6 +5,10 @@ import { GalleryGrid } from "@/components/gallery-grid";
 import { GALLERY } from "@/lib/content";
 
 export const metadata: Metadata = {
+  openGraph: {
+    title: "Галерея",
+    images: [{ url: "/covers/og-gallery.png", width: 1200, height: 630, alt: "Галерея — История Даро" }],
+  },
   title: "Галерея — арты мира",
   description:
     "Визуальный архив «Истории Даро»: сцены Хи-Мигаты, портреты героев — Даро, Лины, Немезиды, Лорда Скорпиона — и обложки трёх томов. Фильтр по типам записей, подписи из канона.",

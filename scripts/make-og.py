@@ -147,3 +147,91 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# ============================================================
+# OG-картинки разделов (п.12.2 №7): public/covers/og-<slug>.png
+# Дизайн в духе сайта: градиент фона, углы-«Corners», киккер
+# «ИСТОРИЯ ДАРО // ХИ-МИГАТА 2147», крупный заголовок раздела,
+# неоновая линия и адрес страницы. Запуск: python3 scripts/make-og.py
+# ============================================================
+
+SECTIONS = [
+    ("books", "Книги цикла", "cyan"),
+    ("world", "Мир: Хи-Мигата", "cyan"),
+    ("characters", "Персонажи", "magenta"),
+    ("corporations", "Корпорации", "cyan"),
+    ("timeline", "Таймлайн 2147", "amber"),
+    ("gallery", "Галерея", "magenta"),
+    ("implants", "Импланты", "cyan"),
+    ("armory", "Вооружение", "amber"),
+    ("chronicles", "Хроники", "magenta"),
+    ("excerpts", "Фрагменты", "cyan"),
+    ("story", "Суть истории", "amber"),
+    ("author", "Автор", "magenta"),
+]
+AMBER = (255, 176, 32)
+ACCENT = {"cyan": CYAN, "magenta": MAGENTA, "amber": AMBER}
+
+
+def corners(d, size=56, width=4, inset=28):
+    """Углы-скобки в стиле компонента Corners."""
+    a = inset
+    x2, y2 = W - inset, H - inset
+    for (x, y, dx, dy) in [
+        (a, a, 1, 1), (x2, a, -1, 1), (x2, y2, -1, -1), (a, y2, 1, -1),
+    ]:
+        d.line([(x, y), (x + dx * size, y)], fill=CYAN + (200,), width=width)
+        d.line([(x, y), (x, y + dy * size)], fill=CYAN + (200,), width=width)
+
+
+def section_og(slug, title, accent):
+    img = Image.new("RGBA", (W, H), BG_TOP + (255,))
+    # вертикальный градиент фона
+    for y in range(H):
+        t = y / H
+        img.paste(
+            tuple(int(BG_TOP[i] + (BG_BOTTOM[i] - BG_TOP[i]) * t) for i in range(3)) + (255,),
+            (0, y, W, y + 1),
+        )
+    d = ImageDraw.Draw(img)
+    col = ACCENT[accent]
+
+    # углы и неоновые полосы сверху/снизу
+    corners(d)
+    d.line([(0, 6), (W, 6)], fill=col + (110,), width=2)
+    d.line([(0, H - 7), (W, H - 7)], fill=col + (110,), width=2)
+
+    # киккер
+    f_kick = ImageFont.truetype(FONT, 26)
+    kick = "ИСТОРИЯ ДАРО // ХИ-МИГАТА · 2147"
+    d.text(((W - d.textlength(kick, font=f_kick)) / 2, 92), kick,
+           font=f_kick, fill=GREY + (220,))
+
+    # заголовок раздела (по центру, с глоу)
+    f_title = ImageFont.truetype(FONT_BOLD, 96)
+    lines = wrap(d, title.upper(), f_title, W - 220)
+    y = H / 2 - len(lines) * 60
+    for line in lines:
+        lw = d.textlength(line, font=f_title)
+        glow_text(img, ((W - lw) / 2, y), line, f_title, WHITE, 10, 140)
+        y += 118
+
+    # неоновая линия + адрес
+    d.line([(W / 2 - 120, H - 150), (W / 2 + 120, H - 150)], fill=col + (220,), width=3)
+    f_addr = ImageFont.truetype(FONT, 22)
+    addr = "daro://" + (slug if slug != "books" else "books")
+    d.text(((W - d.textlength(addr, font=f_addr)) / 2, H - 118), addr,
+           font=f_addr, fill=col + (170,))
+
+    img.convert("RGB").save(COVERS / f"og-{slug}.png", "PNG")
+    print("og-" + slug + ".png — ок")
+
+
+def sections_main():
+    for slug, title, accent in SECTIONS:
+        section_og(slug, title, accent)
+
+
+if __name__ == "__main__":
+    sections_main()

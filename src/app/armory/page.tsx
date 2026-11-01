@@ -6,6 +6,10 @@ import { VISUALS, WEAPONS, type Weapon } from "@/lib/content";
 import { WeaponSpecsSection } from "@/components/weapon-specs";
 
 export const metadata: Metadata = {
+  openGraph: {
+    title: "Вооружение",
+    images: [{ url: "/covers/og-armory.png", width: 1200, height: 630, alt: "Вооружение — История Даро" }],
+  },
   title: "Вооружение",
   description:
     "Арсеналы войны из цикла «История Даро»: катана Даро на телекинетической энергии, призрачный клинок, ЭМИ-излучатель «Глушь» — и военные машины корпораций: дроны, стражи, прототипы «Карателей».",

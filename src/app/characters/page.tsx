@@ -6,6 +6,10 @@ import { Corners, Reveal } from "@/components/cyber";
 import { CHARACTERS } from "@/lib/content";
 
 export const metadata: Metadata = {
+  openGraph: {
+    title: "Персонажи",
+    images: [{ url: "/covers/og-characters.png", width: 1200, height: 630, alt: "Персонажи — История Даро" }],
+  },
   title: "Персонажи",
   description:
     "Герои цикла «История Даро»: Николас и Даро с расщеплённой личностью, Резонансный Охотник — пропавший брат Николаса, хакер Лина, Немезида (Кира Найтс), Айя, соратники «Периметра Зеро» и антагонисты — Сандерс Райз, Лорд Скорпион, Бергинатор.",

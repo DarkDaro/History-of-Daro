@@ -26,6 +26,10 @@ import {
 } from "@/lib/content";
 
 export const metadata: Metadata = {
+  openGraph: {
+    title: "Мир: Хи-Мигата",
+    images: [{ url: "/covers/og-world.png", width: 1200, height: 630, alt: "Мир: Хи-Мигата — История Даро" }],
+  },
   title: "Мир: Хи-Мигата",
   description:
     "Мир цикла «История Даро»: город Хи-Мигата, семь корпораций, сопротивление «Периметр Зеро», «цифровое удушение», проект «Генезис» и повседневность города.",

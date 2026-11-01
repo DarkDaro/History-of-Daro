@@ -13,6 +13,10 @@ import {
 } from "@/lib/content";
 
 export const metadata: Metadata = {
+  openGraph: {
+    title: "Суть истории",
+    images: [{ url: "/covers/og-story.png", width: 1200, height: 630, alt: "Суть истории — История Даро" }],
+  },
   title: "Суть истории",
   description:
     "Синопсис цикла «История Даро. Проект Восход»: логлайн, полный синопсис и темы. Пять людей, у которых война забрала память, имя и покой; принципы повествования и влияния.",

@@ -9,6 +9,10 @@ import { AUTHOR_NODE, JsonLd } from "@/components/seo";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
+  openGraph: {
+    title: "Книги цикла",
+    images: [{ url: "/covers/og-books.png", width: 1200, height: 630, alt: "Книги цикла — История Даро" }],
+  },
   title: "Книги цикла",
   description:
     "Три тома цикла «История Даро»: «Красный сдвиг» (готов к публикации), «Стеклянные небеса» (редактура), «Пепел и неон» (в работе). Антиутопия, боевик, неонуар.",

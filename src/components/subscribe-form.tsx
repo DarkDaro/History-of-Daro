@@ -6,14 +6,35 @@ import { useToast } from "@/hooks/use-toast";
 import { sfx } from "@/lib/sfx";
 
 /* ============================================================
-   Форма подписки (toast «Сигнал принят»).
+   Форма подписки — честная отправка без бекенда.
+
+   Приоритет каналов доставки (задаются при сборке, подхватываются
+   в deploy.yml из Variables репозитория):
+   1. NEXT_PUBLIC_FORM_ENDPOINT — POST в формате Formspree/Web3Forms
+      (Settings → Secrets and variables → Actions → Variables);
+   2. NEXT_PUBLIC_CONTACT_EMAIL — фолбэк: открыть почтовый клиент
+      (mailto) с готовым письмом-подпиской;
+   3. ничего не задано — честный тост «приёмник не подключён»
+      с указанием на RSS. Никаких ложных «Сигнал принят».
    ============================================================ */
+
+const ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "";
+const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "";
 
 export function SubscribeForm() {
   const { toast } = useToast();
   const [email, setEmail] = useState("");
+  const [busy, setBusy] = useState(false);
 
-  const handleSubscribe = () => {
+  const successToast = () => {
+    sfx("confirm");
+    toast({
+      title: "Сигнал принят",
+      description: "Вы в списке. «Периметр Зеро» выйдет на связь.",
+    });
+  };
+
+  const handleSubscribe = async () => {
     if (!email.includes("@")) {
       sfx("deny");
       toast({
@@ -23,12 +44,54 @@ export function SubscribeForm() {
       });
       return;
     }
-    sfx("confirm");
+
+    // 1. Реальный приёмник (Formspree/Web3Forms — оба принимают JSON POST).
+    if (ENDPOINT) {
+      setBusy(true);
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        });
+        if (!res.ok) throw new Error(`status ${res.status}`);
+        successToast();
+        setEmail("");
+      } catch {
+        sfx("deny");
+        toast({
+          variant: "destructive",
+          title: "Канал не ответил",
+          description: "Приёмник недоступен. Попробуйте позже.",
+        });
+      } finally {
+        setBusy(false);
+      }
+      return;
+    }
+
+    // 2. Фолбэк: письмо через почтовый клиент читателя.
+    if (CONTACT_EMAIL) {
+      sfx("confirm");
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+        "Подписка «Периметр Зеро»"
+      )}&body=${encodeURIComponent(email)}`;
+      toast({
+        title: "Канал связи открыт",
+        description: "Открываю почтовый клиент — отправьте письмо, и вы в списке.",
+      });
+      return;
+    }
+
+    // 3. Ничего не настроено — не врём, а отправляем в RSS.
+    sfx("deny");
     toast({
-      title: "Сигнал принят",
-      description: "Вы в списке. «Периметр Зеро» выйдет на связь.",
+      title: "Приёмник ещё не подключён",
+      description: "Форма пока без канала доставки. Анонсы уже выходят в RSS — ссылка в подвале сайта.",
     });
-    setEmail("");
   };
 
   return (
@@ -50,10 +113,11 @@ export function SubscribeForm() {
         <button
           type="button"
           onClick={handleSubscribe}
-          className="btn-beam inline-flex items-center justify-center gap-2 bg-[var(--neon-cyan)] px-8 py-4 font-mono-cyber text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_28px_rgba(0,240,255,0.4)] transition-shadow hover:shadow-[0_0_44px_var(--neon-cyan)]"
+          disabled={busy}
+          className="btn-beam inline-flex items-center justify-center gap-2 bg-[var(--neon-cyan)] px-8 py-4 font-mono-cyber text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_28px_rgba(0,240,255,0.4)] transition-shadow hover:shadow-[0_0_44px_var(--neon-cyan)] disabled:cursor-wait disabled:opacity-60"
         >
           <Send className="h-4 w-4" aria-hidden />
-          Подписаться
+          {busy ? "Передача…" : "Подписаться"}
         </button>
       </div>
       <p className="font-mono-cyber mt-5 text-[10px] uppercase tracking-[0.25em] text-white/40">

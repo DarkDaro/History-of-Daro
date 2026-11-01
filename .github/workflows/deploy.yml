@@ -47,6 +47,11 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.base.outputs.path }}
           NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io${{ steps.base.outputs.path }}
+          # Каналы доставки формы подписки (subscribe-form.tsx).
+          # Задаются в Settings → Secrets and variables → Actions → Variables;
+          # пустые значения = честный фолбэк (см. PROJECT-META.md, п. 8).
+          NEXT_PUBLIC_FORM_ENDPOINT: ${{ vars.NEXT_PUBLIC_FORM_ENDPOINT || '' }}
+          NEXT_PUBLIC_CONTACT_EMAIL: ${{ vars.NEXT_PUBLIC_CONTACT_EMAIL || '' }}
 
       - name: Add .nojekyll
         run: touch out/.nojekyll

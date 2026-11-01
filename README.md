@@ -21,6 +21,10 @@
 | `/author` | Автор + подписка |
 
 Все тексты разделов собраны в одном файле канона: `src/lib/content.ts`.
+Правила стиля текстов, карта данных и стоп-лист фраз — в [CONTENT.md](CONTENT.md).
+
+> Тексты прошли стилистический проход (Гибсон / Морган / Дик): деталь вместо
+> объяснения, цена вместо лозунга. При правке новых текстов держи их в том же голосе.
 
 ## Стек
 
@@ -51,8 +55,11 @@ src/app/
   icon.svg          — фавикон
   api/route.ts      — health-check API
 src/components/     — cyber.tsx (эффекты), site-chrome.tsx (нав/футер), blocks.tsx,
-                      book-detail.tsx, codex-card.tsx, subscribe-form.tsx, ambient-audio.tsx, ui/*
+                      book-detail.tsx, codex-card.tsx, chronicle-detail.tsx,
+                      subscribe-form.tsx, scroll-top.tsx (кнопка «наверх»),
+                      ambient-audio.tsx (звуковой слой), ui/*
 src/lib/content.ts  — ЕДИНЫЙ ФАЙЛ КАНОНА: книги, персонажи, корпорации, импланты, оружие
+src/lib/sfx.ts      — UI-звуки (hover/click), хранятся локально в localStorage
 src/lib/site.ts     — центральная SEO-конфигурация (SITE_URL, имя, описание)
 public/covers/      — обложки книг и hero-фон (сгенерированы ИИ)
 scripts/            — build-static.mjs, post-build.mjs, gen_images.sh

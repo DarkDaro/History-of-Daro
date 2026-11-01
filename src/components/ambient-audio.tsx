@@ -1,8 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Volume2, VolumeX } from "lucide-react";
-import { busInput, ensureAudioContext } from "@/lib/audio-engine";
+import { SlidersHorizontal, Volume2, VolumeX, X } from "lucide-react";
+import {
+  busInput,
+  ensureAudioContext,
+  getVolume,
+  setVolume,
+  VOL_DEFAULTS,
+  type VolumeKey,
+} from "@/lib/audio-engine";
 import { etherEnabled, setEtherEnabled } from "@/lib/sfx";
 
 /* ============================================================
@@ -270,45 +277,154 @@ export function CyberAmbientButton() {
       ? "Эфир…"
       : "Эфир OFF";
 
+  // --- Микшер громкости (A2): ползунки шин ядра ---
+  const [mixerOpen, setMixerOpen] = useState(false);
+  const [vols, setVols] = useState<Record<VolumeKey, number>>(VOL_DEFAULTS);
+  const mixerRef = useRef<HTMLDivElement | null>(null);
+
+  const openMixer = () => {
+    // Чтение localStorage — только по клику (после гидратации), SSR не страдает.
+    setVols({
+      master: getVolume("master"),
+      ambience: getVolume("ambience"),
+      music: getVolume("music"),
+      ui: getVolume("ui"),
+    });
+    setMixerOpen(true);
+  };
+
+  useEffect(() => {
+    if (!mixerOpen) return;
+    const onDown = (e: PointerEvent) => {
+      if (mixerRef.current && !mixerRef.current.contains(e.target as Node)) {
+        setMixerOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMixerOpen(false);
+    };
+    window.addEventListener("pointerdown", onDown);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [mixerOpen]);
+
+  const changeVol = (key: VolumeKey, raw: string) => {
+    const v = Number(raw) / 100;
+    setVolume(key, v);
+    setVols((prev) => ({ ...prev, [key]: v }));
+  };
+
   return (
-    <button
-      type="button"
-      onClick={toggle}
-      disabled={!supported}
-      data-playing={playing}
-      aria-pressed={playing}
-      aria-label={
-        playing
-          ? "Выключить атмосферный звук"
-          : "Включить атмосферный звук Даро"
-      }
-      title={
-        playing
-          ? "Атмосферный звук: ВКЛ (дождь · дрон · гром · звуки интерфейса)"
-          : armed
-            ? "«Эфир» включён — оживёт при первом клике на странице"
-            : "Атмосферный звук: ВЫКЛ — включить дарк-эмбиент и звуки интерфейса"
-      }
-      className={`group inline-flex h-9 items-center gap-2 px-3 font-mono-cyber text-[10px] uppercase tracking-[0.2em] transition-colors ${
-        playing
-          ? "neon-border-cyan text-[var(--neon-cyan)]"
-          : "border border-white/15 text-white/50 hover:text-white/80"
-      } disabled:opacity-40`}
-    >
-      {playing || armed ? (
-        <>
-          <Volume2 className="h-4 w-4" aria-hidden />
-          <span className="eq-bars hidden sm:inline-flex" aria-hidden>
-            <i /><i /><i /><i />
-          </span>
-          <span className="hidden sm:inline">{label}</span>
-        </>
-      ) : (
-        <>
-          <VolumeX className="h-4 w-4" aria-hidden />
-          <span className="hidden sm:inline">Эфир OFF</span>
-        </>
+    <div className="relative" ref={mixerRef}>
+      <div className="inline-flex items-stretch">
+        <button
+          type="button"
+          onClick={toggle}
+          disabled={!supported}
+          data-playing={playing}
+          aria-pressed={playing}
+          aria-label={
+            playing
+              ? "Выключить атмосферный звук"
+              : "Включить атмосферный звук Даро"
+          }
+          title={
+            playing
+              ? "Атмосферный звук: ВКЛ (дождь · дрон · гром · звуки интерфейса)"
+              : armed
+                ? "«Эфир» включён — оживёт при первом клике на странице"
+                : "Атмосферный звук: ВЫКЛ — включить дарк-эмбиент и звуки интерфейса"
+          }
+          className={`group inline-flex h-9 items-center gap-2 px-3 font-mono-cyber text-[10px] uppercase tracking-[0.2em] transition-colors ${
+            playing
+              ? "neon-border-cyan text-[var(--neon-cyan)]"
+              : "border border-white/15 text-white/50 hover:text-white/80"
+          } disabled:opacity-40`}
+        >
+          {playing || armed ? (
+            <>
+              <Volume2 className="h-4 w-4" aria-hidden />
+              <span className="eq-bars hidden sm:inline-flex" aria-hidden>
+                <i /><i /><i /><i />
+              </span>
+              <span className="hidden sm:inline">{label}</span>
+            </>
+          ) : (
+            <>
+              <VolumeX className="h-4 w-4" aria-hidden />
+              <span className="hidden sm:inline">Эфир OFF</span>
+            </>
+          )}
+        </button>
+        <button
+          type="button"
+          onClick={() => (mixerOpen ? setMixerOpen(false) : openMixer())}
+          disabled={!supported}
+          aria-expanded={mixerOpen}
+          aria-label="Открыть микшер громкости «Эфира»"
+          title="Микшер: общая громкость и баланс слоёв"
+          className={`inline-flex h-9 w-8 items-center justify-center border border-l-0 font-mono-cyber transition-colors ${
+            mixerOpen
+              ? "neon-border-cyan border-l-0 text-[var(--neon-cyan)]"
+              : "border-white/15 text-white/50 hover:text-white/80"
+          } disabled:opacity-40`}
+        >
+          <SlidersHorizontal className="h-3.5 w-3.5" aria-hidden />
+        </button>
+      </div>
+
+      {mixerOpen && (
+        <div
+          role="group"
+          aria-label="Микшер громкости"
+          className="absolute right-0 top-full z-50 mt-2 w-64 border border-[rgba(0,240,255,0.35)] bg-black/95 p-4 shadow-[0_0_30px_rgba(0,240,255,0.15)] backdrop-blur-sm"
+        >
+          <div className="mb-3 flex items-center justify-between">
+            <span className="neon-cyan font-mono-cyber text-[10px] uppercase tracking-[0.25em]">
+              Микшер эфира
+            </span>
+            <button
+              type="button"
+              onClick={() => setMixerOpen(false)}
+              aria-label="Закрыть микшер"
+              className="text-white/40 transition-colors hover:text-white/80"
+            >
+              <X className="h-3.5 w-3.5" aria-hidden />
+            </button>
+          </div>
+          {(
+            [
+              ["master", "Общая"],
+              ["ambience", "Дождь и город"],
+              ["music", "Темы страниц"],
+              ["ui", "Интерфейс"],
+            ] as Array<[VolumeKey, string]>
+          ).map(([key, rowLabel]) => (
+            <label key={key} className="mb-3 block last:mb-0">
+              <span className="font-mono-cyber flex items-baseline justify-between text-[10px] uppercase tracking-[0.2em] text-white/60">
+                {rowLabel}
+                <span className="neon-cyan">{Math.round(vols[key] * 100)}%</span>
+              </span>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                step={1}
+                value={Math.round(vols[key] * 100)}
+                onChange={(e) => changeVol(key, e.target.value)}
+                aria-label={`Громкость: ${rowLabel}`}
+                className="daro-slider mt-1"
+              />
+            </label>
+          ))}
+          <p className="font-mono-cyber mt-3 text-[9px] uppercase tracking-[0.2em] text-white/30">
+            Настройки запоминаются в браузере
+          </p>
+        </div>
       )}
-    </button>
+    </div>
   );
 }

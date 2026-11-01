@@ -768,3 +768,47 @@ html {
     animation: none !important;
   }
 }
+
+/* --- Микшер «Эфира»: неоновые ползунки громкости (A2) --- */
+.daro-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+.daro-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.12) 0 1px, transparent 1px 20%),
+    linear-gradient(90deg, rgba(0,240,255,0.55), rgba(255,42,109,0.35));
+  border: 1px solid rgba(0,240,255,0.3);
+}
+.daro-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 14px;
+  margin-top: -6px;
+  background: #05050f;
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0,240,255,0.8);
+}
+.daro-slider::-moz-range-track {
+  height: 4px;
+  background: linear-gradient(90deg, rgba(0,240,255,0.55), rgba(255,42,109,0.35));
+  border: 1px solid rgba(0,240,255,0.3);
+}
+.daro-slider::-moz-range-thumb {
+  width: 10px;
+  height: 14px;
+  border-radius: 0;
+  background: #05050f;
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0,240,255,0.8);
+}
+.daro-slider:focus-visible {
+  outline: 1px dashed rgba(0,240,255,0.7);
+  outline-offset: 3px;
+}

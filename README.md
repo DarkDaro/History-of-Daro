@@ -20,7 +20,8 @@
 | `/chronicles/pobeg-ohotnika` | Хроника ХР-01 «Побег и охота за ответами»: флешбек Резонансного Охотника |
 | `/author` | Автор + подписка |
 
-Все тексты разделов собраны в одном файле канона: `src/lib/content.ts`.
+Все тексты разделов собраны в модулях канона: `src/content/*.ts` (книги,
+персонажи, мир, оружие…). `src/lib/content.ts` — точка входа с ре-экспортами.
 Правила стиля текстов, карта данных и стоп-лист фраз — в [CONTENT.md](CONTENT.md).
 
 > Тексты прошли стилистический проход (Гибсон / Морган / Дик): деталь вместо
@@ -61,7 +62,7 @@ src/components/     — cyber.tsx (эффекты), site-chrome.tsx (нав/фу
                       book-detail.tsx, codex-card.tsx, chronicle-detail.tsx,
                       subscribe-form.tsx, scroll-top.tsx (кнопка «наверх»),
                       ambient-audio.tsx (звуковой слой), seo.tsx (JSON-LD), ui/*
-src/lib/content.ts  — ЕДИНЫЙ ФАЙЛ КАНОНА: книги, персонажи, корпорации, импланты, оружие
+src/content/*.ts    — МОДУЛИ КАНОНА: книги, персонажи, корпорации, импланты, оружие (src/lib/content.ts — ре-экспорт)
 src/lib/sfx.ts      — UI-звуки (hover/click), хранятся локально в localStorage
 src/lib/site.ts     — центральная SEO-конфигурация (SITE_URL, имя, описание)
 public/covers/      — обложки книг и hero-фон (сгенерированы ИИ)

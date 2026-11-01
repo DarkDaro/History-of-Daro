@@ -195,6 +195,7 @@ export function SiteFooter() {
                 <li><Link href="/implants" className="hover:text-[var(--neon-cyan)]">Импланты</Link></li>
                 <li><Link href="/armory" className="hover:text-[var(--neon-cyan)]">Вооружение</Link></li>
                 <li><Link href="/chronicles" className="hover:text-[var(--neon-cyan)]">Хроники</Link></li>
+                <li><Link href="/gallery" className="hover:text-[var(--neon-cyan)]">Галерея</Link></li>
               </ul>
             </div>
             <div className="col-span-2 sm:col-span-1">

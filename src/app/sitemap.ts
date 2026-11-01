@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/corporations", priority: 0.8, freq: "monthly" },
     { path: "/timeline", priority: 0.7, freq: "weekly" },
     { path: "/characters", priority: 0.8, freq: "monthly" },
+    { path: "/gallery", priority: 0.7, freq: "monthly" },
     { path: "/implants", priority: 0.7, freq: "monthly" },
     { path: "/armory", priority: 0.7, freq: "monthly" },
     { path: "/chronicles", priority: 0.8, freq: "weekly" },

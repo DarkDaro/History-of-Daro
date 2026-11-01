@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { PageHero, SectionHeading } from "@/components/blocks";
+import { PageHero, SectionHeading, MoreLink } from "@/components/blocks";
 import { CharacterDossier } from "@/components/character-dossier";
 import { Corners, Reveal } from "@/components/cyber";
 import { CHARACTERS } from "@/lib/content";
@@ -106,6 +106,22 @@ export default function CharactersPage() {
             </p>
           </Reveal>
           <CharacterDossier items={CHARACTERS.slice(1)} />
+        </div>
+      </section>
+
+      {/* куда дальше */}
+      <section className="relative border-t border-white/10 py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
+          <Reveal>
+            <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
+              Визуальные записи этих дел вынесены в отдельный архив — там
+              же сцены города и обложки томов с подписями из реестра.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <MoreLink href="/gallery">Галерея · визуальный архив</MoreLink>
+              <MoreLink href="/world">Досье мира</MoreLink>
+            </div>
+          </Reveal>
         </div>
       </section>
     </main>

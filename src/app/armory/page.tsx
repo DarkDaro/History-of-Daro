@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero, SectionHeading, SceneBanner } from "@/components/blocks";
+import { PageHero, SectionHeading, SceneBanner, MoreLink } from "@/components/blocks";
 import { Corners, Reveal, StatBar } from "@/components/cyber";
 import { Chip } from "@/components/blocks";
 import { VISUALS, WEAPONS, type Weapon } from "@/lib/content";
@@ -146,6 +146,22 @@ export default function ArmoryPage() {
                   </p>
                 </div>
               </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+      {/* куда дальше */}
+      <section className="relative border-t border-white/10 py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
+          <Reveal>
+            <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
+              За каждым стволом из каталога стоит владелец — личные дела тех,
+              кто это оружие носит, живут в отдельном разделе. Как оно работает
+              в бою — в восстановленных записях города.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <MoreLink href="/characters">Персонажи · владельцы оружия</MoreLink>
+              <MoreLink href="/chronicles">Хроники · оружие в деле</MoreLink>
             </div>
           </Reveal>
         </div>

@@ -14,7 +14,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
 COVERS = ROOT / "public" / "covers"
-CONTENT = ROOT / "src" / "lib" / "content.ts"
+CONTENT = ROOT / "src" / "content" / "books.ts"  # B3: BOOKS переехал из content.ts в модуль книг
 
 W, H = 1200, 630
 BG_TOP = (7, 7, 15)

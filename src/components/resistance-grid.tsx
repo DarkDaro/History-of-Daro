@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { Accent, Faction } from "@/lib/content";
 import { Corners, Reveal } from "@/components/cyber";
 import { Chip } from "@/components/blocks";
@@ -27,10 +28,30 @@ const ACCENT_HOVER: Record<Accent, string> = {
   amber: "hover:border-[var(--neon-amber)]/40",
 };
 
+/** Смежные файлы на карточке: ключ — id фракции в FACTIONS.
+ *  Добавил группу в content.ts — строка здесь даёт ей ссылки.
+ *  Без строки карточка просто без ссылок. */
+const RESISTANCE_LINKS: Record<string, { href: string; label: string }[]> = {
+  PZ: [
+    { href: "/characters", label: "Личные дела: Лина и соратники" },
+    { href: "/chronicles", label: "Хроники: перехваты" },
+  ],
+  SC: [
+    { href: "/armory", label: "Арсенал: машины Скорпиона" },
+    { href: "/timeline", label: "Таймлайн 2147" },
+  ],
+  DK: [
+    { href: "/implants", label: "Импланты чёрного рынка" },
+    { href: "/world", label: "Досье мира" },
+  ],
+};
+
 export function ResistanceGrid({ items }: { items: Faction[] }) {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {items.map((f, i) => (
+      {items.map((f, i) => {
+        const links = RESISTANCE_LINKS[f.id];
+        return (
         <Reveal key={f.id} delay={(i % 3) * 0.08}>
           <article
             onMouseEnter={() => sfx("hover")}
@@ -50,9 +71,28 @@ export function ResistanceGrid({ items }: { items: Faction[] }) {
               {f.role}
             </p>
             <p className="font-cyber mt-4 text-sm leading-relaxed text-white/70">{f.text}</p>
+            {links && (
+              <div className="mt-5 border-t border-white/5 pt-4">
+                <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/35">
+                  Смежные файлы
+                </p>
+                <div className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1.5">
+                  {links.map((l) => (
+                    <Link
+                      key={l.href}
+                      href={l.href}
+                      className="font-mono-cyber text-[10px] uppercase tracking-[0.2em] text-white/50 transition-colors hover:text-[var(--neon-cyan)]"
+                    >
+                      → {l.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </article>
         </Reveal>
-      ))}
+        );
+      })}
     </div>
   );
 }

@@ -10,7 +10,7 @@ import {
   Users,
   Wrench,
 } from "lucide-react";
-import { PageHero, SectionHeading, Chip, SceneBanner } from "@/components/blocks";
+import { PageHero, SectionHeading, Chip, SceneBanner, MoreLink } from "@/components/blocks";
 import { Counter, Reveal } from "@/components/cyber";
 import { DossierConsole } from "@/components/dossier-console";
 import {
@@ -290,6 +290,9 @@ export default function WorldPage() {
               </div>
             </Reveal>
           </div>
+          <Reveal className="mt-10 text-center">
+            <MoreLink href="/timeline">Хронология событий · таймлайн 2147</MoreLink>
+          </Reveal>
         </div>
       </section>
     </main>

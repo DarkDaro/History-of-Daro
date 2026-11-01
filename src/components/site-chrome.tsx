@@ -148,6 +148,7 @@ export function SiteFooter() {
               <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/50">Мир</p>
               <ul className="font-mono-cyber mt-3 space-y-2 text-[11px] uppercase tracking-[0.2em] text-white/45">
                 <li><Link href="/world" className="hover:text-[var(--neon-cyan)]">Хи-Мигата</Link></li>
+                <li><Link href="/timeline" className="hover:text-[var(--neon-cyan)]">Таймлайн 2147</Link></li>
                 <li><Link href="/characters" className="hover:text-[var(--neon-cyan)]">Персонажи</Link></li>
                 <li><Link href="/implants" className="hover:text-[var(--neon-cyan)]">Импланты</Link></li>
                 <li><Link href="/armory" className="hover:text-[var(--neon-cyan)]">Вооружение</Link></li>

@@ -20,8 +20,9 @@ import {
 } from "lucide-react";
 import { BootOverlay, Corners, Rain, Skyline } from "@/components/cyber";
 import { FogBand } from "@/components/blocks";
+import { HomeBlocks } from "@/components/home-blocks";
 import { SubscribeForm } from "@/components/subscribe-form";
-import { BOOKS, CHRONICLES, HUMAN_STORIES, MARQUEE_ITEMS } from "@/lib/content";
+import { BOOKS, CHRONICLES, HOMEPAGE_BLOCKS, HUMAN_STORIES, MARQUEE_ITEMS } from "@/lib/content";
 
 /* ============================================================
    ИСТОРИЯ ДАРО — главная страница-хаб.
@@ -518,6 +519,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ======================= БЛОКИ-ИЗ-КОНТЕНТА (HOMEPAGE_BLOCKS) ======================= */}
+      <HomeBlocks blocks={HOMEPAGE_BLOCKS} />
 
       {/* ======================= ПОДПИСКА ======================= */}
       <section id="subscribe" className="relative overflow-hidden border-t border-white/10 py-24 sm:py-28">

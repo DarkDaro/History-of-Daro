@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHero, Chip, SceneBanner, TerminalQuote } from "@/components/blocks";
 import { Reveal } from "@/components/cyber";
-import { BOOKS, VISUALS } from "@/lib/content";
+import { BOOKS, SYNOPSIS_SHORT, VISUALS } from "@/lib/content";
 import { AUTHOR_NODE, JsonLd } from "@/components/seo";
 import { SITE_URL } from "@/lib/site";
 
@@ -54,6 +54,31 @@ export default function BooksPage() {
             accent="magenta"
             priority
           />
+        </div>
+      </section>
+
+      {/* анонс цикла — краткий синопсис от автора */}
+      <section className="relative pb-4 pt-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <Reveal>
+            <div className="beam-border-static p-7 sm:p-10">
+              <p className="font-mono-cyber text-[10px] uppercase tracking-[0.35em] neon-cyan">
+                Анонс цикла · текст автора
+              </p>
+              <div className="mt-5 max-w-4xl space-y-4">
+                {SYNOPSIS_SHORT.map((p, i) => (
+                  <p
+                    key={i}
+                    className={`font-cyber leading-relaxed ${
+                      i === 0 ? "text-white/85 sm:text-base" : "text-sm text-white/65 sm:text-base"
+                    }`}
+                  >
+                    {p}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 

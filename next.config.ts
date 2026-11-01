@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { execSync } from "node:child_process";
 
 /**
  * Два режима сборки:
@@ -20,8 +21,25 @@ const isStaticExport =
 
 const basePath = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/+$/, "");
 
+/** Версия сборки для футера: sha коммита + дата (инжектится при сборке). */
+function buildInfo() {
+  try {
+    const sha = execSync("git rev-parse --short HEAD").toString().trim();
+    return { sha, date: new Date().toISOString().slice(0, 10) };
+  } catch {
+    // вне git-репозитория (например, распакованный zip) — без sha
+    return { sha: "dev", date: new Date().toISOString().slice(0, 10) };
+  }
+}
+
+const { sha: buildSha, date: buildDate } = buildInfo();
+
 const shared: NextConfig = {
   reactStrictMode: false,
+  env: {
+    NEXT_PUBLIC_BUILD_SHA: buildSha,
+    NEXT_PUBLIC_BUILD_DATE: buildDate,
+  },
 };
 
 const nextConfig: NextConfig = isStaticExport

@@ -168,6 +168,7 @@ export function themeForPathname(path: string): ThemeId {
   if (path === "/" || path === "") return "home";
   if (path.startsWith("/books")) return "books";
   if (path.startsWith("/world")) return "world";
+  if (path.startsWith("/corporations")) return "world";
   if (path.startsWith("/characters")) return "characters";
   if (path.startsWith("/excerpts")) return "excerpts";
   if (path.startsWith("/timeline")) return "timeline";

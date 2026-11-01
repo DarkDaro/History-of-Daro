@@ -17,6 +17,7 @@ export const NAV_LINKS = [
   { href: "/books", label: "Книги" },
   { href: "/excerpts", label: "Фрагменты" },
   { href: "/world", label: "Мир" },
+  { href: "/corporations", label: "Корпорации" },
   { href: "/characters", label: "Персонажи" },
   { href: "/implants", label: "Импланты" },
   { href: "/armory", label: "Вооружение" },
@@ -76,7 +77,7 @@ export function SiteNav() {
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-3 font-mono-cyber text-[11px] uppercase tracking-[0.15em] text-white/70 lg:flex xl:gap-4 xl:text-xs xl:tracking-[0.18em]">
+        <ul className="hidden items-center gap-3 font-mono-cyber text-[11px] uppercase tracking-[0.15em] text-white/70 lg:flex xl:gap-2">
           {NAV_LINKS.map((l) => (
             <li key={l.href}>
               <Link
@@ -104,15 +105,14 @@ export function SiteNav() {
             className="group flex items-center gap-2 border border-white/15 bg-white/[0.03] px-3 py-2 font-mono-cyber text-[10px] uppercase tracking-[0.2em] text-white/60 transition-colors hover:border-[var(--neon-cyan)]/50 hover:text-[var(--neon-cyan)]"
           >
             <Search className="h-4 w-4" aria-hidden />
-            <span className="hidden md:inline">Поиск</span>
-            <kbd className="hidden border border-white/15 px-1.5 py-0.5 text-[9px] tracking-[0.15em] text-white/40 group-hover:text-white/60 xl:inline">
+            <kbd className="hidden border border-white/15 px-1.5 py-0.5 text-[9px] tracking-[0.15em] text-white/40 group-hover:text-white/60 2xl:inline">
               Ctrl K
             </kbd>
           </button>
           <CyberAmbientButton />
           <Link
             href="/#subscribe"
-            className="btn-beam neon-border-cyan hidden px-4 py-2 font-mono-cyber text-xs uppercase tracking-widest text-[var(--neon-cyan)] transition-colors hover:bg-[var(--neon-cyan)]/10 md:inline-flex"
+            className="btn-beam neon-border-cyan hidden px-3.5 py-2 font-mono-cyber text-xs uppercase tracking-widest text-[var(--neon-cyan)] transition-colors hover:bg-[var(--neon-cyan)]/10 xl:inline-flex"
           >
             Подписаться
           </Link>
@@ -189,6 +189,7 @@ export function SiteFooter() {
               <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/50">Мир</p>
               <ul className="font-mono-cyber mt-3 space-y-2 text-[11px] uppercase tracking-[0.2em] text-white/45">
                 <li><Link href="/world" className="hover:text-[var(--neon-cyan)]">Хи-Мигата</Link></li>
+                <li><Link href="/corporations" className="hover:text-[var(--neon-cyan)]">Корпорации</Link></li>
                 <li><Link href="/timeline" className="hover:text-[var(--neon-cyan)]">Таймлайн 2147</Link></li>
                 <li><Link href="/characters" className="hover:text-[var(--neon-cyan)]">Персонажи</Link></li>
                 <li><Link href="/implants" className="hover:text-[var(--neon-cyan)]">Импланты</Link></li>

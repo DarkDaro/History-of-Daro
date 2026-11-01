@@ -137,6 +137,9 @@ export default function WorldPage() {
           <Reveal>
             <DossierConsole files={DOSSIER_FILES} />
           </Reveal>
+          <Reveal className="mt-10 text-center">
+            <MoreLink href="/corporations">Реестр корпораций · отдельная страница</MoreLink>
+          </Reveal>
         </div>
       </section>
 

@@ -3,6 +3,7 @@ import { PageHero, SectionHeading, SceneBanner } from "@/components/blocks";
 import { Corners, Reveal, StatBar } from "@/components/cyber";
 import { Chip } from "@/components/blocks";
 import { VISUALS, WEAPONS, type Weapon } from "@/lib/content";
+import { WeaponSpecsSection } from "@/components/weapon-specs";
 
 export const metadata: Metadata = {
   title: "Вооружение",
@@ -95,6 +96,24 @@ export default function ArmoryPage() {
                 <WeaponCard w={w} />
               </Reveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* канон-каталог: оружие и владельцы */}
+      <section className="relative border-t border-white/10 py-20 sm:py-24">
+        <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <SectionHeading kicker="Канон-каталог · текст автора" title="Оружие и владельцы" num="03" />
+          <Reveal>
+            <p className="max-w-3xl font-cyber text-sm leading-relaxed text-white/65 sm:text-base">
+              Каждый клинок — характер: катана Даро — элегантность, HF-клинок Райдена —
+              индустриальность, призрачный клинок — тайна. Звук и свет — часть оружия:
+              по нему читается биография владельца.
+            </p>
+          </Reveal>
+          <div className="mt-10">
+            <WeaponSpecsSection />
           </div>
         </div>
       </section>

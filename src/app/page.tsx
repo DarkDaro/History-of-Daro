@@ -160,19 +160,19 @@ export default function Home() {
             className="mt-11 flex flex-col items-center justify-center gap-4 sm:flex-row"
           >
             <Link
-              href="/books"
+              href="/excerpts/holodnyj-start"
               className="btn-beam group inline-flex items-center gap-2 bg-[var(--neon-magenta)] px-8 py-4 font-mono-cyber text-sm font-bold uppercase tracking-widest text-black shadow-[0_0_28px_rgba(255,42,109,0.45)] transition-shadow hover:shadow-[0_0_44px_var(--neon-magenta)]"
             >
-              <BookOpen className="h-4 w-4" aria-hidden />
-              Книги цикла
+              <ScrollText className="h-4 w-4" aria-hidden />
+              Читать фрагмент
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
             </Link>
             <Link
-              href="/characters"
+              href="/books"
               className="inline-flex items-center gap-2 px-8 py-4 font-mono-cyber text-sm uppercase tracking-widest neon-border-cyan text-[var(--neon-cyan)] transition-colors hover:bg-[var(--neon-cyan)]/10"
             >
-              <Users className="h-4 w-4" aria-hidden />
-              Персонажи
+              <BookOpen className="h-4 w-4" aria-hidden />
+              Книги цикла
             </Link>
           </motion.div>
         </motion.div>

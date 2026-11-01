@@ -5,6 +5,8 @@ import { ArrowRight } from "lucide-react";
 import { PageHero, Chip, SceneBanner, TerminalQuote } from "@/components/blocks";
 import { Reveal } from "@/components/cyber";
 import { BOOKS, VISUALS } from "@/lib/content";
+import { AUTHOR_NODE, JsonLd } from "@/components/seo";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Книги цикла",
@@ -16,6 +18,25 @@ export const metadata: Metadata = {
 export default function BooksPage() {
   return (
     <main className="min-h-screen bg-[#05050a] text-white">
+      {/* Schema.org: серия книг и входящие в неё тома */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BookSeries",
+          name: "История Даро",
+          url: `${SITE_URL}/books`,
+          inLanguage: "ru",
+          author: AUTHOR_NODE,
+          hasPart: BOOKS.map((b) => ({
+            "@type": "Book",
+            name: `«${b.title}»`,
+            url: `${SITE_URL}/books/${b.slug}`,
+            abstract: b.logline,
+            inLanguage: "ru",
+            creativeWorkStatus: b.status,
+          })),
+        }}
+      />
       <PageHero
         kicker="Каталог цикла · 3 тома"
         title="Книги"

@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { SiteNav, SiteFooter } from "@/components/site-chrome";
 import { AtmosphereFX } from "@/components/cyber";
 import { ScrollTopButton } from "@/components/scroll-top";
+import { JsonLd } from "@/components/seo";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 
 const displayFont = Russo_One({
@@ -96,6 +97,18 @@ export default function RootLayout({
         <div className="noise-overlay" aria-hidden />
         <div className="vignette" aria-hidden />
         <AtmosphereFX />
+
+        {/* Schema.org: сайт цикла */}
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: `${SITE_NAME} — цикл романов`,
+            url: SITE_URL,
+            description: SITE_DESCRIPTION,
+            inLanguage: "ru-RU",
+          }}
+        />
 
         <SiteNav />
         {children}

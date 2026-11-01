@@ -3,6 +3,8 @@ import { Feather, Radio } from "lucide-react";
 import { PageHero, Chip } from "@/components/blocks";
 import { Corners, Reveal } from "@/components/cyber";
 import { SubscribeForm } from "@/components/subscribe-form";
+import { AUTHOR_NODE, JsonLd } from "@/components/seo";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Автор",
@@ -14,6 +16,16 @@ export const metadata: Metadata = {
 export default function AuthorPage() {
   return (
     <main className="min-h-screen bg-[#05050a] text-white">
+      {/* Schema.org: профиль автора (имя намеренно не раскрывается сайтом) */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          url: `${SITE_URL}/author`,
+          inLanguage: "ru",
+          mainEntity: AUTHOR_NODE,
+        }}
+      />
       <PageHero
         kicker="Об авторе · канал связи"
         title="Автор"

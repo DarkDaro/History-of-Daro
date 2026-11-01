@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { PageHero, Chip, TerminalQuote } from "@/components/blocks";
 import { Corners, Reveal } from "@/components/cyber";
+import { AUTHOR_NODE, JsonLd } from "@/components/seo";
+import { SITE_URL } from "@/lib/site";
 import type { Book } from "@/lib/content";
 
 /* ============================================================
@@ -28,6 +30,25 @@ export function BookDetail({
 
   return (
     <main className="min-h-screen bg-[#05050a] text-white">
+      {/* Schema.org: конкретный том серии */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Book",
+          name: `«${book.title}»`,
+          alternateName: `${book.volume} · цикл «История Даро»`,
+          url: `${SITE_URL}/books/${book.slug}`,
+          abstract: book.logline,
+          inLanguage: "ru",
+          author: AUTHOR_NODE,
+          isPartOf: {
+            "@type": "BookSeries",
+            name: "История Даро",
+            url: `${SITE_URL}/books`,
+          },
+          creativeWorkStatus: book.status,
+        }}
+      />
       <PageHero
         kicker={`${book.volume} · ${book.status}`}
         title={book.title}

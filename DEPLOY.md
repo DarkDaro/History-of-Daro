@@ -31,7 +31,8 @@ git remote add origin https://github.com/<логин>/<репо>.git
 git push -u origin main
 ```
 
-Затем один переключатель в браузере:
+Включать Pages вручную не нужно: workflow делает это сам
+(`configure-pages` с `enablement: true`). Если Pages всё же выключен —
 **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
 Через минуту-две сайт живёт на `https://<логин>.github.io/<репо>/`.

@@ -1,8 +1,7 @@
 name: Deploy to GitHub Pages
 
 # Автодеплой статической версии сайта на GitHub Pages.
-# Один раз включите Pages в настройках репозитория:
-# Settings → Pages → Source → GitHub Actions.
+# Pages включается автоматически (enablement: true в configure-pages).
 
 on:
   push:
@@ -53,6 +52,8 @@ jobs:
         run: touch out/.nojekyll
 
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:

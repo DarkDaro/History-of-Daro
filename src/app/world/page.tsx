@@ -236,7 +236,9 @@ export default function WorldPage() {
           <Reveal className="-mt-6 mb-12 text-center">
             <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
               Война корпораций — на страницах романов. А в городе между тем
-              идёт обычный день: очереди, смены, сканеры, дождь. Полевые записи о том, как выглядит антиутопия изнутри.
+              идёт обычный день: очереди, смены, сканеры, дождь. Полевые
+              записи о том, как выглядит изнутри город, в котором всё
+              стабильно.
             </p>
           </Reveal>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -14,8 +14,9 @@ import { etherEnabled, setEtherEnabled } from "@/lib/sfx";
 
 /* ============================================================
    CyberAmbient — генеративный дарк-эмбиент на Web Audio API.
-   Слои: шум дождя, низкий дрон, медленный пэд-аккорд,
-   суб-пульс и случайные раскаты грома. Без внешних файлов.
+   Слои: дождь (розовый шум + капли + желоба, A3), низкий дрон,
+   медленный пэд-аккорд, суб-пульс и случайные раскаты грома.
+   Без внешних файлов. Вывод — в шину «ambience» аудио-ядра (A1).
    Состояние запоминается: при следующем визите эмбиент
    оживёт сам, на первом жесте пользователя (требование
    браузеров к автозапуску звука). Туда же привязаны SFX.
@@ -33,6 +34,7 @@ function createEngine(ctx: AudioContext) {
 
   const stops: Array<() => void> = [];
   const timers: Array<ReturnType<typeof setTimeout>> = [];
+  let dead = false; // флаг остановки для планировщиков (капли не живут после cleanup)
 
   const osc = (
     type: OscillatorType,
@@ -60,6 +62,30 @@ function createEngine(ctx: AudioContext) {
     const buf = ctx.createBuffer(1, ctx.sampleRate * seconds, ctx.sampleRate);
     const data = buf.getChannelData(0);
     for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+    return buf;
+  };
+
+  /* Розовый шум (фильтр Пола Келлета): энергия падает с частотой —
+     база дождя звучит «водой», а не шипением белого шума (A3).
+     Стерео-каналы генерируются независимо — широкая база. */
+  const pinkNoiseBuffer = (seconds = 4) => {
+    const len = Math.ceil(ctx.sampleRate * seconds);
+    const buf = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (let ch = 0; ch < 2; ch++) {
+      const data = buf.getChannelData(ch);
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      for (let i = 0; i < len; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.969 * b2 + white * 0.153852;
+        b3 = 0.8665 * b3 + white * 0.3104856;
+        b4 = 0.55 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.016898;
+        data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+        b6 = white * 0.115926;
+      }
+    }
     return buf;
   };
 
@@ -96,26 +122,92 @@ function createEngine(ctx: AudioContext) {
     return src;
   };
 
-  /* ---------- Слой 1: дождь ---------- */
+  /* ---------- Слой 1: дождь (A3: розовый шум + капли + желоба) ---------- */
   const rainFilter = ctx.createBiquadFilter();
   rainFilter.type = "lowpass";
-  rainFilter.frequency.value = 1500;
-  rainFilter.Q.value = 0.6;
+  rainFilter.frequency.value = 1000;
+  rainFilter.Q.value = 0.4;
   const rainGain = ctx.createGain();
-  rainGain.gain.value = 0.13;
+  rainGain.gain.value = 0.17;
   rainFilter.connect(rainGain).connect(master);
-  noiseSource(noiseBuffer(2.1)).connect(rainFilter);
-  lfo(0.06, 0.1, 0.17, rainGain.gain);
+  noiseSource(pinkNoiseBuffer(4.3)).connect(rainFilter);
+  lfo(0.05, 0.12, 0.21, rainGain.gain);
 
   const hiss = ctx.createBiquadFilter();
   hiss.type = "bandpass";
   hiss.frequency.value = 4200;
   hiss.Q.value = 0.9;
   const hissGain = ctx.createGain();
-  hissGain.gain.value = 0.018;
+  hissGain.gain.value = 0.015;
   hiss.connect(hissGain).connect(master);
   noiseSource(noiseBuffer(1.7)).connect(hiss);
-  lfo(0.11, 0.008, 0.028, hissGain.gain);
+  lfo(0.11, 0.007, 0.024, hissGain.gain);
+
+  /* Капли по металлу и брезенту: короткие всплески через bandpass,
+     случайная плотность 7–18 в секунду, случайный стерео-разлёт. */
+  const panner = () => {
+    if (!ctx.createStereoPanner) return null;
+    const p = ctx.createStereoPanner();
+    p.pan.value = Math.random() * 1.5 - 0.75;
+    p.connect(master);
+    stops.push(() => {
+      try {
+        p.disconnect();
+      } catch {
+        /* already disconnected */
+      }
+    });
+    return p;
+  };
+
+  const droplet = () => {
+    if (dead) return;
+    const t = ctx.currentTime;
+    const dur = 0.02 + Math.random() * 0.04;
+    const src = ctx.createBufferSource();
+    src.buffer = noiseBuffer(Math.max(0.06, dur + 0.02));
+    const f = ctx.createBiquadFilter();
+    f.type = "bandpass";
+    f.frequency.value = 1200 + Math.random() * 3000;
+    f.Q.value = 2 + Math.random() * 5;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.008 + Math.random() * 0.028, t + 0.004);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    const p = panner();
+    src.connect(f).connect(g).connect(p ?? master);
+    src.start(t);
+    src.stop(t + dur + 0.05);
+    const next = setTimeout(droplet, 55 + Math.random() * 85);
+    timers.push(next);
+  };
+  timers.push(setTimeout(droplet, 900 + Math.random() * 800));
+
+  /* Желоб: редкая одиночная капля с нисходящим пингом (раз в 9–20 с). */
+  const gutterDrop = () => {
+    if (dead) return;
+    const t = ctx.currentTime;
+    const dur = 0.22 + Math.random() * 0.18;
+    const src = ctx.createBufferSource();
+    src.buffer = noiseBuffer(dur + 0.1);
+    const f = ctx.createBiquadFilter();
+    f.type = "bandpass";
+    const f0 = 620 + Math.random() * 320;
+    f.frequency.setValueAtTime(f0, t);
+    f.frequency.exponentialRampToValueAtTime(f0 * 0.55, t + dur);
+    f.Q.value = 8 + Math.random() * 3;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.05, t + 0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    const p = panner();
+    src.connect(f).connect(g).connect(p ?? master);
+    src.start(t);
+    src.stop(t + dur + 0.1);
+    const next = setTimeout(gutterDrop, 9000 + Math.random() * 11000);
+    timers.push(next);
+  };
+  timers.push(setTimeout(gutterDrop, 5000 + Math.random() * 6000));
 
   /* ---------- Слой 2: дрон ---------- */
   const droneFilter = ctx.createBiquadFilter();
@@ -177,6 +269,7 @@ function createEngine(ctx: AudioContext) {
   return {
     master,
     cleanup() {
+      dead = true;
       timers.forEach(clearTimeout);
       stops.forEach((s) => s());
     },

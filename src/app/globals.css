@@ -265,6 +265,27 @@ html {
   scroll-behavior: smooth;
 }
 
+/* --- A11y: skip-link — невидим, пока фокус не попадёт на него с клавиатуры --- */
+.skip-link {
+  position: fixed;
+  top: -64px;
+  left: 1rem;
+  z-index: 120;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--neon-cyan);
+  background: #05050a;
+  color: var(--neon-cyan);
+  font-family: var(--font-mono-cyber), monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  transition: top 0.15s ease-out;
+}
+.skip-link:focus-visible {
+  top: 1rem;
+  outline: none;
+}
+
 /* --- Мобильный адаптив: запрет случайного горизонтального скролла.
    clip (не hidden): не создаёт новый контекст прокрутки и не ломает
    position: sticky. Декоративные absolute-слои (fog-drift и т.п.)

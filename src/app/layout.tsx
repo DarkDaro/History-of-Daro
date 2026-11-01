@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SiteNav, SiteFooter } from "@/components/site-chrome";
 import { AtmosphereFX } from "@/components/cyber";
+import { MotionProvider } from "@/components/motion-provider";
 import { ScrollTopButton } from "@/components/scroll-top";
 import { JsonLd } from "@/components/seo";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
@@ -96,6 +97,11 @@ export default function RootLayout({
       <body
         className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} antialiased flex min-h-screen flex-col bg-[#05050a] text-foreground`}
       >
+        {/* a11y: переход к содержанию с клавиатуры (виден при фокусе) */}
+        <a href="#main-content" className="skip-link">
+          Перейти к содержанию
+        </a>
+
         {/* глобальные атмосферные эффекты — на всех страницах */}
         <div className="noise-overlay" aria-hidden />
         <div className="vignette" aria-hidden />
@@ -114,7 +120,9 @@ export default function RootLayout({
         />
 
         <SiteNav />
-        {children}
+        <div id="main-content" className="contents">
+          <MotionProvider>{children}</MotionProvider>
+        </div>
         <SiteFooter />
         <ScrollTopButton />
         <Toaster />

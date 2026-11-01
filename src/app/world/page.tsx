@@ -12,10 +12,11 @@ import {
 } from "lucide-react";
 import { PageHero, SectionHeading, Chip, SceneBanner } from "@/components/blocks";
 import { Counter, Reveal } from "@/components/cyber";
+import { DossierConsole } from "@/components/dossier-console";
 import {
   ANOMALIES,
-  CORPORATIONS,
   DAILY_LIFE,
+  DOSSIER_FILES,
   FACTIONS,
   TECH,
   VISUALS,
@@ -127,29 +128,15 @@ export default function WorldPage() {
           <Reveal className="-mt-6 mb-12 text-center">
             <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
               Консорциум, который пишет законы, назначает мэров и раздаёт
-              гражданство как премиум-подписку. Столкнуться с консорциумом —
-              значит увидеть в стене своего дома новую графику баланса.
+              гражданство как премиум-подписку. Реестр ведёт «Периметр Зеро»:
+              выберите файл — город или одну из семи. Столкнуться с
+              консорциумом — значит увидеть в стене своего дома новую графику
+              баланса.
             </p>
           </Reveal>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {CORPORATIONS.map((corp, i) => (
-              <Reveal key={corp.id} delay={(i % 3) * 0.08}>
-                <article className="relative h-full border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors hover:border-white/25">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/40">
-                      {corp.id}
-                    </span>
-                    <Chip accent={corp.accent}>{corp.tag}</Chip>
-                  </div>
-                  <h3 className="font-display mt-4 text-2xl uppercase tracking-wide">{corp.name}</h3>
-                  <p className={`font-mono-cyber mt-1.5 text-[10px] uppercase tracking-[0.2em] ${ACCENT_TEXT[corp.accent]}`}>
-                    {corp.role}
-                  </p>
-                  <p className="font-cyber mt-4 text-sm leading-relaxed text-white/70">{corp.text}</p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal>
+            <DossierConsole files={DOSSIER_FILES} />
+          </Reveal>
         </div>
       </section>
 

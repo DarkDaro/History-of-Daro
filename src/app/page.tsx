@@ -74,6 +74,40 @@ const SECTIONS = [
   },
 ];
 
+/**
+ * Крючки продающей презентации (п.13.5 PROJECT-META): 4 рациональных
+ * аргумента «почему читать» сразу после эмоциональной «Сути». Тексты
+ * выведены из канона (таймлайн, мир, фрагменты), ссылочные цели —
+ * существующие маршруты. Правка текстов — прямо здесь (hardcoded-паттерн
+ * главного, как СУТЬ/РАЗДЕЛЫ).
+ */
+const WHY_HOOKS = [
+  {
+    href: "/characters",
+    title: "Герой, которого нет в реестрах",
+    text: "Даро двигает металл усилием воли — но ни в одном каталоге «Синтеза» под него нет позиции. Антигерой, которого система вынуждена считать неполадкой.",
+    accent: "cyan" as const,
+  },
+  {
+    href: "/world",
+    title: "Город как персонаж",
+    text: "Хи-Мигата: семь корпораций, герметичные купола, ярусы и дождь, который идёт годами. Мир прописан до бытовых чеков — в нём можно жить.",
+    accent: "magenta" as const,
+  },
+  {
+    href: "/excerpts",
+    title: "Бесплатно и сразу",
+    text: "Фрагменты томов и восстановленные хроники читаются прямо на сайте — без регистрации, подписок и ожидания выхода книги.",
+    accent: "amber" as const,
+  },
+  {
+    href: "/timeline",
+    title: "Три тома — одна война",
+    text: "От «Красного сдвига» до засекреченного «Пепла и неона». Хронология живёт на сайте и растёт вместе с циклом.",
+    accent: "cyan" as const,
+  },
+];
+
 export default function Home() {
   const { scrollY } = useScroll();
   const ySun = useTransform(scrollY, [0, 700], [0, 160]);
@@ -270,6 +304,68 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ======================= ПОЧЕМУ ЧИТАТЬ (крючки) ======================= */}
+      <section className="relative border-t border-white/10 py-24 sm:py-28">
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="mb-14 text-center"
+          >
+            <p className="font-mono-cyber text-xs uppercase tracking-[0.4em] neon-magenta">01 / Почему читать</p>
+            <h2 className="font-display mt-3 text-3xl uppercase tracking-wide text-white sm:text-5xl">
+              Зачем заходить в Хи-Мигату
+            </h2>
+            <div className="mx-auto mt-5 h-px w-24 bg-[var(--neon-magenta)] shadow-[0_0_12px_var(--neon-magenta)]" />
+          </motion.div>
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            {WHY_HOOKS.map((h, i) => (
+              <motion.div
+                key={h.href}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.55, ease: "easeOut", delay: i * 0.08 }}
+              >
+                <Link
+                  href={h.href}
+                  className="group relative block h-full border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors hover:border-white/25"
+                >
+                  <span
+                    aria-hidden
+                    className={`font-mono-cyber absolute right-5 top-5 text-[10px] tracking-[0.3em] ${
+                      h.accent === "cyan"
+                        ? "text-[var(--neon-cyan)]/50"
+                        : h.accent === "magenta"
+                          ? "text-[var(--neon-magenta)]/50"
+                          : "text-[var(--neon-amber)]/50"
+                    }`}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="font-display pr-10 text-xl uppercase tracking-wide text-white">{h.title}</h3>
+                  <p className="font-cyber mt-3 text-sm leading-relaxed text-white/65">{h.text}</p>
+                  <span
+                    className={`font-mono-cyber mt-5 inline-block text-[10px] uppercase tracking-[0.3em] opacity-0 transition-opacity group-hover:opacity-100 ${
+                      h.accent === "cyan"
+                        ? "neon-cyan"
+                        : h.accent === "magenta"
+                          ? "neon-magenta"
+                          : "text-[var(--neon-amber)]"
+                    }`}
+                  >
+                    Открыть {"//"} →
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ======================= КНИГИ (полоса) ======================= */}
       <section className="relative border-t border-white/10 py-24 sm:py-28">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
@@ -282,7 +378,7 @@ export default function Home() {
             className="mb-14 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end"
           >
             <div>
-              <p className="font-mono-cyber text-xs uppercase tracking-[0.4em] neon-magenta">01 / Каталог</p>
+              <p className="font-mono-cyber text-xs uppercase tracking-[0.4em] neon-magenta">02 / Каталог</p>
               <h2 className="font-display mt-3 text-3xl uppercase tracking-wide text-white sm:text-5xl">
                 Тома цикла
               </h2>
@@ -358,7 +454,7 @@ export default function Home() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="mb-14 text-center"
           >
-            <p className="font-mono-cyber text-xs uppercase tracking-[0.4em] neon-cyan">02 / Разделы</p>
+            <p className="font-mono-cyber text-xs uppercase tracking-[0.4em] neon-cyan">03 / Разделы</p>
             <h2 className="font-display mt-3 text-3xl uppercase tracking-wide text-white sm:text-5xl">
               Справочник цикла
             </h2>

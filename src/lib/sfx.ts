@@ -13,9 +13,22 @@ import { busInput, ensureAudioContext } from "@/lib/audio-engine";
 
 export const ETHER_KEY = "daro-ether";
 
-export type SfxKind = "hover" | "click" | "confirm" | "deny" | "boot" | "whoosh";
+export type SfxKind =
+  | "hover"
+  | "click"
+  | "confirm"
+  | "deny"
+  | "boot"
+  | "whoosh"
+  | "glitch"
+  | "type"
+  | "transition"
+  | "palette"
+  | "open"
+  | "close";
 
 let lastHover = 0;
+let lastType = 0;
 
 /** Безопасное чтение предпочтения (SSR и приватные режимы не падают). */
 export function etherEnabled(): boolean {
@@ -141,6 +154,48 @@ export function sfx(kind: SfxKind): void {
       break;
     case "whoosh":
       noise(ac, { from: 500, to: 2600, dur: 0.32, gain: 0.06, q: 1.4 });
+      break;
+    case "glitch": {
+      /* A5: рваный битовый шорох — расшифровка досье, засекреченные файлы. */
+      for (let i = 0; i < 3; i++) {
+        noise(ac, {
+          from: 800 + Math.random() * 2600,
+          to: 400 + Math.random() * 900,
+          dur: 0.03 + Math.random() * 0.03,
+          gain: 0.05,
+          q: 6 + Math.random() * 6,
+          delay: i * 0.028,
+        });
+      }
+      tone(ac, { freq: 140 + Math.random() * 90, to: 60, dur: 0.08, gain: 0.06, type: "square" });
+      break;
+    }
+    case "type": {
+      /* A5: тик терминала; троттлинг жёстче hover — печать часто. */
+      const tNow = performance.now();
+      if (tNow - lastType < 45) return;
+      lastType = tNow;
+      tone(ac, { freq: 2200 + Math.random() * 600, dur: 0.025, gain: 0.016, type: "square" });
+      break;
+    }
+    case "transition":
+      /* A5: смена страницы — вжух вниз, спокойнее whoosh. */
+      noise(ac, { from: 2400, to: 500, dur: 0.26, gain: 0.045, q: 1.2 });
+      break;
+    case "palette":
+      /* A5: открытие Ctrl+K — двойной блип вверх. */
+      tone(ac, { freq: 880, dur: 0.06, gain: 0.05, type: "sine" });
+      tone(ac, { freq: 1320, dur: 0.09, gain: 0.05, type: "sine", delay: 0.055 });
+      break;
+    case "open":
+      /* A5: открытие досье/панели — засов и низкий отклик. */
+      noise(ac, { from: 300, to: 1800, dur: 0.14, gain: 0.04, q: 3 });
+      tone(ac, { freq: 220, to: 440, dur: 0.1, gain: 0.045, type: "triangle", delay: 0.06 });
+      break;
+    case "close":
+      /* A5: закрытие — обратный ход. */
+      tone(ac, { freq: 440, to: 180, dur: 0.12, gain: 0.05, type: "triangle" });
+      noise(ac, { from: 1500, to: 400, dur: 0.1, gain: 0.03, q: 3, delay: 0.02 });
       break;
   }
 }

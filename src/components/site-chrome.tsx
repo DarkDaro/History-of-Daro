@@ -76,7 +76,7 @@ export function SiteNav() {
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-3 font-mono-cyber text-[11px] uppercase tracking-[0.15em] text-white/70 lg:flex xl:gap-6 xl:text-xs xl:tracking-[0.25em]">
+        <ul className="hidden items-center gap-3 font-mono-cyber text-[11px] uppercase tracking-[0.15em] text-white/70 lg:flex xl:gap-4 xl:text-xs xl:tracking-[0.18em]">
           {NAV_LINKS.map((l) => (
             <li key={l.href}>
               <Link
@@ -92,7 +92,7 @@ export function SiteNav() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => {

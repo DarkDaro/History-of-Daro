@@ -476,7 +476,7 @@ export function CyberAmbientButton() {
           aria-expanded={mixerOpen}
           aria-label="Открыть микшер громкости «Эфира»"
           title="Микшер: общая громкость и баланс слоёв"
-          className={`inline-flex h-9 w-8 items-center justify-center border border-l-0 font-mono-cyber transition-colors ${
+          className={`inline-flex h-9 w-7 items-center justify-center border border-l-0 font-mono-cyber transition-colors ${
             mixerOpen
               ? "neon-border-cyan border-l-0 text-[var(--neon-cyan)]"
               : "border-white/15 text-white/50 hover:text-white/80"

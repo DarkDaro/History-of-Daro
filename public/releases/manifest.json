@@ -2,12 +2,17 @@
   "generated": "2026-11-01",
   "static": {
     "file": "daro-site-static.zip",
-    "size": 6541759,
-    "sha256": "ee882d440810694a00c2eb3d3efa917ae78e638d9f831114d30f844be0bc3258"
+    "size": 3689245,
+    "sha256": "94a6a7a03349989a01d3da9ed70578e4b99ae2bb13b347653be2cb85cd2479ba"
   },
   "source": {
     "file": "daro-site-source.zip",
-    "size": 2853259,
-    "sha256": "bcff5e8d73fd29829e7325f734e51a39322d07d99887af24354c2b71d43621a3"
+    "size": 2847264,
+    "sha256": "2f81a5949a95905a6b5a07b03b7480f845ab11dcb59aa83fe1e89218260b83d7"
+  },
+  "standalone": {
+    "file": "daro-site-standalone.zip",
+    "size": 27002622,
+    "sha256": "7653f2612d3c1e8770d5816b7e425eedd8b3a83445344a0caf9b1af4f37a5934"
   }
 }

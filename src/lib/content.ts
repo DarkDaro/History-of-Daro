@@ -22,6 +22,7 @@ export * from "@/content/weapons";
 export * from "@/content/weapon-specs";
 export * from "@/content/chronicles";
 export * from "@/content/timeline";
+export * from "@/content/calendar";
 export * from "@/content/home";
 export * from "@/content/story";
 export * from "@/content/synopsis";

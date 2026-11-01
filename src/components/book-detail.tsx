@@ -43,6 +43,7 @@ export function BookDetail({
           url: `${SITE_URL}/books/${book.slug}`,
           abstract: book.logline,
           inLanguage: "ru",
+          numberOfPages: parseInt(book.pages, 10) || undefined,
           author: AUTHOR_NODE,
           isPartOf: {
             "@type": "BookSeries",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FolderOpen, ScrollText } from "lucide-react";
 import { StatBar, Typewriter } from "@/components/cyber";
@@ -65,13 +65,37 @@ export function DossierConsole({ files }: { files: DossierFile[] }) {
   const activeIndex = files.findIndex((f) => f.id === active.id);
   const decodedName = useScramble(active.name);
 
+  /* Мобильный фейд: растворяем правый край реестра, только когда
+     справа есть скрытые файлы (на lg реестр вертикальный — маски нет). */
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const [atEnd, setAtEnd] = useState(false);
+  const updateFade = useCallback(() => {
+    const el = listRef.current;
+    if (!el) return;
+    setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 8);
+  }, []);
+  useEffect(() => {
+    updateFade();
+    const el = listRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateFade, { passive: true });
+    window.addEventListener("resize", updateFade);
+    return () => {
+      el.removeEventListener("scroll", updateFade);
+      window.removeEventListener("resize", updateFade);
+    };
+  }, [updateFade]);
+
   return (
     <div className="grid gap-6 lg:grid-cols-[290px_1fr]">
       {/* реестр файлов */}
       <div
         role="tablist"
         aria-label="Реестр досье Хи-Мигаты"
-        className="flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:gap-px lg:overflow-visible lg:pb-0"
+        className={`flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2 lg:flex-col lg:gap-px lg:overflow-visible lg:pb-0 lg:[mask-image:none] ${
+          atEnd ? "" : "[mask-image:linear-gradient(to_right,black_78%,transparent_99%)]"
+        }`}
+        ref={listRef}
       >
         {files.map((f, i) => {
           const isActive = f.id === active.id;
@@ -84,7 +108,7 @@ export function DossierConsole({ files }: { files: DossierFile[] }) {
                 sfx("glitch");
                 setActiveId(f.id);
               }}
-              className={`shrink-0 border px-4 py-3 text-left transition-colors duration-200 lg:w-full ${
+              className={`shrink-0 snap-start border px-4 py-3 text-left transition-colors duration-200 lg:w-full ${
                 isActive
                   ? `border-white/30 bg-white/[0.06] ${ACCENT_TEXT[f.accent]}`
                   : "border-white/10 bg-white/[0.02] text-white/55 hover:border-white/25 hover:text-white/85"

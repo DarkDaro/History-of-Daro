@@ -580,3 +580,10 @@ Pages + API/БД на бесплатном Node-хостинге (Vercel/Railway
 - конфликты при одновременных правках — решаем сразу, не копим.
 - Инструкция по настройке (GitHub Desktop / командная строка /
   VS Code) выдана хозяину 2026-11-02 в чате; хозяин выбрал VS Code.
+- Локальный запуск у хозяина (репо клонировано, 2026-11-02):
+  `npm install` → `npm run dev` (правки с hot-reload, порт 3000)
+  или `npm run build` → `npm run start` (как прод; start =
+  `node .next/standalone/server.js`, требует сборку). Node.js 20+;
+  `.env`/БД для просмотра не нужны (db.ts отключён, форма —
+  mailto-фолбэк). Статика как на Pages: `npm run build:static`
+  → `out/`.

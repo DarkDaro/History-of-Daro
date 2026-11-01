@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FolderOpen, ScrollText } from "lucide-react";
 import { StatBar, Typewriter } from "@/components/cyber";
+import { sfx } from "@/lib/sfx";
 import type { Accent, DossierFile } from "@/lib/content";
 
 /* ============================================================
@@ -38,6 +39,7 @@ function useScramble(target: string): string {
     let frame = 0;
     const total = 12;
     const iv = setInterval(() => {
+      sfx("type");
       frame += 1;
       const keep = Math.floor((target.length * frame) / total);
       if (keep >= target.length) {
@@ -78,7 +80,10 @@ export function DossierConsole({ files }: { files: DossierFile[] }) {
               key={f.id}
               role="tab"
               aria-selected={isActive}
-              onClick={() => setActiveId(f.id)}
+              onClick={() => {
+                sfx("glitch");
+                setActiveId(f.id);
+              }}
               className={`shrink-0 border px-4 py-3 text-left transition-colors duration-200 lg:w-full ${
                 isActive
                   ? `border-white/30 bg-white/[0.06] ${ACCENT_TEXT[f.accent]}`

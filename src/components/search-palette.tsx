@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Fuse from "fuse.js";
 import { CornerDownLeft, FileSearch } from "lucide-react";
 import { SEARCH_INDEX, type SearchRecord } from "@/lib/search-index";
+import { sfx } from "@/lib/sfx";
 
 /* ============================================================
    Палитра поиска (Ctrl+K / Cmd+K): терминальный ввод, поиск по
@@ -60,6 +61,7 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
   if (prevOpen !== open) {
     setPrevOpen(open);
     if (open) {
+      sfx("palette");
       setQuery("");
       setCursor(0);
     }

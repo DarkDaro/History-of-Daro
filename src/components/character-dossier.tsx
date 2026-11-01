@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ImageOff, ScrollText, X } from "lucide-react";
 import { CodexCard } from "@/components/codex-card";
 import { Corners, StatBar, Typewriter } from "@/components/cyber";
+import { sfx } from "@/lib/sfx";
 import { CHARACTER_SIDES, type Accent, type CodexEntry } from "@/lib/content";
 
 /* ============================================================
@@ -54,7 +55,10 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
   useEffect(() => {
     if (!active) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setActive(null);
+      if (e.key === "Escape") {
+        sfx("close");
+        setActive(null);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -94,10 +98,14 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
                 role="button"
                 tabIndex={0}
                 aria-label={`Открыть личное дело: ${r.name}`}
-                onClick={() => setActive(r)}
+                onClick={() => {
+                  sfx("open");
+                  setActive(r);
+                }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
+                    sfx("open");
                     setActive(r);
                   }
                 }}
@@ -120,7 +128,10 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-[80] bg-black/80 backdrop-blur-sm"
-            onClick={() => setActive(null)}
+            onClick={() => {
+              sfx("close");
+              setActive(null);
+            }}
             aria-hidden
           />
         )}
@@ -144,7 +155,10 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
                 <Typewriter text={`> daro://dossier/${active.id.toLowerCase().replace("?", "x")} · личное дело`} />
               </p>
               <button
-                onClick={() => setActive(null)}
+                onClick={() => {
+                  sfx("close");
+                  setActive(null);
+                }}
                 aria-label="Закрыть дело"
                 className="border border-white/15 p-2 text-white/60 transition-colors hover:border-white/40 hover:text-white"
               >

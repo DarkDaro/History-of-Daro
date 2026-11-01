@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Radio, Search, X } from "lucide-react";
@@ -32,6 +32,15 @@ function isActive(pathname: string, href: string): boolean {
 
 export function SiteNav() {
   const pathname = usePathname();
+
+  // A5: короткий «вжух» при смене страницы (первый рендер — без звука).
+  const prevRoute = useRef(pathname);
+  useEffect(() => {
+    if (prevRoute.current !== pathname) {
+      prevRoute.current = pathname;
+      sfx("transition");
+    }
+  }, [pathname]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   // При смене страницы мобильное меню закрывается (setState во время рендера —

@@ -1,17 +1,20 @@
 "use client";
 
+import { busInput, ensureAudioContext } from "@/lib/audio-engine";
+
 /* ============================================================
    SFX-движок «Истории Даро»: короткие синтезированные звуки
    интерфейса на Web Audio API. Без внешних файлов.
    Работает только когда включён «Эфир» (та же кнопка, что и
    дарк-эмбиент) — предпочтение хранится в localStorage.
+   С A1 (ROADMAP) выводится в шину «ui» общего аудио-ядра —
+   громкость регулируется ползунком «Интерфейс» микшера.
    ============================================================ */
 
 export const ETHER_KEY = "daro-ether";
 
 export type SfxKind = "hover" | "click" | "confirm" | "deny" | "boot" | "whoosh";
 
-let ctx: AudioContext | null = null;
 let lastHover = 0;
 
 /** Безопасное чтение предпочтения (SSR и приватные режимы не падают). */
@@ -33,11 +36,8 @@ export function setEtherEnabled(on: boolean): void {
 }
 
 function audio(): AudioContext | null {
-  if (typeof window === "undefined" || !("AudioContext" in window)) return null;
   if (!etherEnabled()) return null;
-  if (!ctx) ctx = new AudioContext();
-  if (ctx.state === "suspended") void ctx.resume();
-  return ctx;
+  return ensureAudioContext();
 }
 
 /** Один синтезированный тон с огибающей. */
@@ -68,7 +68,7 @@ function tone(
   g.gain.setValueAtTime(0, t0);
   g.gain.linearRampToValueAtTime(gain, t0 + 0.012);
   g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
-  o.connect(g).connect(ac.destination);
+  o.connect(g).connect(busInput("ui", ac));
   o.start(t0);
   o.stop(t0 + dur + 0.05);
 }
@@ -101,7 +101,7 @@ function noise(
   g.gain.setValueAtTime(0, t0);
   g.gain.linearRampToValueAtTime(gain, t0 + dur * 0.25);
   g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
-  src.connect(f).connect(g).connect(ac.destination);
+  src.connect(f).connect(g).connect(busInput("ui", ac));
   src.start(t0);
   src.stop(t0 + seconds);
 }

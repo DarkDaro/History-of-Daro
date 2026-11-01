@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
+import { busInput, ensureAudioContext } from "@/lib/audio-engine";
 import { etherEnabled, setEtherEnabled } from "@/lib/sfx";
 
 /* ============================================================
@@ -16,10 +17,12 @@ import { etherEnabled, setEtherEnabled } from "@/lib/sfx";
 const AUDIO_OK = typeof window !== "undefined" && "AudioContext" in window;
 
 function createEngine(ctx: AudioContext) {
+  // С A1: внутренний «master» — это фейд-гейнер слоя эмбиента,
+  // он подключается к шине «ambience» общего ядра (микшер).
   const master = ctx.createGain();
   master.gain.setValueAtTime(0, ctx.currentTime);
   master.gain.linearRampToValueAtTime(0.85, ctx.currentTime + 2.2);
-  master.connect(ctx.destination);
+  master.connect(busInput("ambience", ctx));
 
   const stops: Array<() => void> = [];
   const timers: Array<ReturnType<typeof setTimeout>> = [];
@@ -206,7 +209,8 @@ export function CyberAmbientButton() {
     if (!armed) return;
     const startOnGesture = () => {
       if (engineRef.current) return;
-      const ac = new AudioContext();
+      const ac = ensureAudioContext();
+      if (!ac) return;
       const engine = createEngine(ac);
       engineRef.current = { ctx: ac, ...engine };
       void ac.resume();
@@ -223,7 +227,9 @@ export function CyberAmbientButton() {
 
   useEffect(
     () => () => {
-      engineRef.current?.ctx.close().catch(() => undefined);
+      // С A1 контекст общий (ядро) — НЕ закрываем его при размонтировании,
+      // только останавливаем источники эмбиента.
+      engineRef.current?.cleanup();
       engineRef.current = null;
     },
     []
@@ -237,10 +243,8 @@ export function CyberAmbientButton() {
     master.gain.cancelScheduledValues(ctx.currentTime);
     master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
     master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.7);
-    setTimeout(() => {
-      cleanup();
-      ctx.close().catch(() => undefined);
-    }, 800);
+    // С A1 контекст общий — не закрываем: он обслуживает шины и SFX.
+    setTimeout(cleanup, 800);
   }, []);
 
   const toggle = useCallback(() => {
@@ -250,7 +254,8 @@ export function CyberAmbientButton() {
       setEtherEnabled(false);
       return;
     }
-    const ctx = new AudioContext();
+    const ctx = ensureAudioContext();
+    if (!ctx) return;
     const engine = createEngine(ctx);
     engineRef.current = { ctx, ...engine };
     ctx.resume().catch(() => undefined);

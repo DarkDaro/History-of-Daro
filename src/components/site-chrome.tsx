@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, Radio, X } from "lucide-react";
 import { CyberAmbientButton } from "@/components/ambient-audio";
 import { sfx } from "@/lib/sfx";
+import { asset } from "@/lib/content";
 
 /* ============================================================
    Общая «обвязка» сайта: навигация + футер.
@@ -159,6 +160,7 @@ export function SiteFooter() {
                 <li><Link href="/author" className="hover:text-[var(--neon-cyan)]">Автор</Link></li>
                 <li><Link href="/#subscribe" className="hover:text-[var(--neon-cyan)]">Подписка</Link></li>
                 <li><Link href="/feed.xml" className="hover:text-[var(--neon-cyan)]">RSS-лента</Link></li>
+                <li><a href={asset("/download.html")} className="hover:text-[var(--neon-cyan)]">Скачать сборку</a></li>
               </ul>
             </div>
           </div>

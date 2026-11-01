@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Загрузки — История Даро</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="logo.svg" type="image/svg+xml" />
+<style>
+  :root{
+    --bg:#05060a; --panel:#0a0d14; --line:rgba(255,255,255,.09);
+    --text:#e8ecf4; --dim:rgba(232,236,244,.55); --faint:rgba(232,236,244,.35);
+    --cyan:#22d3ee; --magenta:#ff2a6d; --ok:#34d399;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--text)}
+  body{
+    font-family:ui-monospace,"Cascadia Mono","JetBrains Mono",Consolas,"Liberation Mono",monospace;
+    min-height:100vh;padding:2.5rem 1rem 4rem;
+    background-image:
+      radial-gradient(60rem 30rem at 70% -10%,rgba(34,211,238,.07),transparent 60%),
+      radial-gradient(50rem 26rem at 10% 110%,rgba(255,42,109,.06),transparent 60%);
+  }
+  .wrap{max-width:52rem;margin:0 auto}
+  .kicker{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--cyan)}
+  h1{font-size:clamp(1.5rem,4vw,2.2rem);letter-spacing:.06em;text-transform:uppercase;margin:.6rem 0 .4rem}
+  h1 em{font-style:normal;color:var(--magenta)}
+  .sub{color:var(--dim);font-size:13px;line-height:1.7;max-width:44rem}
+  .grid{display:grid;gap:1.25rem;margin-top:2rem}
+  @media(min-width:760px){.grid{grid-template-columns:1fr 1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.4rem 1.4rem 1.5rem;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.7}
+  .card.alt::before{background:linear-gradient(90deg,transparent,var(--magenta),transparent)}
+  .tag{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint)}
+  .name{font-size:15px;margin:.5rem 0 .2rem;word-break:break-all}
+  .desc{color:var(--dim);font-size:12.5px;line-height:1.7;margin:.4rem 0 1rem}
+  .meta{font-size:11px;color:var(--faint);line-height:1.9;margin-bottom:1rem;word-break:break-all}
+  .meta b{color:var(--text);font-weight:600}
+  details{margin-top:.5rem}
+  summary{cursor:pointer;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+  summary:hover{color:var(--cyan)}
+  code{font-family:inherit;font-size:11px;color:var(--cyan);word-break:break-all}
+  .btnrow{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+  button.dl,a.dl{
+    font:inherit;font-size:12px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;
+    color:#04121a;background:var(--cyan);border:0;border-radius:8px;padding:.75rem 1.3rem;font-weight:700;
+    text-decoration:none;display:inline-block;
+  }
+  button.dl:hover{filter:brightness(1.1)}
+  button.dl[disabled]{opacity:.55;cursor:wait}
+  .alt-link{font-size:11px;color:var(--dim);text-decoration:underline;text-underline-offset:3px}
+  .alt-link:hover{color:var(--cyan)}
+  .status{font-size:11px;margin-top:.7rem;min-height:1.2em;color:var(--faint)}
+  .status.ok{color:var(--ok)} .status.err{color:var(--magenta)}
+  .howto{margin-top:2.2rem;border:1px dashed var(--line);border-radius:14px;padding:1.3rem 1.4rem}
+  .howto h2{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);margin-bottom:.8rem}
+  .howto p{color:var(--dim);font-size:12.5px;line-height:1.8;margin:.5rem 0}
+  .howto .cmd{display:block;background:#000;border:1px solid var(--line);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;color:var(--cyan);font-size:12px;overflow-x:auto;white-space:pre}
+  .note{margin-top:1.6rem;color:var(--faint);font-size:11px;line-height:1.8}
+  .toplink{display:inline-block;margin-top:1.8rem;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:.6rem 1rem}
+  .toplink:hover{color:var(--cyan);border-color:var(--cyan)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Хи-Мигата // канал выдачи данных</p>
+  <h1>Загрузки<em>//</em></h1>
+  <p class="sub">Готовые сборки сайта «История Даро» — прямые файлы, без меню площадки.
+  Если кнопка внутри окна превью молчит: щёлкните по ссылке правой кнопкой → «Открыть в новой вкладке»,
+  либо возьмите те же архивы из чата.</p>
+
+  <div class="grid">
+    <section class="card">
+      <p class="tag">Готовый сайт · статический экспорт</p>
+      <p class="name">daro-site-static.zip</p>
+      <p class="desc">Развёрнутый сайт целиком: все страницы, RSS, sitemap, обложки.
+      Распаковать — и открыть в браузере через локальный сервер или залить на любой хостинг
+      (GitHub Pages, Netlify).</p>
+      <p class="meta">Размер: <b data-m="static">…</b> · файлов: <b>200+</b><br>
+      SHA-256: <span data-hash="static">…</span></p>
+      <div class="btnrow">
+        <button class="dl" data-file="daro-site-static.zip">Скачать архив</button>
+        <a class="alt-link" href="releases/daro-site-static.zip" download>прямая ссылка</a>
+      </div>
+      <p class="status" data-status="static"></p>
+      <details><summary>Как запустить у себя</summary>
+        <p class="desc">
+        <code>npx serve .</code> — если стоит Node.js<br>
+        или <code>python -m http.server 8000</code> → откройте http://localhost:8000<br>
+        Просто двойной щелчок по index.html не сработает: у сайта абсолютные пути ассетов.
+        </p>
+      </details>
+    </section>
+
+    <section class="card alt">
+      <p class="tag">Исходники · для Node.js</p>
+      <p class="name">daro-site-source.zip</p>
+      <p class="desc">Весь проект: Next.js 16, компоненты, контент, скрипты сборки, документация
+      (README, CONTENT.md). Нужно, если хотите править тексты и пересобирать сайт сами.</p>
+      <p class="meta">Размер: <b data-m="source">…</b><br>
+      SHA-256: <span data-hash="source">…</span></p>
+      <div class="btnrow">
+        <button class="dl" data-file="daro-site-source.zip">Скачать архив</button>
+        <a class="alt-link" href="releases/daro-site-source.zip" download>прямая ссылка</a>
+      </div>
+      <p class="status" data-status="source"></p>
+      <details><summary>Как собрать у себя (Node.js 20+)</summary>
+        <p class="desc">
+        <span class="cmd">npm install
+npm run dev      → http://localhost:3000
+npm run build:static   → готовый сайт в out/</span>
+        Для обеих сборок: <code>npm run build</code> — серверная версия (VPS/Vercel).
+        </p>
+      </details>
+    </section>
+  </div>
+
+  <div class="howto">
+    <h2>Проверка целостности (если архив «не открывается»)</h2>
+    <p>Сверьте контрольную сумму скачанного файла с SHA-256 выше — если суммы совпали, файл доехал целым
+    и дело только в распаковщике.</p>
+    <p>Windows (PowerShell / cmd):</p>
+    <span class="cmd">certutil -hashfile daro-site-static.zip SHA256</span>
+    <p>macOS / Linux:</p>
+    <span class="cmd">shasum -a 256 daro-site-static.zip</span>
+  </div>
+
+  <p class="note">Сборка от <span id="bdate">…</span> · страница служебная, в поисковые системы не попадает.
+  Те же файлы лежат в папке <code>releases/</code> рядом с этой страницей.</p>
+
+  <a class="toplink" href="./">← Вернуться на сайт</a>
+</div>
+
+<script>
+(function(){
+  var fmt = function(n){ return (n/1048576).toFixed(1).replace('.',',') + ' МБ'; };
+  // дата сборки — из манифеста, иначе сегодня
+  var now = new Date();
+  document.getElementById('bdate').textContent = now.toLocaleDateString('ru-RU');
+
+  fetch('releases/manifest.json',{cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(m){
+      ['static','source'].forEach(function(k){
+        var it = m[k]; if(!it) return;
+        var el;
+        if((el = document.querySelector('[data-m="'+k+'"]')) && it.size) el.textContent = fmt(it.size);
+        if((el = document.querySelector('[data-hash="'+k+'"]')) && it.sha256){
+          el.textContent = String(it.sha256).slice(0,16) + '…';
+          el.title = it.sha256;
+        }
+        var d = document.getElementById('bdate');
+        if(m.generated && d) d.textContent = m.generated;
+      });
+    })
+    .catch(function(){ /* метаданные недоступны — кнопки работают напрямую */ });
+
+  function setStatus(k,msg,cls){
+    var el = document.querySelector('[data-status="'+k+'"]');
+    if(el){ el.textContent = msg; el.className = 'status ' + (cls||''); }
+  }
+
+  function save(blob,name){
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 5000);
+  }
+
+  document.querySelectorAll('button.dl').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var name = btn.getAttribute('data-file');
+      var key = btn.closest('.card').classList.contains('alt') ? 'source' : 'static';
+      btn.disabled = true;
+      setStatus(key,'Подготовка…','');
+      fetch('releases/' + name, {cache:'no-store'})
+        .then(function(r){
+          if(!r.ok) throw new Error('файл недоступен (HTTP ' + r.status + ')');
+          var total = Number(r.headers.get('content-length') || 0);
+          if(!r.body || !total){
+            setStatus(key,'Получение данных…','');
+            return r.blob().then(function(b){ save(b,name); return null; });
+          }
+          var reader = r.body.getReader(), got = 0, chunks = [];
+          function pump(){
+            return reader.read().then(function(res){
+              if(res.done){
+                save(new Blob(chunks,{type:'application/zip'}), name);
+                return null;
+              }
+              chunks.push(res.value); got += res.value.length;
+              setStatus(key,'Загрузка… ' + Math.round(got/total*100) + '%','');
+              return pump();
+            });
+          }
+          return pump();
+        })
+        .then(function(){ setStatus(key,'Готово: ' + name + ' — файл в папке «Загрузки». Если окно превью блокирует скачивание, откройте эту страницу в отдельной вкладке.','ok'); })
+        .catch(function(e){
+          setStatus(key,'Не получилось: ' + (e && e.message ? e.message : 'ошибка') +
+            '. Щёлкните «прямую ссылку» правой кнопкой → «Открыть в новой вкладке», либо возьмите архив из чата.','err');
+        })
+        .then(function(){ btn.disabled = false; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

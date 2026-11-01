@@ -265,6 +265,15 @@ html {
   scroll-behavior: smooth;
 }
 
+/* --- Мобильный адаптив: запрет случайного горизонтального скролла.
+   clip (не hidden): не создаёт новый контекст прокрутки и не ломает
+   position: sticky. Декоративные absolute-слои (fog-drift и т.п.)
+   больше не дают +4px бокового подскролла на iOS. --- */
+html,
+body {
+  overflow-x: clip;
+}
+
 /* --- Кастомный скроллбар --- */
 ::-webkit-scrollbar {
   width: 10px;

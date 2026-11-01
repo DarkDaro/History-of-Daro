@@ -732,6 +732,15 @@ html {
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
 }
+/* Двусторонние варианты: слой растворяется и сверху, и снизу */
+.fog-mask-soft {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 38%, #000 66%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 38%, #000 66%, transparent 100%);
+}
+.glass-mask-soft {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 78%, transparent 100%);
+}
 
 /* --- Активный пункт навигации (scroll-spy) --- */
 .nav-link[data-active="true"] {

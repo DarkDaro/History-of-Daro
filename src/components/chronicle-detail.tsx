@@ -50,6 +50,7 @@ export function ChronicleDetail({
           { href: "/chronicles", label: "Хроники" },
           { href: `/chronicles/${c.slug}`, label: c.code },
         ]}
+        rainGlass
       />
 
       {/* реконструкция сцены */}

@@ -183,13 +183,17 @@ export function CyberAmbientButton() {
     cleanup: () => void;
   } | null>(null);
 
-  // Читаем предпочтение один раз — паттерн «setState во время рендера»
-  // (см. react.dev/learn/you-might-not-need-an-effect), как в SiteNav.
-  const [prefChecked, setPrefChecked] = useState(false);
-  if (!prefChecked) {
-    setPrefChecked(true);
-    if (etherEnabled()) setArmed(true);
-  }
+  // Предпочтение «Эфира» живёт в localStorage и известно только браузеру,
+  // поэтому читаем его строго ПОСЛЕ гидратации. Чтение во время первого
+  // рендера рвёт SSR-совпадение (сервер рисует VolumeX, клиент с «on» —
+  // Volume2) и даёт hydration-ошибку. RAF-обёртка — устоявшийся в этом
+  // файле приём: откладывает setState за пределы синхронного эффекта.
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => {
+      if (etherEnabled()) setArmed(true);
+    });
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   useEffect(() => {
     const raf = requestAnimationFrame(() => setSupported(AUDIO_OK));

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { PageHero, Chip, TerminalQuote } from "@/components/blocks";
+import { PageHero, Chip, SceneBanner, TerminalQuote } from "@/components/blocks";
 import { Reveal } from "@/components/cyber";
-import { BOOKS } from "@/lib/content";
+import { BOOKS, VISUALS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Книги цикла",
@@ -22,6 +22,19 @@ export default function BooksPage() {
         lead="Замысел — от трёх до пяти романов. Первый готов к публикации, второй завершён и проходит редактуру, третий в работе. Каждый том можно открыть отдельно: аннотация, узлы сюжета и место в общей войне."
         breadcrumb={[{ href: "/books", label: "Книги" }]}
       />
+
+      {/* панорама Хи-Мигаты — город, в котором всё происходит */}
+      <section className="relative pb-6 pt-14">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <SceneBanner
+            src={VISUALS.city}
+            alt="Ночная панорама Хи-Мигаты: башни консорциума, неон и вечный дождь"
+            caption="ХИ-МИГАТА · ОБЩИЙ ПЛАН · 2147 · АРХИВ КОНСОРЦИУМА"
+            accent="magenta"
+            priority
+          />
+        </div>
+      </section>
 
       <section className="relative py-20 sm:py-24">
         <div className="mx-auto max-w-6xl space-y-12 px-4 sm:px-6">

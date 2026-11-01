@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import type { Accent } from "@/lib/content";
+import { asset, type Accent } from "@/lib/content";
 import { Corners, Reveal } from "@/components/cyber";
 
 /* ============================================================
@@ -83,6 +83,57 @@ export function SectionHeading({
   );
 }
 
+/**
+ * Атмосферный слой «дрейфующий туман»: неоновый дым из fog.png
+ * в режиме screen-blend (чёрный фон исчезает, дым светится).
+ * Два слоя движутся в противофазе — глубина без единого скрипта.
+ */
+export function FogBand({ className = "" }: { className?: string }) {
+  return (
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute inset-x-0 bottom-0 h-52 overflow-hidden sm:h-72 ${className}`}
+    >
+      <div
+        className="fog-drift fog-mask-soft absolute -bottom-1/4 left-[-18%] h-[135%] w-[136%] opacity-40 mix-blend-screen"
+        style={{
+          backgroundImage: `url(${asset("/assets/fog.png")})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      <div
+        className="fog-drift-rev fog-mask-soft absolute -bottom-1/3 left-[-18%] h-[150%] w-[136%] opacity-25 mix-blend-screen"
+        style={{
+          backgroundImage: `url(${asset("/assets/fog.png")})`,
+          backgroundSize: "cover",
+          backgroundPosition: "72% 30%",
+        }}
+      />
+    </div>
+  );
+}
+
+/**
+ * Атмосферный слой «дождь по стеклу»: кадр rain-glass.png в
+ * screen-blend, медленно стекает вниз (glass-leak). Ставится
+ * поверх шапки страницы, под контентом.
+ */
+export function GlassVeil({ className = "" }: { className?: string }) {
+  return (
+    <div aria-hidden className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}>
+      <div
+        className="glass-rain glass-mask-soft absolute left-0 top-[-8%] h-[118%] w-full opacity-[0.16] mix-blend-screen"
+        style={{
+          backgroundImage: `url(${asset("/assets/rain-glass.png")})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+    </div>
+  );
+}
+
 /** Шапка внутренней страницы: путь-«хлебная крошка», glitch-заголовок, лид */
 export function PageHero({
   kicker,
@@ -91,6 +142,7 @@ export function PageHero({
   lead,
   accent = "cyan",
   breadcrumb,
+  rainGlass = false,
 }: {
   kicker: string;
   title: string;
@@ -98,12 +150,16 @@ export function PageHero({
   lead?: string;
   accent?: Accent;
   breadcrumb?: { href: string; label: string }[];
+  /** «Дождь по стеклу» — для страниц под открытым небом (мир, хроники) */
+  rainGlass?: boolean;
 }) {
   return (
     <section className="relative overflow-hidden border-b border-white/10 pb-16 pt-32 sm:pb-20 sm:pt-36">
       <div className="cyber-grid absolute inset-0 opacity-[0.06]" aria-hidden />
       <div className="aurora-blob cyan left-[6%] top-[8%] h-64 w-64 opacity-60" aria-hidden />
       <div className="aurora-blob magenta bottom-[-10%] right-[4%] h-72 w-72 opacity-50" aria-hidden />
+      {rainGlass && <GlassVeil />}
+      <FogBand />
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
         {breadcrumb && (
           <nav aria-label="Навигация по разделу" className="font-mono-cyber mb-6 text-[10px] uppercase tracking-[0.3em] text-white/40">

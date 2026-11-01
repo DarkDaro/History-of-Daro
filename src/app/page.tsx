@@ -19,6 +19,7 @@ import {
   Globe,
 } from "lucide-react";
 import { BootOverlay, Corners, Rain, Skyline } from "@/components/cyber";
+import { FogBand } from "@/components/blocks";
 import { SubscribeForm } from "@/components/subscribe-form";
 import { BOOKS, CHRONICLES, HUMAN_STORIES, MARQUEE_ITEMS } from "@/lib/content";
 
@@ -93,6 +94,9 @@ export default function Home() {
         <motion.div style={{ y: ySky }} aria-hidden className="absolute inset-x-0 bottom-0 z-[1]">
           <Skyline />
         </motion.div>
+
+        {/* дрейфующий туман над крышами */}
+        <FogBand className="z-[2]" />
 
         {/* дождь */}
         <div aria-hidden className="absolute inset-0 z-[2]">
@@ -517,6 +521,7 @@ export default function Home() {
       <section id="subscribe" className="relative overflow-hidden border-t border-white/10 py-24 sm:py-28">
         <div aria-hidden className="aurora-blob cyan left-[8%] top-[10%] h-72 w-72" />
         <div aria-hidden className="aurora-blob magenta bottom-[5%] right-[6%] h-80 w-80" />
+        <FogBand className="opacity-60" />
         <div className="relative mx-auto max-w-2xl px-4 text-center sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 32 }}

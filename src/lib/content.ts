@@ -22,6 +22,7 @@ export function asset(path: string): string {
 
 /* Широкие кадры-сцены для страниц разделов. */
 export const VISUALS = {
+  city: asset("/covers/hero-city.png"),
   world: asset("/img/scenes/world.webp"),
   implants: asset("/img/scenes/implants.webp"),
   armory: asset("/img/scenes/armory.webp"),

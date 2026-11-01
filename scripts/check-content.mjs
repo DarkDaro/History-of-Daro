@@ -3,8 +3,9 @@
    Линтер контента «Истории Даро» (B1 ROADMAP).
 
    Что проверяет (без зависимостей, plain node):
-   1. Уникальность slug внутри каждой секции content.ts
-      (дубль = конфликт generateStaticParams и страниц).
+   1. Уникальность slug внутри каждой секции канона — content.ts
+      и модули src/content/*.ts (дубль = конфликт generateStaticParams
+      и страниц).
    2. Все внутренние href из контента существуют как маршруты
       (статические папки src/app + динамические [slug],
       развёрнутые слагами из контента).
@@ -23,37 +24,71 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const errors = [];
 const warnings = [];
 
-/* ---------- 1. Секции и слаги content.ts ---------- */
+/* ---------- 1. Секции и слаги канона ---------- */
 
-const contentSrc = readFileSync(join(root, "src/lib/content.ts"), "utf8");
-
-// Секции: идём по маркерам `export const NAME` и собираем slug внутри.
-const sectionRe = /export const (\w+)/g;
-const marks = [];
-let m;
-while ((m = sectionRe.exec(contentSrc)) !== null) {
-  marks.push({ name: m[1], at: m.index });
+// Канон живёт в модулях src/content/*.ts (B3 ROADMAP), точка входа —
+// src/lib/content.ts (ре-экспорт). Читаем всё текстом: линтер сознательно
+// без зависимостей, plain node.
+const canonFiles = ["src/lib/content.ts"];
+try {
+  canonFiles.push(
+    ...readdirSync(join(root, "src/content"))
+      .filter((f) => f.endsWith(".ts"))
+      .sort()
+      .map((f) => `src/content/${f}`)
+  );
+} catch {
+  /* каталога src/content ещё нет — весь канон в content.ts */
 }
-const slugsBySection = new Map(); // name -> [{ slug, line }]
-for (let i = 0; i < marks.length; i++) {
-  const from = marks[i].at;
-  const to = i + 1 < marks.length ? marks[i + 1].at : contentSrc.length;
-  const body = contentSrc.slice(from, to);
-  const slugs = [];
-  const slugRe = /\bslug:\s*"([^"]+)"/g;
-  let s;
-  while ((s = slugRe.exec(body)) !== null) {
-    slugs.push({ slug: s[1], line: contentSrc.slice(0, from + s.index).split("\n").length });
+
+const slugsBySection = new Map(); // name -> [{ slug, line, file }]
+const hrefHits = []; // { href, line, file }
+
+for (const relPath of canonFiles) {
+  const contentSrc = readFileSync(join(root, relPath), "utf8");
+
+  // Секции: идём по маркерам `export const NAME` и собираем slug внутри.
+  const sectionRe = /export const (\w+)/g;
+  const marks = [];
+  let m;
+  while ((m = sectionRe.exec(contentSrc)) !== null) {
+    marks.push({ name: m[1], at: m.index });
   }
-  if (slugs.length) slugsBySection.set(marks[i].name, slugs);
+  for (let i = 0; i < marks.length; i++) {
+    const from = marks[i].at;
+    const to = i + 1 < marks.length ? marks[i + 1].at : contentSrc.length;
+    const body = contentSrc.slice(from, to);
+    const slugs = slugsBySection.get(marks[i].name) ?? [];
+    const slugRe = /\bslug:\s*"([^"]+)"/g;
+    let s;
+    while ((s = slugRe.exec(body)) !== null) {
+      slugs.push({
+        slug: s[1],
+        line: contentSrc.slice(0, from + s.index).split("\n").length,
+        file: relPath,
+      });
+    }
+    if (slugs.length) slugsBySection.set(marks[i].name, slugs);
+  }
+
+  // Внутренние href запоминаем с файлом и строкой (проверка в шаге 3).
+  const hrefRe = /href:\s*"(\/[^"]*)"/g;
+  let h;
+  while ((h = hrefRe.exec(contentSrc)) !== null) {
+    hrefHits.push({
+      href: h[1],
+      line: contentSrc.slice(0, h.index).split("\n").length,
+      file: relPath,
+    });
+  }
 }
 
 for (const [name, slugs] of slugsBySection) {
   const seen = new Map();
-  for (const { slug, line } of slugs) {
+  for (const { slug, line, file } of slugs) {
     if (seen.has(slug)) {
       errors.push(
-        `content.ts: дубль slug "${slug}" в секции ${name} (строки ${seen.get(slug)} и ${line})`
+        `${file}: дубль slug "${slug}" в секции ${name} (строки ${seen.get(slug)} и ${line})`
       );
     } else {
       seen.set(slug, line);
@@ -104,14 +139,11 @@ walk(appDir, "");
 
 /* ---------- 3. Внутренние href из контента ---------- */
 
-const hrefRe = /href:\s*"(\/[^"]*)"/g;
-let h;
-while ((h = hrefRe.exec(contentSrc)) !== null) {
-  const href = h[1].split("#")[0] || "/";
-  const line = contentSrc.slice(0, h.index).split("\n").length;
-  if (!routes.has(href)) {
+for (const { href, line, file } of hrefHits) {
+  const target = href.split("#")[0] || "/";
+  if (!routes.has(target)) {
     errors.push(
-      `content.ts: строка ${line} — href "${href}" не существует как маршрут (есть: ${[...routes].sort().join(", ")})`
+      `${file}: строка ${line} — href "${target}" не существует как маршрут (есть: ${[...routes].sort().join(", ")})`
     );
   }
 }

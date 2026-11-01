@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { PageHero, SectionHeading, MoreLink } from "@/components/blocks";
 import { TimelineView } from "@/components/timeline-view";
-import { TIMELINE } from "@/lib/content";
+import { CalendarView } from "@/components/calendar-view";
+import { TIMELINE, CALENDAR_EVENTS, CALENDAR_NOTE } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Таймлайн 2147",
   description:
-    "Хронология цикла «История Даро»: от города-завода и Перелома — через «Красный сдвиг» и «Стеклянные небеса» к засекреченному финалу «Пепла и неона». Собрано из реестров, сводок и перехватов Хи-Мигаты.",
+    "Хронология и календарь событий цикла «История Даро»: от города-завода и Перелома — через «Красный сдвиг» и «Стеклянные небеса» к засекреченному финалу «Пепла и неона». Собрано из реестров, сводок и перехватов Хи-Мигаты.",
   alternates: { canonical: "/timeline" },
 };
 
@@ -34,6 +35,21 @@ export default function TimelinePage() {
           />
           <div className="mt-10">
             <TimelineView events={TIMELINE} />
+          </div>
+        </div>
+      </section>
+
+      <section className="relative border-t border-white/10 py-16 sm:py-24">
+        <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6">
+          <SectionHeading
+            kicker="Год без пауз"
+            title="Календарь событий мира"
+            num="02"
+            accent="magenta"
+          />
+          <div className="mt-10">
+            <CalendarView events={CALENDAR_EVENTS} note={CALENDAR_NOTE} />
           </div>
         </div>
       </section>

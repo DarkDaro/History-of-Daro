@@ -1122,7 +1122,7 @@ export const INFLUENCES: { source: string; taken: string }[] = [
   { source: "Blade Runner", taken: "идентичность и вопрос «что значит быть человеком»" },
   { source: "Ghost in the Shell", taken: "кибернетизация тела и потеря личности" },
   { source: "Altered Carbon", taken: "тело как оболочка, память как ресурс" },
-  { source: "Children of Men", taken: "мрачный мир, в котором всё равно есть надежда" },
+  { source: "Children of Men", taken: "изношенный мир без пафоса: очереди, пропуска, быт на фоне катастрофы" },
   { source: "Star Wars", taken: "два сознания в одном человеке" },
   { source: "Venom", taken: "симбиот, который постоянно комментирует" },
   { source: "Fight Club", taken: "расщепление личности как двигатель сюжета" },

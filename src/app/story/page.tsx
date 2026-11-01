@@ -6,7 +6,7 @@ import { HUMAN_STORIES, INFLUENCES, PRINCIPLES, VISUALS } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Суть истории",
   description:
-    "Ядро цикла «История Даро» без неона: пять людей, у которых война забрала память, имя и покой. Жанровое ядро, принципы повествования и влияния.",
+    "Ядро цикла «История Даро» без неона: пять людей, у которых война забрала память, имя и покой. Мир и счёт, принципы повествования и влияния.",
   alternates: { canonical: "/story" },
 };
 
@@ -81,7 +81,7 @@ export default function StoryPage() {
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.06]" aria-hidden />
         <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
-          <SectionHeading kicker="Жанровое ядро" title="Мир и счёт" num="02" accent="magenta" />
+          <SectionHeading kicker="Две записи реестра" title="Мир и счёт" num="02" accent="magenta" />
           <Reveal>
             <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2">
               <div className="bg-[#0a0a16] p-7 text-left sm:p-9">
@@ -91,9 +91,9 @@ export default function StoryPage() {
                 <p className="font-cyber mt-4 text-sm leading-relaxed text-white/70 sm:text-base">
                   Корпорации контролируют воздух, воду, память и сводки. Мир не
                   разрушен — он обслуживается, и это хуже: у постапокалипсиса
-                  хотя бы нет графика. Надежда здесь не лозунг, а побочный
-                  эффект: пока хотя бы один человек ведёт собственный учёт,
-                  реестр не сходится.
+                  хотя бы нет графика. А сбой в реестре не добьёшься апдейтом:
+                  пока хотя бы один человек ведёт собственный учёт, цифры не
+                  сходятся — каждое утро, заново.
                 </p>
               </div>
               <div className="bg-[#0a0a16] p-7 text-left sm:p-9">
@@ -103,8 +103,9 @@ export default function StoryPage() {
                 <p className="font-cyber mt-4 text-sm leading-relaxed text-white/70 sm:text-base">
                   Пять историй об идентичности: память в рассрочку, командование,
                   оставшееся по умолчанию, имя, которое нужно вспомнить, чтобы
-                  понять, чьё оно. Форма — неонуар. Содержание — счёт: у каждого
-                  выбора здесь есть цена, и тариф растёт.
+                  понять, чьё оно. Свет здесь — от рекламных дуг, а законы
+                  написаны в уставах корпораций. Содержание — счёт: у каждого
+                  выбора есть цена, и тариф растёт.
                 </p>
               </div>
             </div>

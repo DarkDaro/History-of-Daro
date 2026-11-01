@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { SlidersHorizontal, Volume2, VolumeX, X } from "lucide-react";
 import {
   busInput,
@@ -10,13 +11,16 @@ import {
   VOL_DEFAULTS,
   type VolumeKey,
 } from "@/lib/audio-engine";
+import { createMusicLayer, themeForPathname } from "@/lib/audio-themes";
 import { etherEnabled, setEtherEnabled } from "@/lib/sfx";
 
 /* ============================================================
    CyberAmbient — генеративный дарк-эмбиент на Web Audio API.
    Слои: дождь (розовый шум + капли + желоба, A3), низкий дрон,
-   медленный пэд-аккорд, суб-пульс и случайные раскаты грома.
-   Без внешних файлов. Вывод — в шину «ambience» аудио-ядра (A1).
+   медленный пэд-аккорд, суб-пульс и случайные раскаты грома;
+   плюс музыкальная тема страницы (A4, audio-themes.ts) на шине
+   «music» с кроссфейдом при переходах.
+   Без внешних файлов. Вывод — в шины аудио-ядра (A1).
    Состояние запоминается: при следующем визите эмбиент
    оживёт сам, на первом жесте пользователя (требование
    браузеров к автозапуску звука). Туда же привязаны SFX.
@@ -24,7 +28,7 @@ import { etherEnabled, setEtherEnabled } from "@/lib/sfx";
 
 const AUDIO_OK = typeof window !== "undefined" && "AudioContext" in window;
 
-function createEngine(ctx: AudioContext) {
+function createEngine(ctx: AudioContext, initialPath: string) {
   // С A1: внутренний «master» — это фейд-гейнер слоя эмбиента,
   // он подключается к шине «ambience» общего ядра (микшер).
   const master = ctx.createGain();
@@ -266,12 +270,18 @@ function createEngine(ctx: AudioContext) {
   };
   timers.push(setTimeout(thunder, 7000 + Math.random() * 9000));
 
+  /* ---------- Слой тем страниц (A4): шина «music» ---------- */
+  const music = createMusicLayer(ctx);
+  music.setTheme(themeForPathname(initialPath));
+
   return {
     master,
+    music,
     cleanup() {
       dead = true;
       timers.forEach(clearTimeout);
       stops.forEach((s) => s());
+      music.cleanup();
     },
   };
 }
@@ -280,11 +290,18 @@ export function CyberAmbientButton() {
   const [playing, setPlaying] = useState(false);
   const [armed, setArmed] = useState(false); // pref «on», ждём первый жест
   const [supported, setSupported] = useState(true);
+  const pathname = usePathname();
   const engineRef = useRef<{
     ctx: AudioContext;
     master: GainNode;
+    music: { setTheme: (id: ReturnType<typeof themeForPathname>) => void };
     cleanup: () => void;
   } | null>(null);
+
+  // A4: смена страницы — переключение музыкальной темы (кроссфейд).
+  useEffect(() => {
+    engineRef.current?.music.setTheme(themeForPathname(pathname));
+  }, [pathname]);
 
   // Предпочтение «Эфира» живёт в localStorage и известно только браузеру,
   // поэтому читаем его строго ПОСЛЕ гидратации. Чтение во время первого
@@ -311,7 +328,7 @@ export function CyberAmbientButton() {
       if (engineRef.current) return;
       const ac = ensureAudioContext();
       if (!ac) return;
-      const engine = createEngine(ac);
+      const engine = createEngine(ac, window.location.pathname);
       engineRef.current = { ctx: ac, ...engine };
       void ac.resume();
       setPlaying(true);
@@ -356,7 +373,7 @@ export function CyberAmbientButton() {
     }
     const ctx = ensureAudioContext();
     if (!ctx) return;
-    const engine = createEngine(ctx);
+    const engine = createEngine(ctx, window.location.pathname);
     engineRef.current = { ctx, ...engine };
     ctx.resume().catch(() => undefined);
     setPlaying(true);

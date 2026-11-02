@@ -211,6 +211,23 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
                 {active.role}
               </p>
 
+              {/* альтер-эго: одно тело — две записи */}
+              {active.alterEgo && (
+                <div className={`mt-5 border bg-white/[0.02] p-4 ${ACCENT_BORDER[active.accent]}`}>
+                  <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/40">
+                    Альтер-эго · одна личность — два имени
+                  </p>
+                  <p className={`font-display mt-2 text-xl uppercase tracking-wide ${ACCENT_TEXT[active.accent]}`}>
+                    {active.alterEgo.name}
+                  </p>
+                  {active.alterEgo.note && (
+                    <p className="font-cyber mt-1 text-xs leading-relaxed text-white/55">
+                      {active.alterEgo.note}
+                    </p>
+                  )}
+                </div>
+              )}
+
               {/* текст дела */}
               <p className="font-cyber mt-6 text-sm leading-relaxed text-white/75 sm:text-base">
                 {active.text}

@@ -73,6 +73,12 @@ export function CodexCard({ r, accent }: { r: CodexEntry; accent: Accent }) {
         <p className={`font-mono-cyber mt-1.5 text-[10px] uppercase tracking-[0.2em] ${accentText}`}>
           {r.role}
         </p>
+        {r.alterEgo && (
+          <p className="font-mono-cyber mt-2 text-[10px] uppercase leading-relaxed tracking-[0.2em] text-white/50">
+            <span className={accentText}>альтер-эго //</span> {r.alterEgo.name}
+            {r.alterEgo.note ? ` · ${r.alterEgo.note}` : ""}
+          </p>
+        )}
         <p className="font-cyber mt-4 flex-1 text-sm leading-relaxed text-white/70">{r.text}</p>
 
         {r.stats && (

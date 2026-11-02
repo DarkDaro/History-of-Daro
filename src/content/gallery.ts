@@ -115,12 +115,12 @@ export const GALLERY: GalleryItem[] = [
     accent: "magenta",
   },
   {
-    id: "art-hugo",
-    src: asset("/img/chars/hugo.webp"),
-    title: "Хьюго",
+    id: "art-jack",
+    src: asset("/img/chars/jack.webp"),
+    title: "Джек",
     kind: "ПОРТРЕТ",
-    caption: "«Я не на вашей стороне. Я просто не на их».",
-    accent: "amber",
+    caption: "«Он нас спас. Вопрос — чего это стоило ему».",
+    accent: "cyan",
   },
   {
     id: "art-raiz",

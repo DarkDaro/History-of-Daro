@@ -215,7 +215,10 @@ export function SiteFooter() {
           </div>
         </div>
         <p className="font-mono-cyber mt-10 border-t border-white/5 pt-6 text-center text-[10px] uppercase tracking-[0.3em] text-white/40">
-          © 2026 · Вселенная «Истории Даро»
+          © 2026 DarkDaro · Вселенная «Истории Даро» — личный авторский проект
+        </p>
+        <p className="font-mono-cyber mx-auto mt-3 max-w-2xl text-center text-[9px] uppercase leading-relaxed tracking-[0.2em] text-white/25">
+          Все права защищены. Код, персонажи, тексты и идеи — собственность автора; любое использование без письменного разрешения запрещено. Сайт носит ознакомительный характер.
         </p>
       </div>
     </footer>

@@ -5,7 +5,8 @@
 BASE="https://darkdaro.github.io/History-of-Daro"
 ROUTES=(
   "" "/books" "/books/tom-1" "/books/tom-2" "/books/tom-3"
-  "/excerpts" "/excerpts/holodnyj-start" "/excerpts/sdelka" "/excerpts/pepel-i-neon"
+  "/excerpts" "/excerpts/holodnyj-start" "/excerpts/mrachnyj-megapolis-hi-migata"
+  "/excerpts/sdelka" "/excerpts/pepel-i-neon"
   "/world" "/corporations" "/timeline" "/characters" "/gallery"
   "/implants" "/armory" "/chronicles" "/chronicles/pobeg-ohotnika"
   "/story" "/author"

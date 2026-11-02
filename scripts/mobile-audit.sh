@@ -12,6 +12,7 @@ ROUTES=(
   "/story" "/author"
 )
 for r in "${ROUTES[@]}"; do
+  agent-browser set viewport 390 844 >/dev/null 2>&1
   agent-browser open "$BASE$r" >/dev/null 2>&1
   agent-browser wait 1200 >/dev/null 2>&1
   out=$(agent-browser eval "

@@ -1,125 +1,106 @@
-# История Даро — сайт литературного цикла
+# История Даро — промо-сайт трилогии
 
-Официальный сайт-портфолио серии романов **«История Даро»** — антиутопия с элементами постапокалипсиса, боевик и неонуар. Атмосфера — *Blade Runner*, *Ghost in the Shell*, *Cyberpunk 2077*.
+Сайт литературного цикла **«История Даро»** — антиутопия с элементами
+постапокалипсиса, боевик и неонуар. Действие — 2147 год, город
+**Хи-Мигата**, семь корпораций, антигерой **Даро** (актив, ушедший с
+баланса), сопротивление «Периметр Зеро». Атмосферные ориентиры —
+*Blade Runner*, *Ghost in the Shell*, *Cyberpunk 2077*.
 
-**Канон цикла:** в центре — Даро, актив семи корпораций, ушедший с баланса. Город — **Хи-Мигата**, 2147 год, семь корпораций, сопротивление «Периметр Зеро».
+Адрес сайта: <https://darkdaro.github.io/History-of-Daro/> —
+GitHub Pages, статическая сборка, обновляется при каждом push в `main`.
 
-Сайт **многостраничный**:
+> Тексты держатся в голосе цикла: деталь вместо объяснения, цена вместо
+> лозунга. Правила стиля текстов, карта данных и стоп-лист фраз — в
+> [CONTENT.md](CONTENT.md).
 
-| Страница | Что там |
+## Разделы (20 маршрутов)
+
+| Адрес | Раздел |
 | --- | --- |
-| `/` | Главная: hero, marquee, суть цикла, полоса томов, разделы, подписка |
-| `/books` | Каталог цикла: три тома |
-| `/books/tom-1..3` | Детальные страницы томов: аннотации, узлы сюжета, факты |
-| `/world` | Мир: Хи-Мигата, 7 корпораций, фракции, технологии, аномалии, повседневность |
-| `/characters` | Персонажи: Николас/Даро, Лина, Немезида, Айя, соратники и антагонисты |
-| `/implants` | Справочник имплантов (8 записей) |
-| `/armory` | Вооружение: арсенал сопротивления и машины противника |
-| `/story` | Суть истории: 5 человеческих историй, принципы повествования, влияния |
-| `/chronicles` | Хроники: архив восстановленных фрагментов (флешбеки, расшифровки) |
-| `/chronicles/pobeg-ohotnika` | Хроника ХР-01 «Побег и охота за ответами»: флешбек Резонансного Охотника |
+| `/` | Главная: hero-оффер, marquee, суть цикла, блоки-из-контента, подписка |
+| `/books`, `/books/tom-1..3` | Три тома: обложки, логлайны, аннотации, узлы сюжета, факты |
+| `/world` | Досье мира: корпорации, фракции, технологии, аномалии, повседневность |
+| `/characters` | Персонажи: досье-карточки с характеристиками |
+| `/corporations` | Реестр семи корпораций + блок «Сопротивление и независимые» |
+| `/implants` | Справочник имплантов |
+| `/armory` | Вооружение: арсенал войны + канон-каталог «Оружие и владельцы» |
+| `/story` | Суть истории: синопсис, темы, человеческие истории, влияния |
+| `/chronicles`, `/chronicles/<код>` | Хроники: архив расшифровок, детальные страницы |
+| `/excerpts`, `/excerpts/<код>` | Фрагменты томов в читалке |
+| `/timeline` | Хронология цикла + календарь событий мира 2147 |
+| `/gallery` | Галерея: сцены, портреты, обложки |
 | `/author` | Автор + подписка |
-
-Все тексты разделов собраны в модулях канона: `src/content/*.ts` (книги,
-персонажи, мир, оружие…). `src/lib/content.ts` — точка входа с ре-экспортами.
-Правила стиля текстов, карта данных и стоп-лист фраз — в [CONTENT.md](CONTENT.md).
-
-> Тексты прошли стилистический проход (Гибсон / Морган / Дик): деталь вместо
-> объяснения, цена вместо лозунга. При правке новых текстов держи их в том же голосе.
+| `/download.html` | Загрузки сборок (static / source / standalone) |
 
 ## Стек
 
-- **Next.js 16** (App Router) + **TypeScript**
-- **Tailwind CSS 4** (`@theme inline`) — неоновая палитра: циан `#00f0ff`, маджента `#ff2a6d`, фон `#05050a`
-- **framer-motion** — анимации, **lucide-react** — иконки
-- **shadcn/ui** — UI-примитивы (toast и т.д.)
+- **Next.js 16** (App Router, React 19) + **TypeScript**
+- **Tailwind CSS 4** (`@theme inline`): неоновая палитра в CSS-переменных
+  `globals.css` — циан `#00f0ff`, маджента `#ff2a6d`, фон `#05050a`
+- **framer-motion** — анимации; **lucide-react** — иконки; shadcn/ui — примитивы
+- **Fuse.js** — поиск по сайту (палитра `Ctrl+K`, индекс собирается на сборке)
+- Аудио — генеративный Web Audio, без файлов: эмбиент «Эфир» (дождь, дрон,
+  гром), микшер громкости, темы по разделам (`src/lib/audio-engine.ts`,
+  `audio-themes.ts`, `sfx.ts`)
 - Шрифты с кириллицей: Russo One (дисплейный), Play (основной), JetBrains Mono (моно)
 
-## Структура
+## Как устроено
 
-```
-src/app/
-  page.tsx          — главная (hero, marquee, суть, тома, разделы, подписка)
-  layout.tsx        — общая обвязка: навигация, футер, эффекты + SEO
-  books/page.tsx    — каталог томов
-  books/tom-1..3/   — страницы томов
-  world/            — Хи-Мигата, корпорации, фракции, технологии, повседневность
-  characters/       — персонажи цикла
-  implants/         — импланты
-  armory/           — вооружение (две стороны войны)
-  story/            — суть истории (темы, принципы, влияния)
-  chronicles/       — архив хроник + детальная страница хроники
-  author/           — автор + подписка
-  globals.css       — киберпанк-тема: glitch, scanlines, neon-border, cyber-grid, marquee…
-  not-found.tsx     — 404 «Сигнал потерян» (стиль терминала)
-  robots.ts         — динамический robots.txt (с Sitemap)
-  sitemap.ts        — карта сайта: все страницы
-  feed.xml/route.ts — RSS-лента: статусы томов + расшифрованные хроники
-  manifest.ts       — PWA-манифест
-  icon.svg          — фавикон
-  api/route.ts      — health-check API
-src/components/     — cyber.tsx (эффекты), site-chrome.tsx (нав/футер), blocks.tsx,
-                      book-detail.tsx, codex-card.tsx, chronicle-detail.tsx,
-                      subscribe-form.tsx, scroll-top.tsx (кнопка «наверх»),
-                      ambient-audio.tsx (звуковой слой), seo.tsx (JSON-LD), ui/*
-src/content/*.ts    — МОДУЛИ КАНОНА: книги, персонажи, корпорации, импланты, оружие (src/lib/content.ts — ре-экспорт)
-src/lib/sfx.ts      — UI-звуки (hover/click), хранятся локально в localStorage
-src/lib/site.ts     — центральная SEO-конфигурация (SITE_URL, имя, описание)
-public/covers/      — обложки книг и hero-фон (сгенерированы ИИ)
-scripts/            — build-static.mjs, post-build.mjs, gen_images.sh
-_archive/           — архив: всё старое не удаляется, а переносится сюда (в git не попадает)
-```
+- **Весь контент — в модулях канона `src/content/*.ts`** («база данных»
+  сайта): books, characters, corporations, dossier, world, implants,
+  weapons, weapon-specs, chronicles, timeline, calendar, excerpts,
+  gallery, synopsis, story, home, shared. `src/lib/content.ts` — точка
+  входа с ре-экспортами. Новая запись в модуле = карточка, страница,
+  строка в поиске и sitemap появляются сами.
+- `src/app/` — маршруты и обвязка: layout (шапка/футер, эффекты, SEO),
+  robots.ts, sitemap.ts, feed.xml (RSS), manifest.ts, not-found.tsx.
+- `src/components/` — блоки: site-chrome (шапка/футер), cyber (эффекты:
+  glitch, scanlines, дождь, HUD), dossier-панели, excerpt-reader (читалка),
+  calendar-view, gallery-grid, search-palette, subscribe-form, seo (JSON-LD).
+- `scripts/` — служебное: check-content.mjs (линтер контента, гоняется
+  в CI перед сборкой), build-static.mjs и post-build.mjs (сборки),
+  make-og.py (OG-картинки томов и разделов), build-releases.sh (архивы +
+  manifest.json с sha256), smoke.mjs (приёмка статики), mobile-audit.sh
+  (аудит мобильного вьюпорта 390px).
 
 ## Команды
 
 ```bash
-bun install         # или npm install — установка зависимостей
-bun run dev         # dev-сервер → http://localhost:3000
-bun run lint        # ESLint
-bun run build       # production-сборка (бэкенд-версия, standalone)
-bun run start       # запуск production-версии → http://localhost:3000
-bun run build:static  # статический экспорт для GitHub Pages → папка out/
+npm install
+npm run dev           # живой просмотр → http://localhost:3000
+npm run build:static  # статика для GitHub Pages → out/
+npm run build         # standalone-сервер; запуск: npm run start
+npm run smoke         # приёмка статики: 20 маршрутов + sitemap/robots/manifest
+npm run lint          # ESLint
+node scripts/check-content.mjs   # линтер контента: слаги, ссылки, sitemap
 ```
 
-## Публикация на GitHub Pages (бесплатно, статическая версия)
+## Публикация
 
-Статическая версия собирается командой `npm run build:static` в папку `out/`
-(без бэкенда: лендинг, эффекты, справочник — всё работает; API-роут не нужен).
+push в `main` → GitHub Actions (`.github/workflows/deploy.yml`):
+линтер контента → статическая сборка → публикация на Pages (~3 минуты).
 
-1. Залей репозиторий на GitHub (ветка `main`).
-2. В настройках репозитория: **Settings → Pages → Source → GitHub Actions**.
-3. Готово: workflow `.github/workflows/deploy.yml` сам соберёт сайт и выложит
-   его по адресу `https://<ник>.github.io/<репозиторий>/`. При каждом пуше в
-   `main` сайт будет обновляться автоматически.
-
-Посмотреть статическую версию локально:
-
-```bash
-npm run build:static
-npx serve out        # или любой статический сервер
-```
+basePath (`/History-of-Daro/`) и `NEXT_PUBLIC_SITE_URL` вычисляются из
+имени репозитория автоматически — в коде пути пишутся только через хелпер
+`asset()` из `src/content/shared.ts`. Свой домен: basePath отключается
+сам, правки кода не нужны. Локально статику посмотреть:
+`npm run build:static`, затем любой статический сервер по `out/`.
 
 ## Правила репозитория
 
-1. **Ничего не удаляем.** Устаревшие файлы переносятся в `_archive/` (игнорируется гитом). История изменений — в git-коммитах.
-2. **Секреты в гит не попадают.** `.env` и `db/*.db` исключены из индекса (`git rm --cached`), файлы остаются на диске. Шаблон переменных: `.env.example`.
-3. Коммиты — осмысленные, в формате `feat: … / fix: … / docs: …`.
+1. Ничего не удалять без нужды — отключать точечно, с журналом и путём
+   возврата (PROJECT-META, п. 6). Чистки зависимостей и бэкенд-части
+   не проводятся (решение 2026-11-01, подтверждено 2026-11-02):
+   двухрежимная сборка — намеренная архитектура.
+2. Секреты в гит не попадают: токены и доступы хранятся вне репозитория;
+   в `.gitignore` — `.env`, `*.db`, `/db/`, `.next/`, `out/`.
+3. Коммиты: один коммит = одна причина, формат `тип: что и почему`
+   (`feat:`, `fix:`, `docs:`, `a11y:`, `seo:`, `метафайл:`…).
 
-## SEO (минимум)
+## Документация
 
-- `robots.txt` — генерируется из `src/app/robots.ts`, содержит `Sitemap: <домен>/sitemap.xml`
-- `sitemap.xml` — из `src/app/sitemap.ts`
-- `feed.xml` — RSS-лента (`src/app/feed.xml/route.ts`), только фактология: тома и хроники
-- JSON-LD (Schema.org): `WebSite` в layout, `BookSeries`/`Book` на страницах книг,
-  `ProfilePage` на /author (см. `src/components/seo.tsx`)
-- Метаданные: title/description, canonical, Open Graph (`ru_RU`), Twitter Card, `robots: index, follow`, `themeColor`
-- `lang="ru"`, фавикон `icon.svg`
-
-## Перед деплоем
-
-1. Создай `.env` по шаблону `.env.example` и укажи боевой домен:
-   ```
-   NEXT_PUBLIC_SITE_URL=https://твой-домен.ru
-   ```
-   От него зависят canonical, OG-теги, robots.txt и sitemap.xml.
-2. Прогони `bun run build` и проверь `/robots.txt` и `/sitemap.xml`.
+- **PROJECT-META.md** — карта проекта, причины решений, рецепты отката (главный справочник)
+- **ROADMAP.md** — план улучшений, статусы со ссылками на коммиты
+- **AUTHOR-GUIDE.md** — рецепты ведения контента без программиста
+- **CONTENT.md** — стилистика текстов и стоп-лист фраз
+- **DEPLOY.md** — подключение своего GitHub / домена, локальный запуск

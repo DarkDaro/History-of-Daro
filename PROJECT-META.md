@@ -636,8 +636,11 @@ GitHub (канон), локальный ПК, рабочая копия песо
   локальный ПК в течение дня.
 - Сообщения коммитов — по-русски, коротко, с привязкой к разделу
   («метафайл: …», «a11y: …», «(п.12.2 №9)»).
-- Пуш — токеном из `/home/z/.gt`:
-  `git push --no-verify https://oauth2:$(cat /home/z/.gt)@github.com/DarkDaro/History-of-Daro.git main:main`.
+- Пуш — токеном из локального файла вне гита (в песочнице — `.gt`
+  в корне рабочей копии, `/home/z/my-project/.gt`: зона переживает
+  рестарты, в гит не попадает — строка в `.git/info/exclude`;
+  fine-grained токен живёт 7 дней, после — заменить):
+  `git push --no-verify https://oauth2:$(cat /home/z/my-project/.gt)@github.com/DarkDaro/History-of-Daro.git main:main`.
   Токен не печатать; вывод маскировать `sed 's/oauth2:[^@]*@/oauth2:***@/g'`.
 - Три точки синхронизации (п. 15): GitHub — канон, локальный ПК
   (`C:\History-of-Daro\History-of-Daro`, VS Code), рабочая копия

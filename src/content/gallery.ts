@@ -139,6 +139,14 @@ export const GALLERY: GalleryItem[] = [
     accent: "amber",
   },
   {
+    id: "art-berginator",
+    src: asset("/img/chars/berginator.webp"),
+    title: "Бергинатор",
+    kind: "ПОРТРЕТ",
+    caption: "«Это не война. Это плановая операция».",
+    accent: "amber",
+  },
+  {
     id: "art-darkdarus",
     src: asset("/img/chars/darkdarus.webp"),
     title: "Даркдарус",

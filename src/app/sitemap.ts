@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/books/tom-3", priority: 0.8, freq: "monthly" },
     { path: "/excerpts", priority: 0.8, freq: "weekly" },
     { path: "/excerpts/holodnyj-start", priority: 0.7, freq: "monthly" },
+    { path: "/excerpts/mrachnyj-megapolis-hi-migata", priority: 0.7, freq: "monthly" },
     { path: "/excerpts/sdelka", priority: 0.7, freq: "monthly" },
     { path: "/excerpts/pepel-i-neon", priority: 0.7, freq: "monthly" },
     { path: "/world", priority: 0.8, freq: "monthly" },

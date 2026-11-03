@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/excerpts/sdelka", priority: 0.7, freq: "monthly" },
     { path: "/excerpts/pepel-i-neon", priority: 0.7, freq: "monthly" },
     { path: "/world", priority: 0.8, freq: "monthly" },
+    { path: "/map", priority: 0.7, freq: "monthly" },
     { path: "/corporations", priority: 0.8, freq: "monthly" },
     { path: "/timeline", priority: 0.7, freq: "weekly" },
     { path: "/characters", priority: 0.8, freq: "monthly" },

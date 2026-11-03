@@ -193,6 +193,7 @@ export function SiteFooter() {
               <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/50">Мир</p>
               <ul className="font-mono-cyber mt-3 space-y-2 text-[11px] uppercase tracking-[0.2em] text-white/45">
                 <li><Link href="/world" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Хи-Мигата</Link></li>
+                <li><Link href="/map" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Карта города</Link></li>
                 <li><Link href="/corporations" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Корпорации</Link></li>
                 <li><Link href="/timeline" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Таймлайн 2147</Link></li>
                 <li><Link href="/characters" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Персонажи</Link></li>

@@ -29,3 +29,4 @@ export * from "@/content/synopsis";
 export * from "@/content/excerpts";
 export * from "@/content/gallery";
 export * from "@/content/glossary";
+export * from "@/content/map";

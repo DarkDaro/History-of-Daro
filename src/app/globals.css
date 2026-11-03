@@ -842,3 +842,18 @@ body {
   outline: 1px dashed rgba(0,240,255,0.7);
   outline-offset: 3px;
 }
+
+/* Карта Хи-Мигаты (BACKLOG п.8): бегущий пунктир маршрута патрулей */
+@keyframes cm-patrol-dash {
+  to {
+    stroke-dashoffset: -160;
+  }
+}
+.cm-patrol {
+  animation: cm-patrol-dash 9s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cm-patrol {
+    animation: none;
+  }
+}

@@ -169,6 +169,7 @@ SECTIONS = [
     ("excerpts", "Фрагменты", "cyan"),
     ("story", "Суть истории", "amber"),
     ("glossary", "Глоссарий мира", "cyan"),
+    ("map", "Карта Хи-Мигаты", "cyan"),
     ("author", "Автор", "magenta"),
 ]
 AMBER = (255, 176, 32)

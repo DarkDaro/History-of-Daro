@@ -273,9 +273,24 @@ export function ExcerptReader({
 }
 
 export function excerptMeta(e: Excerpt) {
+  // OG-картинка эпизода: public/covers/og-excerpts/<slug>.png
+  // (генератор — scripts/make-og.py, блок excerpts_main).
+  const og = `/covers/og-excerpts/${e.slug}.png`;
+  const ogAlt = `${e.title} — фрагмент «Истории Даро»`;
   return {
     title: `${e.title} — фрагмент «Истории Даро»`,
     description: e.lead,
     alternates: { canonical: `/excerpts/${e.slug}` },
+    openGraph: {
+      title: `${e.title} — фрагмент «Истории Даро»`,
+      description: e.lead,
+      images: [{ url: og, width: 1200, height: 630, alt: ogAlt }],
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title: e.title,
+      description: e.lead,
+      images: [og],
+    },
   };
 }

@@ -235,3 +235,99 @@ def sections_main():
 
 if __name__ == "__main__":
     sections_main()
+
+
+# ============================================================
+# OG-картинки отдельных фрагментов (BACKLOG 2026-11-03 №4):
+# public/covers/og-excerpts/<slug>.png — тот же стиль, что у
+# разделов, плюс строка тома и эпизода. Данные парсятся из
+# src/content/excerpts.ts и books.ts — контент не дублируется.
+# Запуск: python3 scripts/make-og.py
+# ============================================================
+
+EXCERPTS_SRC = ROOT / "src" / "content" / "excerpts.ts"
+BOOKS_SRC = ROOT / "src" / "content" / "books.ts"
+
+
+def _field(body, name):
+    m = re.search(rf'\b{name}:\s*"([^"]+)"', body)
+    return m.group(1) if m else ""
+
+
+def _entries(src):
+    """Режет модуль на записи по маркерам slug: "..." (порядок полей
+    внутри записи значения не имеет — берём первую позицию slug)."""
+    marks = [m for m in re.finditer(r'slug:\s*"([^"]+)"', src)]
+    out = []
+    for i, m in enumerate(marks):
+        body = src[m.start(): marks[i + 1].start() if i + 1 < len(marks) else len(src)]
+        out.append({"slug": m.group(1), "body": body})
+    return out
+
+
+def excerpts_main():
+    books = {}
+    for b in _entries(BOOKS_SRC.read_text(encoding="utf-8")):
+        books[b["slug"]] = (_field(b["body"], "volume"), _field(b["body"], "title"))
+
+    out_dir = COVERS / "og-excerpts"
+    out_dir.mkdir(exist_ok=True)
+
+    for e in _entries(EXCERPTS_SRC.read_text(encoding="utf-8")):
+        slug = e["slug"]
+        body = e["body"]
+        title = _field(body, "title")
+        label = _field(body, "label")
+        accent = _field(body, "accent") or "cyan"
+        if accent not in ACCENT:
+            accent = "cyan"
+        volume, _book_title = books.get(_field(body, "bookSlug"), ("ЦИКЛ", ""))
+
+        img = Image.new("RGBA", (W, H), BG_TOP + (255,))
+        for y in range(H):
+            t = y / H
+            img.paste(
+                tuple(int(BG_TOP[i] + (BG_BOTTOM[i] - BG_TOP[i]) * t) for i in range(3)) + (255,),
+                (0, y, W, y + 1),
+            )
+        d = ImageDraw.Draw(img)
+        col = ACCENT[accent]
+        corners(d)
+        d.line([(0, 6), (W, 6)], fill=col + (110,), width=2)
+        d.line([(0, H - 7), (W, H - 7)], fill=col + (110,), width=2)
+
+        # киккер
+        f_kick = ImageFont.truetype(FONT, 24)
+        kick = "ИСТОРИЯ ДАРО // ХИ-МИГАТА · 2147"
+        d.text(((W - d.textlength(kick, font=f_kick)) / 2, 88), kick,
+               font=f_kick, fill=GREY + (220,))
+
+        # строка тома и эпизода
+        f_meta = ImageFont.truetype(FONT, 26)
+        meta = f"{volume} · ФРАГМЕНТ · {label.upper()}" if label else f"{volume} · ФРАГМЕНТ"
+        meta = meta.replace("· ФРАГМЕНТ · ", " · ФРАГМЕНТ · ")
+        d.text(((W - d.textlength(meta, font=f_meta)) / 2, 168), meta,
+               font=f_meta, fill=col + (200,))
+
+        # заголовок фрагмента
+        f_title = ImageFont.truetype(FONT_BOLD, 84)
+        lines = wrap(d, title.upper(), f_title, W - 200, max_lines=3)
+        y = H / 2 - 40 - len(lines) * 56
+        for line in lines:
+            lw = d.textlength(line, font=f_title)
+            glow_text(img, ((W - lw) / 2, y), line, f_title, WHITE, 10, 140)
+            y += 104
+
+        # неоновая линия + адрес
+        d.line([(W / 2 - 120, H - 150), (W / 2 + 120, H - 150)], fill=col + (220,), width=3)
+        f_addr = ImageFont.truetype(FONT, 22)
+        addr = "daro://excerpts/" + slug
+        d.text(((W - d.textlength(addr, font=f_addr)) / 2, H - 118), addr,
+               font=f_addr, fill=col + (170,))
+
+        img.convert("RGB").save(out_dir / f"{slug}.png", "PNG")
+        print("og-excerpts/" + slug + ".png — ок")
+
+
+if __name__ == "__main__":
+    excerpts_main()

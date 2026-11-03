@@ -1,4 +1,4 @@
-import { BOOKS, CHRONICLES } from "@/lib/content";
+import { BOOKS, CHRONICLES, EXCERPTS } from "@/lib/content";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 
 // Для статического экспорта (GitHub Pages) роут должен быть статическим:
@@ -17,8 +17,9 @@ function esc(value: string): string {
 
 /**
  * RSS-лента: https://<домен>/feed.xml
- * Только фактология — статусы томов и расшифрованные хроники.
- * Художественный текст и сюжетные детали сюда не попадают.
+ * Только фактология — выходы фрагментов (анонсы: том, название,
+ * статус, подводка — без художественного текста), статусы томов
+ * и расшифрованные хроники.
  */
 export function GET(): Response {
   const built = new Date().toUTCString();
@@ -31,6 +32,17 @@ export function GET(): Response {
       <description>${esc(b.logline)}</description>
     </item>`
   );
+
+  const excerptItems = EXCERPTS.map((e) => {
+    const b = BOOKS.find((x) => x.slug === e.bookSlug);
+    const title = `Фрагмент · ${b ? b.volume : "цикл"}: «${e.title}» — ${e.status}`;
+    return `    <item>
+      <title>${esc(title)}</title>
+      <link>${SITE_URL}/excerpts/${e.slug}</link>
+      <guid isPermaLink="true">${SITE_URL}/excerpts/${e.slug}</guid>
+      <description>${esc(e.lead)}</description>
+    </item>`;
+  });
 
   const chronicleItems = CHRONICLES.map(
     (c) => `    <item>
@@ -50,7 +62,7 @@ export function GET(): Response {
     <language>ru</language>
     <lastBuildDate>${built}</lastBuildDate>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
-${[...bookItems, ...chronicleItems].join("\n")}
+${[...excerptItems, ...bookItems, ...chronicleItems].join("\n")}
   </channel>
 </rss>`;
 

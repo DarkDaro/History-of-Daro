@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, BookOpen, ScrollText } from "lucide-react";
 import { PageHero, TerminalQuote } from "@/components/blocks";
 import { CopyLinkButton } from "@/components/copy-link-button";
+import { ReadingProgress } from "@/components/reading-progress";
 import { Corners, Reveal, Typewriter } from "@/components/cyber";
 import type { Book, Excerpt } from "@/lib/content";
 
@@ -44,6 +45,9 @@ export function ExcerptReader({
 
   return (
     <main className="min-h-screen bg-[#05050a] text-white">
+      {/* прогресс чтения — акцент эпизода */}
+      <ReadingProgress accent={e.accent} />
+
       <PageHero
         kicker={`${b.code} · «${b.title}» · ${e.label}`}
         title={e.title}

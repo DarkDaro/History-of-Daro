@@ -24,6 +24,8 @@ export interface GlossaryEntry {
   /** Где на сайте тема раскрыта подробнее (опционально). */
   href?: string;
   hrefLabel?: string;
+  /** Вторая связка (опционально): например, объект на карте города — /map. */
+  also?: { href: string; label: string };
 }
 
 export interface GlossaryLevel {
@@ -57,6 +59,7 @@ export const GLOSSARY: GlossaryLevel[] = [
       },
       {
         id: "neuronet",
+        also: { href: "/map", label: "Карта · Чёрные узлы сети" },
         term: "Нейросеть",
         kind: "жанровый термин",
         aliases: ["нейросетка", "сеть", "технодоминус"],
@@ -107,6 +110,7 @@ export const GLOSSARY: GlossaryLevel[] = [
       },
       {
         id: "black-market",
+        also: { href: "/map", label: "Карта · Доки" },
         term: "Чёрный рынок",
         kind: "жанровый термин",
         aliases: ["доки", "котёл", "контрафакт"],
@@ -167,6 +171,7 @@ export const GLOSSARY: GlossaryLevel[] = [
       },
       {
         id: "kotel",
+        also: { href: "/map", label: "Карта · Рынок «Котёл»" },
         term: "«Котёл»",
         kind: "место · рынок",
         aliases: ["рынок", "чёрный рынок", "торговля"],
@@ -177,6 +182,7 @@ export const GLOSSARY: GlossaryLevel[] = [
       },
       {
         id: "cleaners",
+        also: { href: "/map", label: "Карта · Сектора «Чистильщиков»" },
         term: "«Чистильщики»",
         kind: "банда",
         aliases: ["чистильщики", "банда", "вырезают железо"],
@@ -205,6 +211,7 @@ export const GLOSSARY: GlossaryLevel[] = [
     entries: [
       {
         id: "hi-migata",
+        also: { href: "/map", label: "Карта · Шпиль «Хи-Гамы»" },
         term: "Хи-Мигата",
         kind: "город · место действия",
         aliases: ["хигама", "город завод", "мегаполис", "2147"],
@@ -215,6 +222,7 @@ export const GLOSSARY: GlossaryLevel[] = [
       },
       {
         id: "perimeter-zero",
+        also: { href: "/map", label: "Карта · «Периметр Зеро»" },
         term: "«Периметр Зеро»",
         kind: "база сопротивления",
         aliases: ["периметр", "сопротивление", "база за куполом"],
@@ -245,6 +253,7 @@ export const GLOSSARY: GlossaryLevel[] = [
       },
       {
         id: "berginator",
+        also: { href: "/map", label: "Карта · Арсенал Бергинатора" },
         term: "Бергинатор",
         kind: "диктатор · имя и машина сразу",
         aliases: ["бергинатор", "диктатор", "холодный стратег", "экзоразведчики"],
@@ -285,6 +294,7 @@ export const GLOSSARY: GlossaryLevel[] = [
       },
       {
         id: "technodominus",
+        also: { href: "/map", label: "Карта · Комплексы Технодоминуса" },
         term: "Технодоминус",
         kind: "корпорация",
         aliases: ["райз", "авангард", "сети и ии"],
@@ -315,6 +325,7 @@ export const GLOSSARY: GlossaryLevel[] = [
       },
       {
         id: "s-sentinel",
+        also: { href: "/map", label: "Карта · Сканеры на переходах" },
         term: "«С-Сентинел»",
         kind: "система слежки",
         aliases: ["сентинел", "слежка", "наблюдение", "камеры"],

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Corners } from "@/components/cyber";
 import { sfx } from "@/lib/sfx";
 import {
+  GLOSSARY,
   MAP_CATEGORIES,
   MAP_NOTE,
   MAP_POINTS,
@@ -53,6 +54,15 @@ function labelAnchor(pos: MapPoint["labelPos"]): { dx: number; dy: number; ancho
   }
 }
 
+/** Словарная запись по якорю (для связки «объект карты → термин глоссария»). */
+function glossaryTerm(id: string) {
+  for (const level of GLOSSARY) {
+    const found = level.entries.find((e) => e.id === id);
+    if (found) return found;
+  }
+  return undefined;
+}
+
 export function CityMap() {
   const [active, setActive] = useState<MapPoint | null>(null);
   const [off, setOff] = useState<Set<MapCategory>>(new Set());
@@ -82,6 +92,7 @@ export function CityMap() {
 
   const visible = MAP_POINTS.filter((p) => !off.has(p.category));
   const accent = active ? CAT_ACCENT[active.category] : null;
+  const activeGl = active?.glossary ? glossaryTerm(active.glossary) : undefined;
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
@@ -307,13 +318,25 @@ export function CityMap() {
                 {active.name}
               </h3>
               <p className="font-cyber mt-4 text-sm leading-relaxed text-white/70">{active.text}</p>
-              {active.href && (
-                <Link
-                  href={active.href}
-                  className="font-mono-cyber mt-6 inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[var(--neon-cyan)]"
-                >
-                  {"//"} {active.hrefLabel ?? "на сайте"} <span aria-hidden>→</span>
-                </Link>
+              {(active.href || activeGl) && (
+                <div className="mt-6 flex flex-col items-start gap-2.5">
+                  {active.href && (
+                    <Link
+                      href={active.href}
+                      className="font-mono-cyber inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[var(--neon-cyan)]"
+                    >
+                      {"//"} {active.hrefLabel ?? "на сайте"} <span aria-hidden>→</span>
+                    </Link>
+                  )}
+                  {activeGl && (
+                    <Link
+                      href={`/glossary#${activeGl.id}`}
+                      className="font-mono-cyber inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[var(--neon-magenta)]"
+                    >
+                      {"//"} Словарь · {activeGl.term} <span aria-hidden>→</span>
+                    </Link>
+                  )}
+                </div>
               )}
             </div>
           ) : (

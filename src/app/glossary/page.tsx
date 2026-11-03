@@ -79,16 +79,31 @@ export default function GlossaryPage() {
                     </div>
                     <div className={`mt-3 h-px w-14 ${ACCENT_LINE[e.accent]}`} aria-hidden />
                     <p className="font-cyber mt-4 text-sm leading-relaxed text-white/70">{e.text}</p>
-                    {e.href && (
-                      <Link
-                        href={e.href}
-                        className="font-mono-cyber mt-5 inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[var(--neon-cyan)]"
-                      >
-                        {"//"} {e.hrefLabel ?? "на сайте"}
-                        <span aria-hidden className="transition-transform group-hover:translate-x-1">
-                          →
-                        </span>
-                      </Link>
+                    {(e.href || e.also) && (
+                      <div className="mt-5 flex flex-col items-start gap-2.5">
+                        {e.href && (
+                          <Link
+                            href={e.href}
+                            className="font-mono-cyber inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[var(--neon-cyan)]"
+                          >
+                            {"//"} {e.hrefLabel ?? "на сайте"}
+                            <span aria-hidden className="transition-transform group-hover:translate-x-1">
+                              →
+                            </span>
+                          </Link>
+                        )}
+                        {e.also && (
+                          <Link
+                            href={e.also.href}
+                            className="font-mono-cyber inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-white/50 transition-colors hover:text-[var(--neon-magenta)]"
+                          >
+                            {"//"} {e.also.label}
+                            <span aria-hidden className="transition-transform group-hover:translate-x-1">
+                              →
+                            </span>
+                          </Link>
+                        )}
+                      </div>
                     )}
                   </article>
                 </Reveal>

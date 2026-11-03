@@ -33,11 +33,14 @@ export interface MapPoint {
   text: string;
   href?: string;
   hrefLabel?: string;
+  /** Якорь словарной записи, если объекту есть термин в глоссарии: /glossary#<id>. */
+  glossary?: string;
 }
 
 export const MAP_POINTS: MapPoint[] = [
   {
     id: "M-01",
+    glossary: "technodominus",
     name: "Крейсер «Авангард»",
     category: "corps",
     x: 500,
@@ -49,6 +52,7 @@ export const MAP_POINTS: MapPoint[] = [
   },
   {
     id: "M-02",
+    glossary: "hi-migata",
     name: "Шпиль «Хи-Гамы»",
     category: "corps",
     x: 500,
@@ -60,6 +64,7 @@ export const MAP_POINTS: MapPoint[] = [
   },
   {
     id: "M-03",
+    glossary: "technodominus",
     name: "Комплексы Технодоминуса",
     category: "corps",
     x: 655,
@@ -82,6 +87,7 @@ export const MAP_POINTS: MapPoint[] = [
   },
   {
     id: "M-05",
+    glossary: "hi-migata",
     name: "Контур «Купола»",
     category: "city",
     x: 270,
@@ -104,6 +110,7 @@ export const MAP_POINTS: MapPoint[] = [
   },
   {
     id: "M-07",
+    glossary: "s-sentinel",
     name: "Сканеры на переходах",
     category: "city",
     x: 300,
@@ -115,6 +122,7 @@ export const MAP_POINTS: MapPoint[] = [
   },
   {
     id: "M-08",
+    glossary: "cleaners",
     name: "Сектора «Чистильщиков»",
     category: "market",
     x: 725,
@@ -126,6 +134,7 @@ export const MAP_POINTS: MapPoint[] = [
   },
   {
     id: "M-09",
+    glossary: "hi-migata",
     name: "Реакторы «Хи-Гамы»",
     category: "city",
     x: 430,
@@ -137,6 +146,7 @@ export const MAP_POINTS: MapPoint[] = [
   },
   {
     id: "M-10",
+    glossary: "berginator",
     name: "Арсенал Бергинатора",
     category: "corps",
     x: 640,
@@ -159,6 +169,7 @@ export const MAP_POINTS: MapPoint[] = [
   },
   {
     id: "M-12",
+    glossary: "black-market",
     name: "Доки",
     category: "market",
     x: 705,
@@ -170,6 +181,7 @@ export const MAP_POINTS: MapPoint[] = [
   },
   {
     id: "M-13",
+    glossary: "kotel",
     name: "Рынок «Котёл»",
     category: "market",
     x: 555,
@@ -181,6 +193,7 @@ export const MAP_POINTS: MapPoint[] = [
   },
   {
     id: "M-14",
+    glossary: "perimeter-zero",
     name: "«Периметр Зеро»",
     category: "resistance",
     x: 112,
@@ -203,6 +216,7 @@ export const MAP_POINTS: MapPoint[] = [
   },
   {
     id: "M-16",
+    glossary: "neuronet",
     name: "Чёрные узлы сети",
     category: "hidden",
     x: 830,

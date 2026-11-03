@@ -9,10 +9,10 @@ import { CodexCard } from "@/components/codex-card";
 import { CopyLinkButton } from "@/components/copy-link-button";
 import { Corners, StatBar, Typewriter } from "@/components/cyber";
 import { sfx } from "@/lib/sfx";
-import { CHARACTER_SIDES, type Accent, type CodexEntry } from "@/lib/content";
+import { CHARACTER_GROUPS, type Accent, type CodexEntry } from "@/lib/content";
 
 /* ============================================================
-   Колода личных дел на /characters: фильтр по принадлежности
+   Колода личных дел на /characters: фильтр по группам канона
    и панель досье, которая открывается по клику на карточку.
    ============================================================ */
 
@@ -34,13 +34,13 @@ const ACCENT_BORDER: Record<Accent, string> = {
   amber: "border-[var(--neon-amber)]/40",
 };
 
-type SideFilter = CodexEntry["side"] | "all";
+type GroupFilter = CodexEntry["group"] | "all";
 
 export function CharacterDossier({ items }: { items: CodexEntry[] }) {
-  const [filter, setFilter] = useState<SideFilter>("all");
+  const [filter, setFilter] = useState<GroupFilter>("all");
   const [active, setActive] = useState<CodexEntry | null>(null);
 
-  const visible = filter === "all" ? items : items.filter((r) => r.side === filter);
+  const visible = filter === "all" ? items : items.filter((r) => r.group === filter);
 
   // Глубокие ссылки: /characters#<id> открывает дело сразу, адресная
   // строка всегда отражает открытое дело (replaceState — без мусора
@@ -98,18 +98,18 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
 
   return (
     <div>
-      {/* фильтр принадлежности */}
-      <div className="flex flex-wrap gap-2" role="group" aria-label="Фильтр по принадлежности">
+      {/* фильтр по группам канона */}
+      <div className="flex flex-wrap gap-2" role="group" aria-label="Фильтр по группам">
         <FilterChip active={filter === "all"} onClick={() => setFilter("all")}>
           Все дела · {items.length}
         </FilterChip>
-        {CHARACTER_SIDES.map((s) => (
+        {CHARACTER_GROUPS.map((s) => (
           <FilterChip
             key={s.id}
             active={filter === s.id}
             onClick={() => setFilter(s.id)}
           >
-            {s.label} · {items.filter((r) => r.side === s.id).length}
+            {s.label} · {items.filter((r) => r.group === s.id).length}
           </FilterChip>
         ))}
       </div>

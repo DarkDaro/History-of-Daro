@@ -168,6 +168,7 @@ SECTIONS = [
     ("chronicles", "Хроники", "magenta"),
     ("excerpts", "Фрагменты", "cyan"),
     ("story", "Суть истории", "amber"),
+    ("glossary", "Глоссарий мира", "cyan"),
     ("author", "Автор", "magenta"),
 ]
 AMBER = (255, 176, 32)

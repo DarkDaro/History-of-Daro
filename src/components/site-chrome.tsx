@@ -206,6 +206,7 @@ export function SiteFooter() {
               <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/50">Прочее</p>
               <ul className="font-mono-cyber mt-3 space-y-2 text-[11px] uppercase tracking-[0.2em] text-white/45">
                 <li><Link href="/story" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Суть истории</Link></li>
+                <li><Link href="/glossary" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Глоссарий</Link></li>
                 <li><Link href="/author" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Автор</Link></li>
                 <li><Link href="/#subscribe" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Подписка</Link></li>
                 <li><Link href="/feed.xml" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">RSS-лента</Link></li>

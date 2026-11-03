@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, BookOpen, ScrollText } from "lucide-react";
 import { PageHero, TerminalQuote } from "@/components/blocks";
+import { CopyLinkButton } from "@/components/copy-link-button";
 import { Corners, Reveal, Typewriter } from "@/components/cyber";
 import type { Book, Excerpt } from "@/lib/content";
 
@@ -92,6 +93,9 @@ export function ExcerptReader({
                   </dl>
                 </div>
               </div>
+
+              {/* копировать ссылку на файл */}
+              <CopyLinkButton label="Копировать ссылку на файл" />
 
               {/* связанные файлы */}
               <div className="border border-white/10 bg-white/[0.03] p-5">

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ImageOff, ScrollText, X } from "lucide-react";
 import { CodexCard } from "@/components/codex-card";
+import { CopyLinkButton } from "@/components/copy-link-button";
 import { Corners, StatBar, Typewriter } from "@/components/cyber";
 import { sfx } from "@/lib/sfx";
 import { CHARACTER_SIDES, type Accent, type CodexEntry } from "@/lib/content";
@@ -180,13 +181,16 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
               <p className={`font-mono-cyber text-[10px] tracking-[0.12em] sm:text-xs ${ACCENT_TEXT[active.accent]}`}>
                 <Typewriter text={`> daro://dossier/${active.id.toLowerCase().replace("?", "x")} · личное дело`} />
               </p>
-              <button
-                onClick={close}
-                aria-label="Закрыть дело"
-                className="border border-white/15 p-2 text-white/60 transition-colors hover:border-white/40 hover:text-white"
-              >
-                <X className="h-4 w-4" aria-hidden />
-              </button>
+              <div className="flex items-center gap-2">
+                <CopyLinkButton compact label="Копировать ссылку на дело" />
+                <button
+                  onClick={close}
+                  aria-label="Закрыть дело"
+                  className="border border-white/15 p-2 text-white/60 transition-colors hover:border-white/40 hover:text-white"
+                >
+                  <X className="h-4 w-4" aria-hidden />
+                </button>
+              </div>
             </div>
 
             <div className="px-5 py-7 sm:px-7">

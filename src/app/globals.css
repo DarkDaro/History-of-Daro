@@ -857,3 +857,15 @@ body {
     animation: none;
   }
 }
+
+/* Карта Хи-Мигаты (BACKLOG п.23): видимый фокус объектов с клавиатуры */
+.cm-marker {
+  outline: none;
+}
+.cm-focus {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.cm-marker:focus-visible .cm-focus {
+  opacity: 0.9;
+}

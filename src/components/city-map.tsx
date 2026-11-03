@@ -131,8 +131,10 @@ export function CityMap() {
           <svg
             viewBox="0 0 1000 800"
             className="block h-auto w-full select-none"
-            role="img"
-            aria-label="Схема Хи-Мигаты: купола, ярусы, доки, Пустошь и скрытые объекты"
+            /* role=group, а не img: внутри интерактивные маркеры —
+               под role=img скринридеры прячут дочерние элементы (a11y) */
+            role="group"
+            aria-label="Тактическая схема Хи-Мигаты: интерактивные объекты доступны с клавиатуры (Tab, Enter, Esc)"
           >
             <defs>
               <filter id="cm-glow" x="-60%" y="-60%" width="220%" height="220%">
@@ -252,7 +254,7 @@ export function CityMap() {
                 <g
                   key={p.id}
                   transform={`translate(${p.x} ${p.y})`}
-                  className="cursor-pointer"
+                  className="cm-marker cursor-pointer"
                   role="button"
                   tabIndex={0}
                   aria-label={`${p.id} · ${p.name}`}
@@ -269,6 +271,8 @@ export function CityMap() {
                   onMouseEnter={() => sfx("hover")}
                 >
                   <circle r="20" fill="transparent" />
+                  {/* видимый фокус с клавиатуры (a11y): подсвечивается по .cm-marker:focus-visible */}
+                  <circle className="cm-focus" r="17" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="1.5" aria-hidden />
                   <circle
                     r={isActive ? 13 : 10}
                     fill="none"
@@ -305,9 +309,9 @@ export function CityMap() {
         </div>
       </div>
 
-      {/* карточка объекта */}
+      {/* карточка объекта: aria-live — выбор объекта объявляется скринридеру */}
       <aside className="lg:sticky lg:top-24 lg:self-start">
-        <div className="beam-border-static relative min-h-[280px] bg-[#0a0a16] p-7">
+        <div className="beam-border-static relative min-h-[280px] bg-[#0a0a16] p-7" aria-live="polite">
           <Corners color={accent ?? "cyan"} />
           {active ? (
             <div>

@@ -33,7 +33,7 @@ export default function CharactersPage() {
       <section className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <Reveal>
-            <div className="grid gap-8 border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm sm:p-10 lg:grid-cols-[1fr_320px]">
+            <div id={hero.id} className="grid scroll-mt-28 gap-8 border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm sm:p-10 lg:grid-cols-[1fr_320px]">
               <div>
                 <div className="flex flex-wrap items-center gap-3">
                   <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/40">{hero.id}</span>

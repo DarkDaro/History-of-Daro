@@ -91,9 +91,9 @@ export const SEARCH_INDEX: SearchRecord[] = [
     );
   }),
 
-  // Персонажи
+  // Персонажи (якоря: /characters#<id> открывает личное дело)
   ...CHARACTERS.map((c) =>
-    rec(`CH-${c.id}`, c.name, "Персонажи", `${c.id} ${c.tag} ${c.role}`, c.text, "/characters", c.accent),
+    rec(`CH-${c.id}`, c.name, "Персонажи", `${c.id} ${c.tag} ${c.role}`, c.text, `/characters#${c.id}`, c.accent),
   ),
 
   // Мир: корпорации, фракции, технологии, аномалии, повседневность

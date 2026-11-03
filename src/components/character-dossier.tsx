@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -41,6 +41,40 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
 
   const visible = filter === "all" ? items : items.filter((r) => r.side === filter);
 
+  // Глубокие ссылки: /characters#<id> открывает дело сразу, адресная
+  // строка всегда отражает открытое дело (replaceState — без мусора
+  // в истории браузера). Хеш снят — дело закрыто.
+  const close = useCallback(() => {
+    sfx("close");
+    setActive(null);
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  }, []);
+
+  const open = (r: CodexEntry) => {
+    sfx("open");
+    setActive(r);
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", `#${r.id}`);
+    }
+  };
+
+  useEffect(() => {
+    const fromHash = () => {
+      const hash = decodeURIComponent(window.location.hash.replace(/^#/, "")).toUpperCase();
+      if (!hash) {
+        setActive(null);
+        return;
+      }
+      const found = items.find((r) => r.id.toUpperCase() === hash) ?? null;
+      if (found) setActive(found);
+    };
+    fromHash();
+    window.addEventListener("hashchange", fromHash);
+    return () => window.removeEventListener("hashchange", fromHash);
+  }, [items]);
+
   // Блокируем прокрутку страницы, пока открыто дело.
   useEffect(() => {
     if (!active) return;
@@ -55,14 +89,11 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
   useEffect(() => {
     if (!active) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        sfx("close");
-        setActive(null);
-      }
+      if (e.key === "Escape") close();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active]);
+  }, [active, close]);
 
   return (
     <div>
@@ -88,7 +119,9 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
           {visible.map((r) => (
             <motion.div
               key={r.id}
+              id={r.id}
               layout
+              className="scroll-mt-28"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
@@ -98,15 +131,11 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
                 role="button"
                 tabIndex={0}
                 aria-label={`Открыть личное дело: ${r.name}`}
-                onClick={() => {
-                  sfx("open");
-                  setActive(r);
-                }}
+                onClick={() => open(r)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    sfx("open");
-                    setActive(r);
+                    open(r);
                   }
                 }}
                 className="h-full cursor-pointer transition-transform duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[var(--neon-cyan)]"
@@ -128,10 +157,7 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-[80] bg-black/80 backdrop-blur-sm"
-            onClick={() => {
-              sfx("close");
-              setActive(null);
-            }}
+            onClick={close}
             aria-hidden
           />
         )}
@@ -155,10 +181,7 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
                 <Typewriter text={`> daro://dossier/${active.id.toLowerCase().replace("?", "x")} · личное дело`} />
               </p>
               <button
-                onClick={() => {
-                  sfx("close");
-                  setActive(null);
-                }}
+                onClick={close}
                 aria-label="Закрыть дело"
                 className="border border-white/15 p-2 text-white/60 transition-colors hover:border-white/40 hover:text-white"
               >

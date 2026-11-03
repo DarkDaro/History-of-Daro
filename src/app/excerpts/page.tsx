@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Radio } from "lucide-react";
 import { PageHero, SectionHeading } from "@/components/blocks";
 import { Corners, Reveal } from "@/components/cyber";
+import { RandomExcerptButton } from "@/components/random-excerpt-button";
 import { BOOKS, EXCERPTS } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -47,7 +48,20 @@ export default function ExcerptsPage() {
             accent="cyan"
           />
 
-          <div className="grid gap-8">
+          {/* случайный фрагмент (BACKLOG п.25): кнопка-глитч,
+             рассыпает метку в название выпавшего файла */}
+          <Reveal className="mt-8">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+              <RandomExcerptButton
+                items={EXCERPTS.map((e) => ({ slug: e.slug, title: e.title }))}
+              />
+              <p className="font-mono-cyber text-[10px] uppercase tracking-[0.25em] text-white/35">
+                {"//"} выбор случайный · файлов в архиве: {EXCERPTS.length}
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="mt-8 grid gap-8">
             {EXCERPTS.map((e, i) => {
               const book = BOOKS.find((b) => b.slug === e.bookSlug)!;
               return (

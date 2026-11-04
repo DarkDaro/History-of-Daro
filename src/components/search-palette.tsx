@@ -224,7 +224,7 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
             </div>
 
             {/* подсказка */}
-            <div className="font-mono-cyber flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-white/10 px-4 py-3 text-[9px] uppercase tracking-[0.25em] text-white/35 sm:px-5">
+            <div className="font-mono-cyber flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-white/10 px-4 py-3 text-[9px] uppercase tracking-[0.25em] text-white/55 sm:px-5">
               <span>↑↓ — выбор</span>
               <span>Enter — переход</span>
               <span>Esc — закрыть</span>

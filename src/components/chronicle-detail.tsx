@@ -76,7 +76,7 @@ export function ChronicleDetail({
               <div className="relative">
                 <Corners color={c.accent} />
                 <div className="beam-border-static p-5">
-                  <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/40">
+                  <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/55">
                     Файл фрагмента
                   </p>
                   <dl className="mt-4 space-y-3">
@@ -101,7 +101,7 @@ export function ChronicleDetail({
 
               {/* связанные файлы */}
               <div className="border border-white/10 bg-white/[0.03] p-5">
-                <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/40">
+                <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/55">
                   Связанные файлы
                 </p>
                 <ul className="mt-4 space-y-3">
@@ -115,7 +115,7 @@ export function ChronicleDetail({
                           {r.label}
                           <ArrowRight className="h-3.5 w-3.5 shrink-0 text-white/30 transition-transform group-hover:translate-x-1 group-hover:text-[var(--neon-cyan)]" aria-hidden />
                         </span>
-                        <span className="font-mono-cyber mt-1 block text-[9px] uppercase tracking-[0.2em] text-white/35">
+                        <span className="font-mono-cyber mt-1 block text-[9px] uppercase tracking-[0.2em] text-white/55">
                           {r.note}
                         </span>
                       </Link>
@@ -154,7 +154,7 @@ export function ChronicleDetail({
               {c.scenes.map((scene, si) => (
                 <Reveal key={scene.title} className="mt-14">
                   <div className="flex items-center gap-4">
-                    <span className={`font-display text-3xl ${ACCENT_TEXT[c.accent]} opacity-50`}>
+                    <span aria-hidden className={`-ml-1 bg-black/50 px-2 font-display text-3xl ${ACCENT_TEXT[c.accent]}`}>
                       {String(si + 1).padStart(2, "0")}
                     </span>
                     <h2 className="font-display text-2xl uppercase tracking-wide text-white sm:text-3xl">
@@ -227,7 +227,7 @@ export function ChronicleDetail({
             >
               <ArrowLeft className="h-4 w-4 text-white/40 transition-transform group-hover:-translate-x-1" aria-hidden />
               <span>
-                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/40">
+                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/55">
                   Предыдущий файл
                 </span>
                 <span className="font-cyber text-sm text-white/80">{prev.title}</span>
@@ -242,7 +242,7 @@ export function ChronicleDetail({
               className="group flex items-center justify-end gap-3 border border-white/10 bg-white/[0.03] p-5 text-right transition-colors hover:border-white/25"
             >
               <span>
-                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/40">
+                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/55">
                   Следующий файл
                 </span>
                 <span className="font-cyber text-sm text-white/80">{next.title}</span>

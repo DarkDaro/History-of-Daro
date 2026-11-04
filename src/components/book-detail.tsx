@@ -85,7 +85,7 @@ export function BookDetail({
                 </div>
               </div>
               <div className="border border-white/10 bg-white/[0.03] p-5">
-                <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/40">
+                <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/55">
                   Дело тома
                 </p>
                 <dl className="mt-4 space-y-3">
@@ -207,7 +207,7 @@ export function BookDetail({
             >
               <ArrowLeft className="h-4 w-4 text-white/40 transition-transform group-hover:-translate-x-1" aria-hidden />
               <span>
-                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/40">
+                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/55">
                   Предыдущий том
                 </span>
                 <span className="font-cyber text-sm text-white/80">{prev.title}</span>
@@ -222,7 +222,7 @@ export function BookDetail({
               className="group flex items-center justify-end gap-3 border border-white/10 bg-white/[0.03] p-5 text-right transition-colors hover:border-white/25"
             >
               <span>
-                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/40">
+                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/55">
                   Следующий том
                 </span>
                 <span className="font-cyber text-sm text-white/80">{next.title}</span>

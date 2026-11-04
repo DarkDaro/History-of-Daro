@@ -303,7 +303,7 @@ export function CityMap() {
           </svg>
 
           {/* подпись под схемой */}
-          <p className="font-mono-cyber border-t border-white/10 px-5 py-4 text-[10px] uppercase leading-relaxed tracking-[0.2em] text-white/35">
+          <p className="font-mono-cyber border-t border-white/10 px-5 py-4 text-[10px] uppercase leading-relaxed tracking-[0.2em] text-white/55">
             {MAP_NOTE}
           </p>
         </div>
@@ -345,7 +345,7 @@ export function CityMap() {
             </div>
           ) : (
             <div className="flex min-h-[240px] flex-col justify-center">
-              <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/35">
+              <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/55">
                 {"//"} реестр объекта пуст
               </p>
               <p className="font-cyber mt-4 text-sm leading-relaxed text-white/55">

@@ -69,7 +69,7 @@ export function ExcerptReader({
               <div className="relative">
                 <Corners color={e.accent} />
                 <div className="beam-border-static p-5">
-                  <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/40">
+                  <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/55">
                     Файл эпизода
                   </p>
                   <dl className="mt-4 space-y-3">
@@ -103,7 +103,7 @@ export function ExcerptReader({
 
               {/* связанные файлы */}
               <div className="border border-white/10 bg-white/[0.03] p-5">
-                <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/40">
+                <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/55">
                   Связанные файлы
                 </p>
                 <ul className="mt-4 space-y-3">
@@ -116,7 +116,7 @@ export function ExcerptReader({
                         О томе «{b.title}»
                         <ArrowRight className="h-3.5 w-3.5 shrink-0 text-white/30 transition-transform group-hover:translate-x-1 group-hover:text-[var(--neon-cyan)]" aria-hidden />
                       </span>
-                      <span className="font-mono-cyber mt-1 block text-[9px] uppercase tracking-[0.2em] text-white/35">
+                      <span className="font-mono-cyber mt-1 block text-[9px] uppercase tracking-[0.2em] text-white/55">
                         карточка тома · синопсис · факты
                       </span>
                     </Link>
@@ -130,7 +130,7 @@ export function ExcerptReader({
                         Архив фрагментов
                         <ArrowRight className="h-3.5 w-3.5 shrink-0 text-white/30 transition-transform group-hover:translate-x-1 group-hover:text-[var(--neon-cyan)]" aria-hidden />
                       </span>
-                      <span className="font-mono-cyber mt-1 block text-[9px] uppercase tracking-[0.2em] text-white/35">
+                      <span className="font-mono-cyber mt-1 block text-[9px] uppercase tracking-[0.2em] text-white/55">
                         все эпизоды цикла
                       </span>
                     </Link>
@@ -151,7 +151,7 @@ export function ExcerptReader({
                 <Reveal key={si} className="mt-12">
                   {section.title && (
                     <div className="flex items-center gap-4">
-                      <span className={`font-display text-3xl ${ACCENT_TEXT[e.accent]} opacity-50`}>
+                      <span aria-hidden className={`-ml-1 bg-black/50 px-2 font-display text-3xl ${ACCENT_TEXT[e.accent]}`}>
                         {String(si + 1).padStart(2, "0")}
                       </span>
                       <h2 className="font-display text-2xl uppercase tracking-wide text-white sm:text-3xl">
@@ -162,7 +162,7 @@ export function ExcerptReader({
                   )}
                   {!section.title && (
                     <div className="flex items-center gap-4">
-                      <span className={`font-display text-3xl ${ACCENT_TEXT[e.accent]} opacity-50`}>
+                      <span aria-hidden className={`-ml-1 bg-black/50 px-2 font-display text-3xl ${ACCENT_TEXT[e.accent]}`}>
                         {String(si + 1).padStart(2, "0")}
                       </span>
                       <span className="h-px flex-1 bg-white/10" aria-hidden />
@@ -234,7 +234,7 @@ export function ExcerptReader({
             >
               <ArrowLeft className="h-4 w-4 text-white/40 transition-transform group-hover:-translate-x-1" aria-hidden />
               <span>
-                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/40">
+                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/55">
                   Предыдущий фрагмент
                 </span>
                 <span className="font-cyber text-sm text-white/80">{prev.title}</span>
@@ -247,7 +247,7 @@ export function ExcerptReader({
             >
               <BookOpen className="h-4 w-4 text-white/40 transition-transform group-hover:-translate-x-1" aria-hidden />
               <span>
-                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/40">
+                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/55">
                   К книге
                 </span>
                 <span className="font-cyber text-sm text-white/80">«{b.title}»</span>
@@ -260,7 +260,7 @@ export function ExcerptReader({
               className="group flex items-center justify-end gap-3 border border-white/10 bg-white/[0.03] p-5 text-right transition-colors hover:border-white/25"
             >
               <span>
-                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/40">
+                <span className="font-mono-cyber block text-[10px] uppercase tracking-[0.3em] text-white/55">
                   Следующий фрагмент
                 </span>
                 <span className="font-cyber text-sm text-white/80">{next.title}</span>

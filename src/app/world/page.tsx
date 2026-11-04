@@ -109,7 +109,7 @@ export default function WorldPage() {
                         <Icon className="h-6 w-6" aria-hidden />
                       </span>
                       <div>
-                        <h3 className="font-display text-xl uppercase tracking-wide">{item.title}</h3>
+                        <h2 className="font-display text-xl uppercase tracking-wide">{item.title}</h2>
                         <p className={`font-mono-cyber text-[10px] uppercase tracking-[0.3em] ${ACCENT_TEXT[item.accent]}`}>
                           {item.year}
                         </p>
@@ -180,7 +180,7 @@ export default function WorldPage() {
               <Reveal key={t.id} delay={(i % 3) * 0.08}>
                 <article className="relative h-full border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors hover:border-white/25">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/40">{t.id}</span>
+                    <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/55">{t.id}</span>
                     <Chip accent={t.accent}>{t.tag}</Chip>
                   </div>
                   <h3 className="font-display mt-4 text-xl uppercase tracking-wide">{t.name}</h3>

@@ -232,7 +232,7 @@ export function BootOverlay() {
       <p className="font-display text-3xl tracking-[0.35em] text-white sm:text-4xl">
         ДАРО<span className="neon-cyan">{"//"}</span>
       </p>
-      <p className="font-mono-cyber mt-4 text-[10px] uppercase tracking-[0.4em] text-white/40">
+      <p className="font-mono-cyber mt-4 text-[10px] uppercase tracking-[0.4em] text-white/55">
         Установка соединения
       </p>
 
@@ -242,7 +242,7 @@ export function BootOverlay() {
           style={{ width: `${progress}%`, boxShadow: "0 0 12px rgba(0,240,255,0.6)" }}
         />
       </div>
-      <p className="font-mono-cyber mt-3 text-[10px] tracking-[0.3em] text-white/30">
+      <p className="font-mono-cyber mt-3 text-[10px] tracking-[0.3em] text-white/50">
         {progress}%
       </p>
     </div>

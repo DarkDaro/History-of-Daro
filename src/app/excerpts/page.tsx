@@ -68,7 +68,7 @@ export default function ExcerptsPage() {
               <RandomExcerptButton
                 items={EXCERPTS.map((e) => ({ slug: e.slug, title: e.title }))}
               />
-              <p className="font-mono-cyber text-[10px] uppercase tracking-[0.25em] text-white/35">
+              <p className="font-mono-cyber text-[10px] uppercase tracking-[0.25em] text-white/55">
                 {"//"} выбор случайный · файлов в архиве: {EXCERPTS.length}
               </p>
             </div>
@@ -90,7 +90,7 @@ export default function ExcerptsPage() {
                         <span className="font-mono-cyber border border-white/15 bg-black/50 px-2.5 py-1 text-[9px] uppercase tracking-[0.25em] text-white/60">
                           {e.label}
                         </span>
-                        <span className="font-mono-cyber text-[9px] uppercase tracking-[0.25em] text-white/35">
+                        <span className="font-mono-cyber text-[9px] uppercase tracking-[0.25em] text-white/55">
                           {e.time}
                         </span>
                       </div>
@@ -129,7 +129,7 @@ export default function ExcerptsPage() {
                         </p>
                       </div>
                       <div>
-                        <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/40">Место действия</p>
+                        <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/55">Место действия</p>
                         <p className="font-cyber mt-2 text-sm leading-relaxed text-white/70">{e.place}</p>
                       </div>
                       <span

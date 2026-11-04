@@ -112,7 +112,7 @@ export function TimelineView({ events }: { events: TimelineEvent[] }) {
                     >
                       {ev.when}
                     </span>
-                    <span className="font-mono-cyber flex items-center gap-2 text-[9px] uppercase tracking-[0.25em] text-white/35">
+                    <span className="font-mono-cyber flex items-center gap-2 text-[9px] uppercase tracking-[0.25em] text-white/55">
                       {ev.era === "t3" && <Lock className="h-3 w-3" aria-hidden />}
                       {ev.id}
                     </span>

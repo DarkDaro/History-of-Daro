@@ -32,7 +32,7 @@ function SpecCard({ w }: { w: WeaponSpec }) {
       <dl className="mt-4 grid grid-cols-1 gap-x-4 gap-y-2.5 border-t border-white/10 pt-4 sm:grid-cols-2">
         {w.specs.map((s) => (
           <div key={s.label}>
-            <dt className="font-mono-cyber text-[9px] uppercase tracking-[0.2em] text-white/35">
+            <dt className="font-mono-cyber text-[9px] uppercase tracking-[0.2em] text-white/55">
               {s.label}
             </dt>
             <dd className="font-cyber mt-0.5 text-sm leading-snug text-white/80">{s.value}</dd>
@@ -58,7 +58,7 @@ function SpecCard({ w }: { w: WeaponSpec }) {
 
       {w.modes && (
         <div className="mt-auto pt-4">
-          <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/35">
+          <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/55">
             Режимы
           </p>
           <div className="mt-2 flex flex-wrap gap-1.5">

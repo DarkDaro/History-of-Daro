@@ -131,7 +131,6 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
               <div
                 role="button"
                 tabIndex={0}
-                aria-label={`Открыть личное дело: ${r.name}`}
                 onClick={() => open(r)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
@@ -141,6 +140,9 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
                 }}
                 className="h-full cursor-pointer transition-transform duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[var(--neon-cyan)]"
               >
+                {/* accessible name = видимый текст карточки + скрытый суффикс
+                    (aria-label не включает видимый текст — WCAG 2.5.3) */}
+                <span className="sr-only">Открыть личное дело: {r.name}</span>
                 <CodexCard r={r} accent={r.accent} />
               </div>
             </motion.div>
@@ -215,7 +217,7 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
               ) : (
                 <div className="scanlines-box relative flex aspect-[16/9] items-center justify-center border border-white/10 bg-black/60">
                   <ImageOff className={`h-7 w-7 ${ACCENT_TEXT[active.accent]}`} aria-hidden />
-                  <p className="font-mono-cyber absolute bottom-3 left-3 text-[9px] uppercase tracking-[0.3em] text-white/40">
+                  <p className="font-mono-cyber absolute bottom-3 left-3 text-[9px] uppercase tracking-[0.3em] text-white/55">
                     {active.id} · визуальная запись отсутствует
                   </p>
                 </div>
@@ -241,7 +243,7 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
               {/* альтер-эго: одно тело — две записи */}
               {active.alterEgo && (
                 <div className={`mt-5 border bg-white/[0.02] p-4 ${ACCENT_BORDER[active.accent]}`}>
-                  <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/40">
+                  <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/55">
                     Альтер-эго · одна личность — два имени
                   </p>
                   <p className={`font-display mt-2 text-xl uppercase tracking-wide ${ACCENT_TEXT[active.accent]}`}>
@@ -263,7 +265,7 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
               {/* показатели */}
               {active.stats && (
                 <div className="mt-7 space-y-3 border border-white/10 bg-white/[0.02] p-5">
-                  <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/40">
+                  <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/55">
                     Показатели · оценка аналитиков
                   </p>
                   {active.stats.map((s) => (
@@ -281,7 +283,7 @@ export function CharacterDossier({ items }: { items: CodexEntry[] }) {
 
               {/* смежные файлы */}
               <div className="mt-8 border-t border-white/10 pt-5">
-                <p className="font-mono-cyber flex items-center gap-2 text-[9px] uppercase tracking-[0.3em] text-white/40">
+                <p className="font-mono-cyber flex items-center gap-2 text-[9px] uppercase tracking-[0.3em] text-white/55">
                   <ScrollText className={`h-3 w-3 ${ACCENT_TEXT[active.accent]}`} aria-hidden />
                   Смежные файлы
                 </p>

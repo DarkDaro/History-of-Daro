@@ -72,7 +72,7 @@ export default function GlossaryPage() {
                         {e.term}
                       </h3>
                       {e.kind && (
-                        <span className="font-mono-cyber shrink-0 text-[9px] uppercase tracking-[0.25em] text-white/35">
+                        <span className="font-mono-cyber shrink-0 text-[9px] uppercase tracking-[0.25em] text-white/55">
                           {e.kind}
                         </span>
                       )}

@@ -60,7 +60,7 @@ export function ResistanceGrid({ items }: { items: Faction[] }) {
             <Corners color={f.accent} />
             <div className="flex items-center justify-between gap-3">
               <Chip accent={f.accent}>{f.tag}</Chip>
-              <span className="font-mono-cyber shrink-0 text-[10px] uppercase tracking-[0.25em] text-white/35">
+              <span className="font-mono-cyber shrink-0 text-[10px] uppercase tracking-[0.25em] text-white/55">
                 вне реестра
               </span>
             </div>
@@ -73,7 +73,7 @@ export function ResistanceGrid({ items }: { items: Faction[] }) {
             <p className="font-cyber mt-4 text-sm leading-relaxed text-white/70">{f.text}</p>
             {f.log && (
               <div className="mt-5 border-l-2 border-white/15 bg-black/30 py-3 pl-4 pr-3">
-                <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/40">
+                <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/55">
                   ▸ перехват · {f.log.speaker}
                 </p>
                 <p className="font-mono-cyber mt-1.5 text-xs leading-relaxed text-white/65">
@@ -83,7 +83,7 @@ export function ResistanceGrid({ items }: { items: Faction[] }) {
             )}
             {links && (
               <div className="mt-5 border-t border-white/5 pt-4">
-                <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/35">
+                <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/55">
                   Смежные файлы
                 </p>
                 <div className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1.5">

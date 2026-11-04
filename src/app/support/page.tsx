@@ -155,7 +155,7 @@ export default function SupportPage() {
                     className={`relative flex flex-col border ${ACCENT_BORDER[w.accent]} bg-black/40 p-6 backdrop-blur-sm`}
                   >
                     <div className="flex flex-wrap items-center justify-between gap-3">
-                      <h3 className={`font-display text-lg uppercase tracking-wide ${ACCENT_TEXT[w.accent]}`}>
+                      <h3 className={`font-display text-2xl uppercase tracking-wide ${ACCENT_TEXT[w.accent]}`}>
                         {w.title}
                       </h3>
                       <span className="font-mono-cyber border border-white/15 bg-black/50 px-2.5 py-1 text-[9px] uppercase tracking-[0.25em] text-white/55">

@@ -70,7 +70,7 @@ export function SiteNav() {
         className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6"
         aria-label="Основная навигация"
       >
-        <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="На главную">
+        <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="ДАРО// — на главную">
           <Radio className="neon-cyan h-5 w-5" aria-hidden />
           <span className="font-display text-lg tracking-widest">
             ДАРО<span className="neon-magenta">{"//"}</span>
@@ -171,18 +171,18 @@ export function SiteFooter() {
             <p className="font-display text-lg tracking-widest">
               ДАРО<span className="neon-magenta">{"//"}</span>
             </p>
-            <p className="font-mono-cyber mt-3 max-w-xs text-[10px] uppercase leading-relaxed tracking-[0.25em] text-white/35">
+            <p className="font-mono-cyber mt-3 max-w-xs text-[10px] uppercase leading-relaxed tracking-[0.25em] text-white/50">
               Цикл романов · город Хи-Мигата · 2147 год · дождь не заканчивается
             </p>
             {/* версия сборки: sha+дата инжектятся в next.config.ts при билде */}
-            <p className="font-mono-cyber mt-2 text-[9px] uppercase tracking-[0.25em] text-white/20">
+            <p className="font-mono-cyber mt-2 text-[9px] uppercase tracking-[0.25em] text-white/50">
               сборка {process.env.NEXT_PUBLIC_BUILD_SHA} · {process.env.NEXT_PUBLIC_BUILD_DATE}
             </p>
           </div>
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
             <div>
               <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/50">Цикл</p>
-              <ul className="font-mono-cyber mt-3 space-y-2 text-[11px] uppercase tracking-[0.2em] text-white/45">
+              <ul className="font-mono-cyber mt-3 space-y-2 text-[11px] uppercase tracking-[0.2em] text-white/60">
                 <li><Link href="/books" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Все тома</Link></li>
                 <li><Link href="/books/tom-1" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Том I</Link></li>
                 <li><Link href="/books/tom-2" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Том II</Link></li>
@@ -191,7 +191,7 @@ export function SiteFooter() {
             </div>
             <div>
               <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/50">Мир</p>
-              <ul className="font-mono-cyber mt-3 space-y-2 text-[11px] uppercase tracking-[0.2em] text-white/45">
+              <ul className="font-mono-cyber mt-3 space-y-2 text-[11px] uppercase tracking-[0.2em] text-white/60">
                 <li><Link href="/world" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Хи-Мигата</Link></li>
                 <li><Link href="/map" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Карта города</Link></li>
                 <li><Link href="/corporations" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Корпорации</Link></li>
@@ -205,7 +205,7 @@ export function SiteFooter() {
             </div>
             <div className="col-span-2 sm:col-span-1">
               <p className="font-mono-cyber text-[10px] uppercase tracking-[0.3em] text-white/50">Прочее</p>
-              <ul className="font-mono-cyber mt-3 space-y-2 text-[11px] uppercase tracking-[0.2em] text-white/45">
+              <ul className="font-mono-cyber mt-3 space-y-2 text-[11px] uppercase tracking-[0.2em] text-white/60">
                 <li><Link href="/story" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Суть истории</Link></li>
                 <li><Link href="/glossary" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Глоссарий</Link></li>
                 <li><Link href="/author" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Автор</Link></li>
@@ -217,10 +217,10 @@ export function SiteFooter() {
             </div>
           </div>
         </div>
-        <p className="font-mono-cyber mt-10 border-t border-white/5 pt-6 text-center text-[10px] uppercase tracking-[0.3em] text-white/40">
+        <p className="font-mono-cyber mt-10 border-t border-white/5 pt-6 text-center text-[10px] uppercase tracking-[0.3em] text-white/55">
           © 2026 DarkDaro · Вселенная «Истории Даро» — личный авторский проект
         </p>
-        <p className="font-mono-cyber mx-auto mt-3 max-w-2xl text-center text-[9px] uppercase leading-relaxed tracking-[0.2em] text-white/25">
+        <p className="font-mono-cyber mx-auto mt-3 max-w-2xl text-center text-[9px] uppercase leading-relaxed tracking-[0.2em] text-white/50">
           Все права защищены. Код, персонажи, тексты и идеи — собственность автора; любое использование без письменного разрешения запрещено. Сайт носит ознакомительный характер.
         </p>
       </div>

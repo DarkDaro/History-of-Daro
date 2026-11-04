@@ -162,7 +162,7 @@ export function PageHero({
       <FogBand />
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
         {breadcrumb && (
-          <nav aria-label="Навигация по разделу" className="font-mono-cyber mb-6 text-[10px] uppercase tracking-[0.3em] text-white/40">
+          <nav aria-label="Навигация по разделу" className="font-mono-cyber mb-6 text-[10px] uppercase tracking-[0.3em] text-white/50">
             <Link href="/" className="transition-colors hover:text-[var(--neon-cyan)]">
               Главная
             </Link>
@@ -216,7 +216,7 @@ export function TerminalQuote({
           <span className="h-2.5 w-2.5 rounded-full bg-[var(--neon-magenta)]/70" aria-hidden />
           <span className="h-2.5 w-2.5 rounded-full bg-[var(--neon-amber)]/70" aria-hidden />
           <span className="h-2.5 w-2.5 rounded-full bg-[var(--neon-cyan)]/70" aria-hidden />
-          <span className="font-mono-cyber ml-3 text-[10px] uppercase tracking-[0.3em] text-white/40">
+          <span className="font-mono-cyber ml-3 text-[10px] uppercase tracking-[0.3em] text-white/55">
             {source}
           </span>
         </div>

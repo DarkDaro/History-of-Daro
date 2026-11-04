@@ -23,7 +23,7 @@ function WeaponCard({ w }: { w: Weapon }) {
     <article className="group relative flex h-full flex-col border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors duration-300 hover:border-white/25">
       <Corners color={w.accent} />
       <div className="flex items-center justify-between">
-        <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/40">{w.id}</span>
+        <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/55">{w.id}</span>
         <Chip accent={w.accent}>{w.tag}</Chip>
       </div>
       <h3 className="font-display mt-4 text-2xl uppercase tracking-wide">{w.name}</h3>

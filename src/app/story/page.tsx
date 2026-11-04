@@ -105,7 +105,7 @@ export default function StoryPage() {
               <Reveal key={t.title} delay={(i % 3) * 0.08}>
                 <article className="relative h-full border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors hover:border-white/25">
                   <div className="flex items-center gap-3">
-                    <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/35">
+                    <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/55">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <h3 className={`font-display text-lg uppercase tracking-wide ${ACCENT_TEXT[THEME_ACCENTS[i]]}`}>
@@ -195,7 +195,7 @@ export default function StoryPage() {
               <Reveal key={p.title} delay={(i % 2) * 0.08}>
                 <article className="relative h-full border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors hover:border-white/25 sm:p-8">
                   <div className="flex items-center gap-3">
-                    <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/35">
+                    <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/55">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <h3 className="font-display text-xl uppercase tracking-wide">{p.title}</h3>

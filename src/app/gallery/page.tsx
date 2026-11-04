@@ -165,7 +165,7 @@ export default function GalleryPage() {
             <p className="font-mono-cyber mb-6 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] neon-cyan">
               <span className="shrink-0">Рабочий стол · {WALLPAPER_SIZES.desktop}</span>
               <span className="h-px flex-1 bg-white/10" aria-hidden />
-              <span className="text-white/35">{desktopCards.length}</span>
+              <span className="text-white/55">{desktopCards.length}</span>
             </p>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {desktopCards.map((c, i) => (
@@ -181,7 +181,7 @@ export default function GalleryPage() {
             <p className="font-mono-cyber mb-6 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] neon-magenta">
               <span className="shrink-0">Телефон · {WALLPAPER_SIZES.phone}</span>
               <span className="h-px flex-1 bg-white/10" aria-hidden />
-              <span className="text-white/35">{phoneCards.length}</span>
+              <span className="text-white/55">{phoneCards.length}</span>
             </p>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
               {phoneCards.map((c, i) => (

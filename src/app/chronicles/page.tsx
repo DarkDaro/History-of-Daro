@@ -99,7 +99,7 @@ export default function ChroniclesPage() {
                       </div>
                     )}
                     <div>
-                      <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/40">Источник</p>
+                      <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/55">Источник</p>
                       <p className="font-cyber mt-2 text-sm leading-relaxed text-white/70">{c.sourceLabel}</p>
                     </div>
                     <span

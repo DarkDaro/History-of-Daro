@@ -124,7 +124,7 @@ export function CorporationRegistry({ items }: { items: Faction[] }) {
               className={`group h-full cursor-pointer border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.05] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[var(--neon-cyan)] sm:p-7 ${ACCENT_BORDER_SOFT[c.accent]}`}
             >
               <div className="flex items-center justify-between">
-                <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/40">
+                <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/55">
                   {corpFileId(c)}
                 </span>
                 <CorpMonogram c={c} small />
@@ -209,7 +209,7 @@ export function CorporationRegistry({ items }: { items: Faction[] }) {
                   <p className="font-mono-cyber mt-4 text-[10px] uppercase tracking-[0.35em] text-white/50">
                     {active.name}
                   </p>
-                  <p className="font-mono-cyber absolute bottom-3 left-3 text-[9px] uppercase tracking-[0.3em] text-white/40">
+                  <p className="font-mono-cyber absolute bottom-3 left-3 text-[9px] uppercase tracking-[0.3em] text-white/55">
                     {corpFileId(active)} · визуальная запись изъята пресс-службой
                   </p>
                   {/* сканлайн-текстура отдельным слоем поверх контента */}
@@ -241,7 +241,7 @@ export function CorporationRegistry({ items }: { items: Faction[] }) {
 
               {/* смежные файлы */}
               <div className="mt-8 border-t border-white/10 pt-5">
-                <p className="font-mono-cyber flex items-center gap-2 text-[9px] uppercase tracking-[0.3em] text-white/40">
+                <p className="font-mono-cyber flex items-center gap-2 text-[9px] uppercase tracking-[0.3em] text-white/55">
                   <ScrollText className={`h-3 w-3 ${ACCENT_TEXT[active.accent]}`} aria-hidden />
                   Смежные файлы
                 </p>

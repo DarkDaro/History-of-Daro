@@ -49,7 +49,7 @@ export default function CharactersPage() {
             <div id={hero.id} className="grid scroll-mt-28 gap-8 border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm sm:p-10 lg:grid-cols-[1fr_320px]">
               <div>
                 <div className="flex flex-wrap items-center gap-3">
-                  <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/40">{hero.id}</span>
+                  <span className="font-mono-cyber text-[10px] tracking-[0.3em] text-white/55">{hero.id}</span>
                   <ChipInline accent="cyan" text={hero.tag} />
                 </div>
                 <h2 className="font-display mt-4 text-3xl uppercase tracking-wide sm:text-4xl">
@@ -97,7 +97,7 @@ export default function CharactersPage() {
                 <MiniStat label="Воля" value={7} />
                 <MiniStat label="Целостность личности" value={4} />
                 <div className="beam-border-static p-4">
-                  <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/40">
+                  <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/55">
                     Статус в реестрах консорциума
                   </p>
                   <p className="font-mono-cyber mt-2 text-sm neon-magenta">

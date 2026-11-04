@@ -123,7 +123,7 @@ export function DossierConsole({ files }: { files: DossierFile[] }) {
                 />
                 <span className="font-display text-base uppercase tracking-wide">{f.name}</span>
               </span>
-              <span className="font-mono-cyber mt-1.5 block text-[9px] uppercase tracking-[0.25em] text-white/35">
+              <span className="font-mono-cyber mt-1.5 block text-[9px] uppercase tracking-[0.25em] text-white/55">
                 {f.id} · {f.tag}
               </span>
             </button>

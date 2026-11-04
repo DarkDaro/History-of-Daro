@@ -87,11 +87,11 @@ export function GalleryGrid({ items }: { items: GalleryItem[] }) {
               className={`font-mono-cyber border px-3.5 py-2 text-[10px] uppercase tracking-[0.25em] transition-colors ${
                 isActive
                   ? "border-[var(--neon-cyan)]/60 bg-[var(--neon-cyan)]/5 text-[var(--neon-cyan)]"
-                  : "border-white/10 text-white/45 hover:border-white/25 hover:text-white/75"
+                  : "border-white/10 text-white/55 hover:border-white/25 hover:text-white/75"
               }`}
             >
               {f.label}
-              <span className="ml-2 text-white/35">{count}</span>
+              <span className="ml-2 text-white/55">{count}</span>
             </button>
           );
         })}

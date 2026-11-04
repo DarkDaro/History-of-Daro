@@ -54,7 +54,7 @@ export function CodexCard({ r, accent }: { r: CodexEntry; accent: Accent }) {
         ) : (
           <div className="scanlines-box absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/60">
             <ImageOff className={`h-7 w-7 ${a.text}`} aria-hidden />
-            <p className="font-mono-cyber px-4 text-center text-[9px] uppercase leading-relaxed tracking-[0.3em] text-white/35">
+            <p className="font-mono-cyber px-4 text-center text-[9px] uppercase leading-relaxed tracking-[0.3em] text-white/55">
               Визуальная запись
               <br />
               отсутствует

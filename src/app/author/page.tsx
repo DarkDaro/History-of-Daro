@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Feather, Radio } from "lucide-react";
 import { PageHero, Chip } from "@/components/blocks";
 import { Corners, Reveal } from "@/components/cyber";
@@ -132,6 +133,12 @@ export default function AuthorPage() {
             <div className="mt-9 text-left">
               <SubscribeForm />
             </div>
+            <p className="font-mono-cyber mt-6 text-[10px] uppercase tracking-[0.3em] text-white/40">
+              Передатчику нужна энергия —{" "}
+              <Link href="/support" className="neon-magenta transition-opacity hover:opacity-80">
+                поддержать автора
+              </Link>
+            </p>
           </Reveal>
         </div>
       </section>

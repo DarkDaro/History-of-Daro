@@ -35,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/story", priority: 0.7, freq: "monthly" },
     { path: "/glossary", priority: 0.7, freq: "monthly" },
     { path: "/author", priority: 0.6, freq: "monthly" },
+    { path: "/support", priority: 0.5, freq: "monthly" },
   ];
 
   return routes.map((r) => ({

@@ -209,6 +209,7 @@ export function SiteFooter() {
                 <li><Link href="/story" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Суть истории</Link></li>
                 <li><Link href="/glossary" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Глоссарий</Link></li>
                 <li><Link href="/author" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Автор</Link></li>
+                <li><Link href="/support" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Поддержать автора</Link></li>
                 <li><Link href="/#subscribe" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Подписка</Link></li>
                 <li><Link href="/feed.xml" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">RSS-лента</Link></li>
                 <li><a href={asset("/download.html")} className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Скачать сборку</a></li>

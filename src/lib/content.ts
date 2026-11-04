@@ -30,3 +30,4 @@ export * from "@/content/excerpts";
 export * from "@/content/gallery";
 export * from "@/content/glossary";
 export * from "@/content/map";
+export * from "@/content/support";

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/blocks";
+import { PageHero, SceneBanner } from "@/components/blocks";
 import { CityMap } from "@/components/city-map";
-import { MAP_POINTS } from "@/lib/content";
+import { MAP_POINTS, VISUALS } from "@/lib/content";
 
 export const metadata: Metadata = {
   openGraph: {
@@ -25,6 +25,19 @@ export default function MapPage() {
         accent="cyan"
         breadcrumb={[{ href: "/map", label: "Карта" }]}
       />
+
+      {/* реконструкция: тактический стол сопротивления */}
+      <section className="relative pb-6 pt-14">
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <SceneBanner
+            src={VISUALS.map}
+            alt="Тактический стол сопротивления: голограммная каркасная карта купольного города"
+            caption="ТАКТИЧЕСКИЙ СТОЛ «ПЕРИМЕТРА ЗЕРО» · СХЕМА 2147 · ДАННЫЕ ЧАСТИЧНЫ"
+            accent="cyan"
+            priority
+          />
+        </div>
+      </section>
 
       <section className="relative py-16 sm:py-20">
         <div className="cyber-grid absolute inset-0 opacity-[0.04]" aria-hidden />

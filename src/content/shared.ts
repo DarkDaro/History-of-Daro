@@ -27,6 +27,9 @@ export const VISUALS = {
   armory: asset("/img/scenes/armory.webp"),
   story: asset("/img/scenes/story.webp"),
   excerpts: asset("/img/scenes/scene-terminal.webp"),
+  characters: asset("/img/scenes/scene-dossier.webp"),
+  corporations: asset("/img/scenes/scene-council.webp"),
+  map: asset("/img/scenes/scene-grid.webp"),
 } as const;
 
 /* ------------------------- КНИГИ ------------------------- */

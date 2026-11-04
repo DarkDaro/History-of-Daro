@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { PageHero, SectionHeading, MoreLink } from "@/components/blocks";
+import { PageHero, SectionHeading, MoreLink, SceneBanner } from "@/components/blocks";
 import { CharacterDossier } from "@/components/character-dossier";
 import { Corners, Reveal } from "@/components/cyber";
-import { CHARACTERS } from "@/lib/content";
+import { CHARACTERS, VISUALS } from "@/lib/content";
 
 export const metadata: Metadata = {
   openGraph: {
@@ -28,6 +28,19 @@ export default function CharactersPage() {
         lead="В центре — человек с расколотой личностью, который боится потерять себя. Вокруг — женщина, ставшая лидером, потому что некому больше; девушка, не верящая, что её можно любить; оружие, ищущее, кем оно было. И те, кто ломает их мир."
         breadcrumb={[{ href: "/characters", label: "Персонажи" }]}
       />
+
+      {/* реконструкция архива личных дел */}
+      <section className="relative pb-6 pt-14">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <SceneBanner
+            src={VISUALS.characters}
+            alt="Архив личных дел: тёмное хранилище со светящимися голографическими досье"
+            caption="АРХИВ ЛИЧНЫХ ДЕЛ · ХРАНИЛИЩЕ «ПЕРИМЕТРА ЗЕРО» · ДОСТУП ОГРАНИЧЕН"
+            accent="cyan"
+            priority
+          />
+        </div>
+      </section>
 
       {/* главный герой — отдельной карточкой */}
       <section className="relative py-16 sm:py-20">

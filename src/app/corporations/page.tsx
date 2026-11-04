@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { PageHero, SectionHeading, MoreLink } from "@/components/blocks";
+import { PageHero, SectionHeading, MoreLink, SceneBanner } from "@/components/blocks";
 import { Reveal } from "@/components/cyber";
 import { CorporationRegistry } from "@/components/corporation-registry";
 import { ResistanceGrid } from "@/components/resistance-grid";
-import { CORPORATIONS, RESISTANCE_GROUPS } from "@/lib/content";
+import { CORPORATIONS, RESISTANCE_GROUPS, VISUALS } from "@/lib/content";
 
 export const metadata: Metadata = {
   openGraph: {
@@ -33,6 +33,19 @@ export default function CorporationsPage() {
         breadcrumb={[{ href: "/corporations", label: "Корпорации" }]}
         rainGlass
       />
+
+      {/* реконструкция: зал совета семи */}
+      <section className="relative pb-6 pt-14">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <SceneBanner
+            src={VISUALS.corporations}
+            alt="Зал совета семи корпораций: длинный стол и голограммы города, поднимающиеся из столешницы"
+            caption="СОВЕТ КОНСОРЦИУМА · ЯРУС 40 · РЕКОНСТРУКЦИЯ ПО УТЕЧКАМ «СПЕКТРА»"
+            accent="magenta"
+            priority
+          />
+        </div>
+      </section>
 
       {/* как устроена власть */}
       <section className="relative py-16 sm:py-20">

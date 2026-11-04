@@ -88,4 +88,19 @@ export const HOMEPAGE_BLOCKS: HomepageBlock[] = [
     href: "/timeline",
     linkLabel: "Полный таймлайн // подробнее",
   },
+  {
+    kind: "arsenal",
+    kicker: "Арсенал",
+    title: "Технологии войны",
+    accent: "magenta",
+    limit: 3,
+    href: "/armory",
+    linkLabel: "Весь арсенал // подробнее",
+  },
+  {
+    kind: "quote",
+    accent: "cyan",
+    text: "У всякой силы в Хи-Мигате есть владелец. Это не правило — это строка в реестре. Даро — строка, которой нет.",
+    source: "Красный сдвиг · пролог",
+  },
 ];

@@ -9,6 +9,13 @@ import { ScrollTopButton } from "@/components/scroll-top";
 import { JsonLd } from "@/components/seo";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 
+/* Pages-режим (project-сайт на GitHub Pages): Next не добавляет basePath
+   к metadata.icons и теряет файловую favicon-ссылку из src/app/favicon.ico
+   (воспроизведено сборкой 2026-11-04: на проде нет <link rel=icon> и
+   apple-touch-icon ведёт на 404). Иконки объявляем явно с префиксом;
+   вне Pages-режима basePath пуст — пути прежние. */
+const ICON_BASE = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/+$/, "");
+
 const displayFont = Russo_One({
   variable: "--font-display",
   subsets: ["cyrillic", "latin"],
@@ -49,7 +56,11 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: `${ICON_BASE}/favicon.ico`, sizes: "48x48", type: "image/x-icon" },
+      { url: `${ICON_BASE}/icon.svg`, type: "image/svg+xml" },
+    ],
+    apple: `${ICON_BASE}/apple-touch-icon.png`,
   },
   openGraph: {
     title: `${SITE_NAME} — цикл романов`,

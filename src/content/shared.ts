@@ -26,6 +26,7 @@ export const VISUALS = {
   implants: asset("/img/scenes/implants.webp"),
   armory: asset("/img/scenes/armory.webp"),
   story: asset("/img/scenes/story.webp"),
+  excerpts: asset("/img/scenes/scene-terminal.webp"),
 } as const;
 
 /* ------------------------- КНИГИ ------------------------- */

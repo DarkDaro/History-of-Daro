@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Radio } from "lucide-react";
-import { PageHero, SectionHeading } from "@/components/blocks";
+import { PageHero, SectionHeading, SceneBanner } from "@/components/blocks";
 import { Corners, Reveal } from "@/components/cyber";
 import { RandomExcerptButton } from "@/components/random-excerpt-button";
-import { BOOKS, EXCERPTS } from "@/lib/content";
+import { BOOKS, EXCERPTS, VISUALS } from "@/lib/content";
 
 export const metadata: Metadata = {
   openGraph: {
@@ -36,6 +36,19 @@ export default function ExcerptsPage() {
         breadcrumb={[{ href: "/excerpts", label: "Фрагменты" }]}
         rainGlass
       />
+
+      {/* широкая реконструкция сцены: чужой терминал (кадр «Перехват») */}
+      <section className="relative pb-4 pt-14 sm:pt-16">
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <SceneBanner
+            src={VISUALS.excerpts}
+            alt="Реконструкция сцены: терминал с расшифровываемым файлом"
+            caption="реконструкция · источник перехвата не установлен"
+            accent="magenta"
+            priority
+          />
+        </div>
+      </section>
 
       {/* список фрагментов */}
       <section className="relative py-20 sm:py-24">

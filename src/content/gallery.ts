@@ -73,6 +73,51 @@ export const GALLERY: GalleryItem[] = [
       "Сирены, красный свет и шесть кибернетов на пересечении коридора. Объект «РХ» впервые сам решает, кого убивать.",
     accent: "amber",
   },
+  {
+    id: "art-scene-alley",
+    src: asset("/img/scenes/scene-alley.webp"),
+    title: "Переулок нижних ярусов",
+    kind: "СЦЕНА",
+    caption:
+      "Неон здесь не выключают: вывески работают даже когда квартал глохнет от сбоя. Дождь смывает афиши, но не цены.",
+    accent: "magenta",
+  },
+  {
+    id: "art-scene-domes",
+    src: asset("/img/scenes/scene-domes.webp"),
+    title: "Купол над ярусами",
+    kind: "СЦЕНА",
+    caption:
+      "Город виден со стороны только одному типу наблюдателей — тем, кому не нужен пропуск обратно. Купол держит воздух и не выпускает лишних.",
+    accent: "cyan",
+  },
+  {
+    id: "art-scene-wasteland",
+    src: asset("/img/scenes/scene-wasteland.webp"),
+    title: "Пустошь за периметром",
+    kind: "СЦЕНА",
+    caption:
+      "За купольным периметром не тишина: ветер, ржавые мачты ретрансляторов и чужие сигналы на краю диапазона.",
+    accent: "amber",
+  },
+  {
+    id: "art-scene-tunnel",
+    src: asset("/img/scenes/scene-tunnel.webp"),
+    title: "Служебный туннель",
+    kind: "СЦЕНА",
+    caption:
+      "Аварийное освещение технического яруса. Сюда не доходят патрули, но доходит дождевая вода — и она идёт без счётчика.",
+    accent: "cyan",
+  },
+  {
+    id: "art-scene-terminal",
+    src: asset("/img/scenes/scene-terminal.webp"),
+    title: "Перехват",
+    kind: "СЦЕНА",
+    caption:
+      "Чужой терминал на середине расшифровки: половина строк — мусор, половина — слишком похожа на правду.",
+    accent: "magenta",
+  },
   /* — портреты — */
   {
     id: "art-daro",

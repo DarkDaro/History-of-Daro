@@ -63,7 +63,7 @@ function StatsBlock({ block }: { block: Extract<HomepageBlock, { kind: "stats" }
         <div className="grid grid-cols-2 gap-px border border-white/10 bg-white/10 lg:grid-cols-4">
           {WORLD_STATS.slice(0, limit).map((s) => (
             <div key={s.label} className="bg-[#0a0a16] p-6 text-center sm:p-8">
-              <p className={`font-display text-3xl sm:text-4xl ${ACCENT_NEON[block.accent]}`}>
+              <p className={`neon-breathe font-display text-3xl sm:text-4xl ${ACCENT_NEON[block.accent]}`}>
                 <Counter to={s.to} suffix={s.suffix} group={s.group} />
               </p>
               <p className="font-mono-cyber mt-2 text-[9px] uppercase tracking-[0.25em] text-white/45 sm:text-[10px]">

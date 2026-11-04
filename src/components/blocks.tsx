@@ -71,14 +71,14 @@ export function SectionHeading({
         {num}
       </span>
       <p
-        className={`font-mono-cyber relative text-xs uppercase tracking-[0.4em] ${ACCENT_NEON[accent]}`}
+        className={`font-mono-cyber sign-flicker relative text-xs uppercase tracking-[0.4em] ${ACCENT_NEON[accent]}`}
       >
         {num} / {kicker}
       </p>
       <h2 className="font-display relative mt-3 text-3xl uppercase tracking-wide text-white sm:text-5xl">
         {title}
       </h2>
-      <div className={`relative mx-auto mt-5 h-px w-24 ${ACCENT_LINE[accent]}`} />
+      <div className={`data-line relative mx-auto mt-5 h-px w-24 ${ACCENT_LINE[accent]}`} />
     </Reveal>
   );
 }

@@ -51,14 +51,14 @@ export function Reveal({
   );
 }
 
-/** Угловые HUD-скобки для панелей */
+/** Угловые HUD-скобки для панелей (вспышка на hover — .hud-corner в globals.css) */
 export function Corners({ color = "cyan" }: { color?: Accent }) {
   return (
     <span aria-hidden className="pointer-events-none absolute inset-0 z-10">
-      <i className={`absolute -left-px -top-px h-3.5 w-3.5 border-l-2 border-t-2 ${ACCENT_BORDER[color]}`} />
-      <i className={`absolute -right-px -top-px h-3.5 w-3.5 border-r-2 border-t-2 ${ACCENT_BORDER[color]}`} />
-      <i className={`absolute -bottom-px -left-px h-3.5 w-3.5 border-b-2 border-l-2 ${ACCENT_BORDER[color]}`} />
-      <i className={`absolute -bottom-px -right-px h-3.5 w-3.5 border-b-2 border-r-2 ${ACCENT_BORDER[color]}`} />
+      <i className={`hud-corner hud-corner-${color} absolute -left-px -top-px h-3.5 w-3.5 border-l-2 border-t-2 ${ACCENT_BORDER[color]}`} />
+      <i className={`hud-corner hud-corner-${color} absolute -right-px -top-px h-3.5 w-3.5 border-r-2 border-t-2 ${ACCENT_BORDER[color]}`} />
+      <i className={`hud-corner hud-corner-${color} absolute -bottom-px -left-px h-3.5 w-3.5 border-b-2 border-l-2 ${ACCENT_BORDER[color]}`} />
+      <i className={`hud-corner hud-corner-${color} absolute -bottom-px -right-px h-3.5 w-3.5 border-b-2 border-r-2 ${ACCENT_BORDER[color]}`} />
     </span>
   );
 }

@@ -11,21 +11,24 @@ import type { Accent, CodexEntry } from "@/lib/content";
    Серверный компонент (StatBar — клиентский внутри).
    ============================================================ */
 
-const ACCENT_CLASSES: Record<Accent, { text: string; border: string; dot: string }> = {
+const ACCENT_CLASSES: Record<Accent, { text: string; border: string; dot: string; lift: string }> = {
   cyan: {
     text: "neon-cyan",
     border: "border-[var(--neon-cyan)]/40 text-[var(--neon-cyan)]/60",
     dot: "bg-[var(--neon-cyan)]",
+    lift: "lift-cyan",
   },
   magenta: {
     text: "neon-magenta",
     border: "border-[var(--neon-magenta)]/40 text-[var(--neon-magenta)]/60",
     dot: "bg-[var(--neon-magenta)]",
+    lift: "lift-magenta",
   },
   amber: {
     text: "text-[var(--neon-amber)]",
     border: "border-[var(--neon-amber)]/40 text-[var(--neon-amber)]/60",
     dot: "bg-[var(--neon-amber)]",
+    lift: "lift-amber",
   },
 };
 
@@ -35,7 +38,7 @@ export function CodexCard({ r, accent }: { r: CodexEntry; accent: Accent }) {
     accent === "cyan" ? "neon-cyan" : accent === "magenta" ? "neon-magenta" : "text-[var(--neon-amber)]";
 
   return (
-    <article className="group relative flex h-full flex-col border border-white/10 bg-white/[0.03] backdrop-blur-sm transition-colors duration-300 hover:border-white/25">
+    <article className={`group lift-card ${a.lift} relative flex h-full flex-col border border-white/10 bg-white/[0.03] backdrop-blur-sm transition-colors duration-300 hover:border-white/25`}>
       <Corners color={accent} />
 
       {/* визуальная запись из досье */}

@@ -23,9 +23,9 @@ const ACCENT_TEXT: Record<Accent, string> = {
 
 /* Литеральные hover-классы: Tailwind не видит шаблонные строки. */
 const ACCENT_HOVER: Record<string, string> = {
-  cyan: "hover:border-[var(--neon-cyan)]/40",
-  magenta: "hover:border-[var(--neon-magenta)]/40",
-  amber: "hover:border-[var(--neon-amber)]/40",
+  cyan: "hover:border-[var(--neon-cyan)]/40 lift-cyan",
+  magenta: "hover:border-[var(--neon-magenta)]/40 lift-magenta",
+  amber: "hover:border-[var(--neon-amber)]/40 lift-amber",
 };
 
 /* Пропорции рамки зависят от типа записи — литералами. */
@@ -112,7 +112,7 @@ export function GalleryGrid({ items }: { items: GalleryItem[] }) {
               aria-label={`Открыть запись: ${item.title}`}
             >
               <article
-                className={`relative border border-white/10 bg-white/[0.03] p-2.5 backdrop-blur-sm transition-colors ${ACCENT_HOVER[item.accent]}`}
+                className={`lift-card relative border border-white/10 bg-white/[0.03] p-2.5 backdrop-blur-sm transition-colors ${ACCENT_HOVER[item.accent]}`}
               >
                 <Corners color={item.accent} />
                 <div className={`relative w-full overflow-hidden ${KIND_ASPECT[item.kind]}`}>

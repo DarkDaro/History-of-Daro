@@ -28,6 +28,7 @@ export * from "@/content/story";
 export * from "@/content/synopsis";
 export * from "@/content/excerpts";
 export * from "@/content/gallery";
+export * from "@/content/wallpapers";
 export * from "@/content/glossary";
 export * from "@/content/map";
 export * from "@/content/support";

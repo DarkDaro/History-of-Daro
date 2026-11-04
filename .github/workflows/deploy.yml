@@ -56,6 +56,20 @@ jobs:
           NEXT_PUBLIC_FORM_ENDPOINT: ${{ vars.NEXT_PUBLIC_FORM_ENDPOINT || '' }}
           NEXT_PUBLIC_CONTACT_EMAIL: ${{ vars.NEXT_PUBLIC_CONTACT_EMAIL || '' }}
 
+      # Гейт рантайма (BACKLOG п.27, 2026-11-04): сборка проходит и с
+      # кривым сайтом — эти два шага ловят то, что типы/линтер не видят
+      # (прецедент: баг иконок 2026-11-04). Провал шага = деплой не
+      # поедет на Pages. REQUIRE_BASE=1 — строгий Pages-режим краулера;
+      # при переходе на пользовательский домен (basePath пустой) шаг
+      # Audit internal links убрать вместе с этим комментарием.
+      - name: Smoke static output
+        run: npm run smoke
+
+      - name: Audit internal links
+        run: node scripts/audit-links.mjs
+        env:
+          REQUIRE_BASE: "1"
+
       - name: Add .nojekyll
         run: touch out/.nojekyll
 

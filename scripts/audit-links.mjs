@@ -128,3 +128,12 @@ for (const route of pages) {
 console.log(`маршрутов вне sitemap: ${extraRoutes.length}`);
 for (const r of extraRoutes) console.log(`  ВНЕ SITEMAP: ${r}`);
 console.log(`битых <link>-иконок/манифестов: ${linkTagsBroken}`);
+
+/* код возврата: битые ссылки/якоря/иконки — провал (CI остановится);
+   «вне sitemap» — только предупреждение (линтер контента подскажет) */
+const failedTotal = broken.length + anchorsBroken.length + linkTagsBroken;
+if (failedTotal > 0) {
+  console.log(`\nAUDIT FAIL — проблем: ${failedTotal}`);
+  process.exit(1);
+}
+console.log(`\nAUDIT OK — ${linksTotal} внутренних ссылок, ${pages.length} страниц`);

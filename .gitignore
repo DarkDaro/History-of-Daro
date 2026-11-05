@@ -1,70 +1,58 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-node_modules
-/.pnp
-.pnp.*
-.yarn/*
+!.env.example
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Skills directory
+# archive: anything we don't delete but don't track
 # debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
+# delivery folder for chat downloads (not part of the repo)
+# dependencies
 # env files (can opt-in for committing if needed)
-.env*
-!.env.example
-
-# vercel
-.vercel
-
-
+# local runtime data
+# local tools & sandbox infra (not part of the Windows project)
+# misc
+# next.js
+# production
+# testing
 # typescript
-*.tsbuildinfo
-next-env.d.ts
-local-*
-.claude
-.z-ai-config
+# vercel
+*.db
 *.log
+*.pem
+*.tsbuildinfo
+.DS_Store
+.claude
+.env*
+.pnp.*
+.pnpm-debug.log*
+.vercel
+.yarn/*
+.z-ai-config
+/.next/
+/.pnp
+/.zscripts/
+/_archive/
+/_local/
+/build
+/coverage
+/db/
+/download/
+/out/
+/skills/upload/
+/tool-results/
 dev.log
 dev.out.log
-test
+local-*
+next-env.d.ts
+node_modules
+npm-debug.log*
 prompt
-
 server.log
-
-# local runtime data
-*.db
-/db/
-
-# local tools & sandbox infra (not part of the Windows project)
-/_local/
-/.zscripts/
-# delivery folder for chat downloads (not part of the repo)
-/download/
-
-# archive: anything we don't delete but don't track
-/_archive/
-/tool-results/
-
-# Skills directory
-/skills/upload/
+skills/
+test
+upload/
+yarn-debug.log*
+yarn-error.log*

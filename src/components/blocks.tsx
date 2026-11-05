@@ -248,6 +248,44 @@ export function MoreLink({ href, children }: { href: string; children: string })
   );
 }
 
+/* ============================================================
+   Единый блок перекрёстных ссылок в конце страницы («куда
+   дальше»): 3–4 подобранных вручную маршрута, логически
+   продолжающих раздел. Один источник стиля для всех страниц.
+   ============================================================ */
+export function CrossLinks({
+  intro,
+  links,
+}: {
+  intro: string;
+  links: { href: string; label: string }[];
+}) {
+  return (
+    <section
+      aria-label="Перекрёстные ссылки: куда дальше"
+      className="relative border-t border-white/10 py-16 sm:py-20"
+    >
+      <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
+        <Reveal>
+          <p className="font-mono-cyber text-[10px] uppercase tracking-[0.35em] text-white/45">
+            {"//"} куда дальше
+          </p>
+          <p className="font-cyber mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/60">
+            {intro}
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            {links.map((l) => (
+              <MoreLink key={l.href} href={l.href}>
+                {l.label}
+              </MoreLink>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 /** Широкий кадр-«реконструкция сцены» для страницы раздела. */
 export function SceneBanner({
   src,

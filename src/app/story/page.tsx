@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero, SectionHeading, SceneBanner } from "@/components/blocks";
+import { CrossLinks, PageHero, SectionHeading, SceneBanner } from "@/components/blocks";
 import { Reveal } from "@/components/cyber";
 import {
   asset,
@@ -291,6 +291,15 @@ export default function StoryPage() {
           </Reveal>
         </div>
       </section>
+      {/* куда дальше */}
+      <CrossLinks
+        intro="Дальше архив ведёт в визуальный ряд и первоисточники: сцены мира, читалка с фрагментами томов и личные дела тех, о ком только что читали."
+        links={[
+          { href: "/gallery", label: "Галерея · сцены цикла" },
+          { href: "/excerpts", label: "Фрагменты · читалка" },
+          { href: "/characters", label: "Персонажи · личные дела" },
+        ]}
+      />
     </main>
   );
 }

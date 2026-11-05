@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageHero, SectionHeading } from "@/components/blocks";
+import { CrossLinks, PageHero, SectionHeading } from "@/components/blocks";
 import { Reveal } from "@/components/cyber";
 import { GLOSSARY, GLOSSARY_PLANNED, type Accent } from "@/lib/content";
 
@@ -143,6 +143,15 @@ export default function GlossaryPage() {
           </Reveal>
         </div>
       </section>
+      {/* куда дальше */}
+      <CrossLinks
+        intro="За каждым термином стоит раздел: досье мира объясняет устройство города, каталог имплантов — железо, личные дела — тех, кто им живет."
+        links={[
+          { href: "/world", label: "Мир · досье" },
+          { href: "/implants", label: "Импланты · каталог" },
+          { href: "/characters", label: "Персонажи · дела" },
+        ]}
+      />
     </main>
   );
 }

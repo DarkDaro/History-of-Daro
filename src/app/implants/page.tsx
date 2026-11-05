@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero, SectionHeading, SceneBanner } from "@/components/blocks";
+import { CrossLinks, PageHero, SectionHeading, SceneBanner } from "@/components/blocks";
 import { CodexCard } from "@/components/codex-card";
 import { Reveal } from "@/components/cyber";
 import { IMPLANTS, VISUALS } from "@/lib/content";
@@ -76,6 +76,15 @@ export default function ImplantsPage() {
           </Reveal>
         </div>
       </section>
+      {/* куда дальше */}
+      <CrossLinks
+        intro="Железо из каталога — только половина досье: у каждого импланта есть владелец, термин в глоссарии и оружие в соседнем арсенале."
+        links={[
+          { href: "/armory", label: "Вооружение · арсенал" },
+          { href: "/glossary", label: "Глоссарий · термины" },
+          { href: "/characters", label: "Персонажи · носители" },
+        ]}
+      />
     </main>
   );
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero, SectionHeading, MoreLink } from "@/components/blocks";
+import { CrossLinks, PageHero, SectionHeading } from "@/components/blocks";
 import { TimelineView } from "@/components/timeline-view";
 import { CalendarView } from "@/components/calendar-view";
 import { TIMELINE, CALENDAR_EVENTS, CALENDAR_NOTE } from "@/lib/content";
@@ -58,18 +58,15 @@ export default function TimelinePage() {
         </div>
       </section>
 
-      <section className="relative border-t border-white/10 py-14">
-        <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-6 px-4 sm:px-6">
-          <p className="font-cyber max-w-md text-sm leading-relaxed text-white/60">
-            Линия продолжается: события третьего тома появятся в таймлайне
-            вместе с рассекреченными главами.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <MoreLink href="/world">Досье мира</MoreLink>
-            <MoreLink href="/chronicles">Архив хроник</MoreLink>
-          </div>
-        </div>
-      </section>
+      {/* куда дальше */}
+      <CrossLinks
+        intro="Даты в таймлайне — следы событий: акты томов, хроника побега объекта «РХ» и досье мира, в котором всё это случилось."
+        links={[
+          { href: "/books", label: "Книги · акты томов" },
+          { href: "/chronicles", label: "Хроники · побег «РХ»" },
+          { href: "/world", label: "Мир · досье" },
+        ]}
+      />
     </main>
   );
 }

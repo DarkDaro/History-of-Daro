@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero, SceneBanner } from "@/components/blocks";
+import { CrossLinks, PageHero, SceneBanner } from "@/components/blocks";
 import { CityMap } from "@/components/city-map";
 import { MAP_POINTS, VISUALS } from "@/lib/content";
 
@@ -45,6 +45,15 @@ export default function MapPage() {
           <CityMap />
         </div>
       </section>
+      {/* куда дальше */}
+      <CrossLinks
+        intro="За каждой точкой карты стоит файл: досье Хи-Мигаты, реестр семи корпораций и хроники событий, которые на этой карте происходили."
+        links={[
+          { href: "/world", label: "Мир · досье Хи-Мигаты" },
+          { href: "/corporations", label: "Корпорации · реестр" },
+          { href: "/chronicles", label: "Хроники · события" },
+        ]}
+      />
     </main>
   );
 }

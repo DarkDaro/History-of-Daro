@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, FileLock2, Radio } from "lucide-react";
-import { PageHero, SectionHeading } from "@/components/blocks";
+import { CrossLinks, PageHero, SectionHeading } from "@/components/blocks";
 import { Corners, Reveal } from "@/components/cyber";
 import { CHRONICLES } from "@/lib/content";
 
@@ -133,6 +133,15 @@ export default function ChroniclesPage() {
           </Reveal>
         </div>
       </section>
+      {/* куда дальше */}
+      <CrossLinks
+        intro="Хроники — это события между строками томов: их источники лежат в книгах, судьбы участников — в личных делах, а реконструкции сцен — в галерее."
+        links={[
+          { href: "/books", label: "Книги · тома" },
+          { href: "/characters", label: "Персонажи · судьбы" },
+          { href: "/gallery", label: "Галерея · сцены" },
+        ]}
+      />
     </main>
   );
 }

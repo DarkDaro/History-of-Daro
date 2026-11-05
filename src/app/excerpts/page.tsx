@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Radio } from "lucide-react";
-import { PageHero, SectionHeading, SceneBanner } from "@/components/blocks";
+import { CrossLinks, PageHero, SectionHeading, SceneBanner } from "@/components/blocks";
 import { Corners, Reveal } from "@/components/cyber";
 import { RandomExcerptButton } from "@/components/random-excerpt-button";
 import { BOOKS, EXCERPTS, VISUALS } from "@/lib/content";
@@ -162,6 +162,15 @@ export default function ExcerptsPage() {
           </Reveal>
         </div>
       </section>
+      {/* куда дальше */}
+      <CrossLinks
+        intro="Каждый фрагмент вырезан из тома: полный текст — в книгах, события вокруг сцены — в хрониках, герои фрагментов — в личных делах."
+        links={[
+          { href: "/books", label: "Книги · источники" },
+          { href: "/chronicles", label: "Хроники · продолжение" },
+          { href: "/characters", label: "Персонажи · герои" },
+        ]}
+      />
     </main>
   );
 }

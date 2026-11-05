@@ -9,7 +9,7 @@ import {
   PenLine,
   RadioTower,
 } from "lucide-react";
-import { PageHero, SectionHeading } from "@/components/blocks";
+import { CrossLinks, PageHero, SectionHeading } from "@/components/blocks";
 import { Corners, Reveal } from "@/components/cyber";
 import { CopySupportButton } from "@/components/support-actions";
 import { SITE_URL } from "@/lib/site";
@@ -334,6 +334,15 @@ export default function SupportPage() {
           </Reveal>
         </div>
       </section>
+      {/* куда дальше */}
+      <CrossLinks
+        intro="Кроме поддержки у проекта есть обычные пути: страница автора, сами тома и канал, где выход обновлений виден первым."
+        links={[
+          { href: "/author", label: "Автор · о проекте" },
+          { href: "/books", label: "Книги · тома" },
+          { href: "/#subscribe", label: "Подписка на выход глав" },
+        ]}
+      />
     </main>
   );
 }

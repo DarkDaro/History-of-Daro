@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Feather, Radio } from "lucide-react";
-import { PageHero, Chip } from "@/components/blocks";
+import { Chip, CrossLinks, PageHero } from "@/components/blocks";
 import { Corners, Reveal } from "@/components/cyber";
 import { SubscribeForm } from "@/components/subscribe-form";
 import { AUTHOR_NODE, JsonLd } from "@/components/seo";
@@ -142,6 +142,15 @@ export default function AuthorPage() {
           </Reveal>
         </div>
       </section>
+      {/* куда дальше */}
+      <CrossLinks
+        intro="Если цикл откликался — дальше три пути: поддержать работу над третьим томом, прочитать сами тома или сначала понять, о чём он."
+        links={[
+          { href: "/support", label: "Поддержать автора" },
+          { href: "/books", label: "Книги · тома" },
+          { href: "/story", label: "Суть · о чём цикл" },
+        ]}
+      />
     </main>
   );
 }

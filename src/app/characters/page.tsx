@@ -137,6 +137,8 @@ export default function CharactersPage() {
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <MoreLink href="/gallery">Галерея · визуальный архив</MoreLink>
               <MoreLink href="/world">Досье мира</MoreLink>
+              <MoreLink href="/armory">Вооружение · владельцы</MoreLink>
+              <MoreLink href="/chronicles">Хроники · судьбы</MoreLink>
             </div>
           </Reveal>
         </div>

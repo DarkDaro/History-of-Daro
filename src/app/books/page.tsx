@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { PageHero, Chip, SceneBanner, TerminalQuote } from "@/components/blocks";
+import { Chip, CrossLinks, PageHero, SceneBanner, TerminalQuote } from "@/components/blocks";
 import { Reveal } from "@/components/cyber";
 import { BOOKS, SYNOPSIS_SHORT, VISUALS } from "@/lib/content";
 import { AUTHOR_NODE, JsonLd } from "@/components/seo";
@@ -164,6 +164,15 @@ export default function BooksPage() {
           />
         </div>
       </section>
+      {/* куда дальше */}
+      <CrossLinks
+        intro="Том — это остов: между главами живут хроники, по героям расходятся личные дела, а как выглядит этот мир — показывает галерея."
+        links={[
+          { href: "/excerpts", label: "Фрагменты · читалка" },
+          { href: "/chronicles", label: "Хроники · между томами" },
+          { href: "/gallery", label: "Галерея · обложки и сцены" },
+        ]}
+      />
     </main>
   );
 }

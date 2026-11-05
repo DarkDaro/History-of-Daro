@@ -36,6 +36,16 @@ export const WALLPAPERS: Wallpaper[] = [
   { galleryId: "art-armory", desktop: "/wallpapers/wp-desktop-armory.webp" },
   { galleryId: "art-story", desktop: "/wallpapers/wp-desktop-story.webp" },
   { galleryId: "art-pobeg", desktop: "/wallpapers/wp-desktop-pobeg.webp" },
+  /* — рабочий стол: сцены, батч 4 — */
+  { galleryId: "art-scene-kotel", desktop: "/wallpapers/wp-desktop-kotel.webp" },
+  { galleryId: "art-scene-cleaners", desktop: "/wallpapers/wp-desktop-cleaners.webp" },
+  { galleryId: "art-scene-hunter", desktop: "/wallpapers/wp-desktop-hunter.webp" },
+  { galleryId: "art-scene-perimeter", desktop: "/wallpapers/wp-desktop-perimeter.webp" },
+  { galleryId: "art-scene-technodominus", desktop: "/wallpapers/wp-desktop-technodominus.webp" },
+  { galleryId: "art-scene-dominator", desktop: "/wallpapers/wp-desktop-dominator.webp" },
+  { galleryId: "art-scene-lab", desktop: "/wallpapers/wp-desktop-lab.webp" },
+  { galleryId: "art-scene-conveyor", desktop: "/wallpapers/wp-desktop-conveyor.webp" },
+  { galleryId: "art-scene-skybridge", desktop: "/wallpapers/wp-desktop-skybridge.webp" },
   /* — телефон: портреты — */
   { galleryId: "art-daro", phone: "/wallpapers/wp-phone-daro.webp" },
   { galleryId: "art-ohotnik", phone: "/wallpapers/wp-phone-ohotnik.webp" },

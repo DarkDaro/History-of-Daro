@@ -162,7 +162,7 @@ export function PageHero({
       <div aria-hidden className="hero-fog" />
       {rainGlass && <GlassVeil />}
       <FogBand />
-      <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {breadcrumb && (
           <nav aria-label="Навигация по разделу" className="font-mono-cyber mb-6 text-[10px] uppercase tracking-[0.3em] text-white/50">
             <Link href="/" className="transition-colors hover:text-[var(--neon-cyan)]">
@@ -265,7 +265,7 @@ export function CrossLinks({
       aria-label="Перекрёстные ссылки: куда дальше"
       className="relative border-t border-white/10 py-16 sm:py-20"
     >
-      <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
+      <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
         <Reveal>
           <p className="font-mono-cyber text-[10px] uppercase tracking-[0.35em] text-white/45">
             {"//"} куда дальше
@@ -309,7 +309,7 @@ export function SceneBanner({
           alt={alt}
           fill
           priority={priority}
-          sizes="(max-width: 1152px) 100vw, 1152px"
+          sizes="(max-width: 1280px) 100vw, 1280px"
           className="cover-tone object-cover"
         />
         <div className="scanlines-box pointer-events-none absolute inset-0 opacity-60" aria-hidden />

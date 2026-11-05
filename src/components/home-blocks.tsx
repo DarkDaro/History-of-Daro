@@ -202,7 +202,7 @@ export function HomeBlocks({ blocks }: { blocks: HomepageBlock[] }) {
           className="relative border-t border-white/10 py-20 sm:py-24"
           aria-label={`Блок главной: ${block.kind}`}
         >
-          <div className="relative mx-auto max-w-6xl px-4 sm:px-6">{renderBlock(block)}</div>
+          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{renderBlock(block)}</div>
         </section>
       ))}
     </>

@@ -56,7 +56,7 @@ export function ChronicleDetail({
       {/* реконструкция сцены */}
       {c.cover && (
         <section className="relative pb-6 pt-14">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <SceneBanner
               src={c.cover}
               alt={`Реконструкция сцены хроники ${c.code}: ${c.title}`}
@@ -69,7 +69,7 @@ export function ChronicleDetail({
       )}
 
       <section className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[300px_1fr]">
             {/* файл фрагмента */}
             <Reveal className="space-y-6">
@@ -212,14 +212,14 @@ export function ChronicleDetail({
 
       {/* цитата */}
       <section className="relative border-t border-white/10 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <TerminalQuote text={c.terminalQuote.text} source={c.terminalQuote.source} accent={c.accent} />
         </div>
       </section>
 
       {/* навигация по хроникам */}
       <section className="relative border-t border-white/10 py-10">
-        <div className="mx-auto grid max-w-6xl gap-4 px-4 sm:grid-cols-2 sm:px-6">
+        <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:px-8">
           {prev ? (
             <Link
               href={prev.href}

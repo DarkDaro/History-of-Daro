@@ -53,7 +53,7 @@ export default function StoryPage() {
 
       {/* те, ради кого всё это */}
       <section className="relative pb-6 pt-14">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SceneBanner
             src={VISUALS.story}
             alt="Силуэты героев цикла на крыше перед неоновым мегаполисом в дожде"
@@ -67,7 +67,7 @@ export default function StoryPage() {
       {/* синопсис · проект восход */}
       <section className="relative py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="«История Даро» · Проект Восход" title="Синопсис" num="01" />
 
           <Reveal>
@@ -123,7 +123,7 @@ export default function StoryPage() {
 
       {/* пять человеческих историй */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Действующие лица войны" title="Пять историй" num="02" />
           <div className="space-y-5">
             {HUMAN_STORIES.map((s, i) => (
@@ -153,7 +153,7 @@ export default function StoryPage() {
 
       {/* объект «РХ» · визуальная запись конфликта */}
       <section className="relative pb-6">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SceneBanner
             src={asset("/img/scenes/scene-hunter.webp")}
             alt="Силуэт Резонансного Охотника на краю крыши под дождём: воздух вокруг руки искажён телекинетическим резонансом"
@@ -166,7 +166,7 @@ export default function StoryPage() {
       {/* мир и счёт */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.06]" aria-hidden />
-        <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
+        <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <SectionHeading kicker="Две записи реестра" title="Мир и счёт" num="03" accent="magenta" />
           <Reveal>
             <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2">
@@ -201,7 +201,7 @@ export default function StoryPage() {
 
       {/* принципы повествования */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Как устроено повествование" title="Принципы" num="04" />
           <div className="grid gap-6 sm:grid-cols-2">
             {PRINCIPLES.map((p, i) => (
@@ -239,7 +239,7 @@ export default function StoryPage() {
       {/* влияния */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Система координат" title="Влияния" num="05" accent="amber" />
           <Reveal>
             <div className="overflow-x-auto">
@@ -279,7 +279,7 @@ export default function StoryPage() {
 
       {/* финальная цитата */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
             <p className="font-cyber text-xl italic leading-relaxed text-white/85 sm:text-2xl">
               «Люди, которые боятся, но продолжают идти, — единственная сила,

@@ -68,7 +68,7 @@ export default function SupportPage() {
 
       {/* принцип: ничего не закрывается за деньги */}
       <section className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="relative">
               <Corners color="cyan" />
@@ -136,7 +136,7 @@ export default function SupportPage() {
       {/* каналы поддержки */}
       <section className="relative border-t border-white/10 py-16 sm:py-20">
         <div aria-hidden className="aurora-blob magenta right-[4%] top-[6%] h-72 w-72" />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             kicker="Каналы"
             title="Способы поддержать"
@@ -219,7 +219,7 @@ export default function SupportPage() {
       {/* уровни boosty */}
       {boosty && boosty.href !== "" && (
         <section className="relative border-t border-white/10 py-16 sm:py-20">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <SectionHeading
               kicker="Подписка на Boosty"
               title="Уровни доступа"
@@ -273,7 +273,7 @@ export default function SupportPage() {
 
       {/* FAQ */}
       <section className="relative border-t border-white/10 py-16 sm:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Вопросы" title="Частые ответы" num="04" accent="cyan" />
           <div className="mt-8 grid gap-5 sm:grid-cols-2">
             {SUPPORT_FAQ.map((f) => (
@@ -292,7 +292,7 @@ export default function SupportPage() {
       <section className="relative overflow-hidden border-t border-white/10 py-20 sm:py-24">
         <div aria-hidden className="aurora-blob cyan left-[6%] top-[10%] h-72 w-72" />
         <div aria-hidden className="aurora-blob magenta bottom-[5%] right-[6%] h-80 w-80" />
-        <div className="relative mx-auto max-w-2xl px-4 text-center sm:px-6">
+        <div className="relative mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
             <p className="font-mono-cyber text-xs uppercase tracking-[0.4em] neon-magenta">Передатчик работает</p>
             <h2 className="font-display mt-3 text-3xl uppercase tracking-wide text-white sm:text-5xl">

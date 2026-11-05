@@ -64,7 +64,7 @@ export default function ArmoryPage() {
 
       {/* реконструкция: оружейная стена */}
       <section className="relative pb-6 pt-14">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SceneBanner
             src={VISUALS.armory}
             alt="Оружейная стена: катана, энергетический карабин и импульсные винтовки на магнитных креплениях"
@@ -78,7 +78,7 @@ export default function ArmoryPage() {
       {/* арсенал сопротивления */}
       <section className="relative py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="«Периметр Зеро»" title="Арсенал сопротивления" num="01" />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {resistance.map((w, i) => (
@@ -92,7 +92,7 @@ export default function ArmoryPage() {
 
       {/* военные машины корпораций */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="«Бергинатор» · армия Скорпиона" title="Машины противника" num="02" accent="amber" />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {corporate.map((w, i) => (
@@ -107,7 +107,7 @@ export default function ArmoryPage() {
       {/* канон-каталог: оружие и владельцы */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Канон-каталог · текст автора" title="Оружие и владельцы" num="03" />
           <Reveal>
             <p className="max-w-3xl font-cyber text-sm leading-relaxed text-white/65 sm:text-base">
@@ -124,7 +124,7 @@ export default function ArmoryPage() {
 
       {/* сводка */}
       <section className="relative border-t border-white/10 py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="beam-border-static p-8 text-center sm:p-10">
               <p className="font-mono-cyber text-xs uppercase tracking-[0.35em] text-[var(--neon-amber)]">
@@ -156,7 +156,7 @@ export default function ArmoryPage() {
       </section>
       {/* куда дальше */}
       <section className="relative border-t border-white/10 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
             <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
               За каждым стволом из каталога стоит владелец — личные дела тех,

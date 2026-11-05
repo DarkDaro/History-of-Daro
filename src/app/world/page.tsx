@@ -69,7 +69,7 @@ export default function WorldPage() {
 
       {/* реконструкция улицы города */}
       <section className="relative pb-6 pt-14">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SceneBanner
             src={VISUALS.world}
             alt="Улица Хи-Мигаты под куполом: дождь, неон, толпа в тёмных пальто"
@@ -82,7 +82,7 @@ export default function WorldPage() {
 
       {/* счётчики */}
       <section className="relative py-16">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="grid grid-cols-2 gap-px border border-white/10 bg-white/10 lg:grid-cols-4">
               {WORLD_STATS.map((s) => (
@@ -127,7 +127,7 @@ export default function WorldPage() {
       {/* 7 корпораций */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Власть" title="Семь корпораций" num="01" accent="magenta" />
           <Reveal className="-mt-6 mb-12 text-center">
             <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
@@ -149,7 +149,7 @@ export default function WorldPage() {
 
       {/* фракции */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Стороны конфликта" title="Фракции" num="02" />
           <div className="grid gap-6 sm:grid-cols-2">
             {FACTIONS.map((f, i) => (
@@ -173,7 +173,7 @@ export default function WorldPage() {
       {/* технологии и угрозы */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Каталог угроз" title="Технологии войны" num="03" accent="amber" />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {TECH.map((t, i) => (
@@ -197,7 +197,7 @@ export default function WorldPage() {
 
       {/* аномалии */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Вне реестров" title="Аномалии" num="04" accent="magenta" />
           <Reveal className="-mt-6 mb-12 text-center">
             <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
@@ -225,7 +225,7 @@ export default function WorldPage() {
       {/* повседневность */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Как живут люди" title="Повседневность" num="05" />
           <Reveal className="-mt-6 mb-12 text-center">
             <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
@@ -267,7 +267,7 @@ export default function WorldPage() {
 
       {/* принципы мира */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Директивы вселенной" title="Правила мира" num="06" accent="magenta" />
           <div className="grid gap-6 sm:grid-cols-2">
             <Reveal>

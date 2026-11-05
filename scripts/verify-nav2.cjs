@@ -1,111 +1,138 @@
-/* Проверка NAV v2: кнопка «Галерея», dropdown «Ещё», мобильные группы,
-   перекрёстные блоки «куда дальше». out/ с basePath. */
+/* Проверка NAV v3: контейнеры 7xl, короткая строка (4 ссылки),
+   «Галерея»-кнопка, панель «Ещё» 2×2, мобильные группы,
+   отсутствие горизонтального переполнения шапки. out/ с basePath. */
 const { chromium } = require("playwright");
 
 const BASE = "http://localhost:8901/History-of-Daro";
+let fails = 0;
+const ok = (cond, msg) => {
+  console.log(`${cond ? "PASS" : "FAIL"}: ${msg}`);
+  if (!cond) fails++;
+};
 
 (async () => {
   const browser = await chromium.launch();
   const errors = [];
 
-  /* --- 1. Десктоп 1280: кнопка «Галерея» --- */
-  const d = await browser.newPage({ viewport: { width: 1280, height: 900 } });
-  d.on("pageerror", (e) => errors.push(String(e)));
-  d.on("console", (m) => m.type() === "error" && errors.push(m.text()));
-  await d.goto(`${BASE}/`, { waitUntil: "networkidle" });
-  const gal = d.locator('nav a[href*="/gallery"]').first();
-  const galBox = await gal.boundingBox();
-  const galStyle = await gal.evaluate((el) => {
-    const cs = getComputedStyle(el);
-    return { color: cs.color, border: cs.borderColor, text: el.textContent.trim() };
-  });
-  console.log("GALLERY_BTN:", JSON.stringify(galStyle), "box:", !!galBox);
-  // горизонтальный переполнение шапки?
-  const overflow = await d.evaluate(
-    () => document.querySelector("nav").scrollWidth - document.querySelector("nav").clientWidth
-  );
-  console.log("NAV_OVERFLOW_1280:", overflow, "px");
-  // dropdown «Ещё»
-  await d.locator('nav button:has-text("Ещё")').click();
-  await d.waitForTimeout(300);
-  const extra = await d.evaluate(() =>
-    [...document.querySelectorAll('[data-slot="dropdown-menu-content"] a')].map((a) =>
-      a.getAttribute("href")
-    )
-  );
-  console.log("DROPDOWN_ITEMS:", JSON.stringify(extra));
-  await d.screenshot({ path: "/tmp/render/nav-home-desktop.png" });
-  // активное состояние на /gallery
-  await d.goto(`${BASE}/gallery/`, { waitUntil: "networkidle" });
-  const galActive = await d
-    .locator('nav a[href*="/gallery"]')
-    .first()
-    .evaluate((el) => el.getAttribute("data-active"));
-  console.log("GALLERY_ACTIVE_ON_GALLERY:", galActive);
-
-  /* --- 2. lg 1024: Импланты/Вооружение скрыты в строке, «Ещё» есть --- */
-  const lg = await browser.newPage({ viewport: { width: 1024, height: 800 } });
-  await lg.goto(`${BASE}/`, { waitUntil: "networkidle" });
-  const lgState = await lg.evaluate(() => {
-    const links = [...document.querySelectorAll("nav ul a")].map((a) => ({
-      t: a.textContent.trim(),
-      hidden: a.closest("li").offsetParent === null,
-    }));
-    const overflow = document.querySelector("nav").scrollWidth - document.querySelector("nav").clientWidth;
-    return { links, overflow };
-  });
-  console.log("LG_HIDDEN:", JSON.stringify(lgState.links.filter((l) => l.hidden)));
-  console.log("NAV_OVERFLOW_1024:", lgState.overflow, "px");
-  await lg.screenshot({ path: "/tmp/render/nav-home-lg.png" });
-
-  /* --- 2b. xl 1280 и 2xl 1536: переполнение строки --- */
-  for (const w of [1280, 1536]) {
-    const p2 = await browser.newPage({ viewport: { width: w, height: 900 } });
-    await p2.goto(`${BASE}/`, { waitUntil: "networkidle" });
-    const ov = await p2.evaluate(
-      () => document.querySelector("nav").scrollWidth - document.querySelector("nav").clientWidth
+  /* --- 1. Шапка без переполнения на всех десктопных ширинах --- */
+  for (const w of [1024, 1102, 1280, 1536, 1920]) {
+    const p = await browser.newPage({ viewport: { width: w, height: 900 } });
+    p.on("pageerror", (e) => errors.push(String(e)));
+    p.on("console", (m) => m.type() === "error" && errors.push(m.text()));
+    await p.goto(`${BASE}/`, { waitUntil: "networkidle" });
+    const state = await p.evaluate(() => {
+      const nav = document.querySelector("nav");
+      return {
+        overflow: nav.scrollWidth - nav.clientWidth,
+        mainLinks: [...document.querySelectorAll("nav ul a")].map((a) =>
+          a.textContent.trim()
+        ),
+        galleryVisible:
+          [...document.querySelectorAll('nav a[href*="/gallery"]')].length > 0 &&
+          [...document.querySelectorAll('nav a[href*="/gallery"]')][0].offsetParent !== null,
+        moreVisible: [...document.querySelectorAll("nav button")].some((b) =>
+          b.textContent.includes("Ещё")
+        ),
+        navWidth: nav.clientWidth,
+      };
+    });
+    console.log(
+      `W=${w}: overflow=${state.overflow}px nav=${state.navWidth}px main=[${state.mainLinks}] gallery=${state.galleryVisible} more=${state.moreVisible}`
     );
-    const visible = await p2.evaluate(() =>
-      [...document.querySelectorAll("nav ul a")].filter(
-        (a) => a.closest("li").offsetParent !== null
-      ).length
+    ok(state.overflow <= 0, `W=${w}: шапка без переполнения`);
+    ok(
+      JSON.stringify(state.mainLinks) === JSON.stringify(["Книги", "Суть", "Мир", "Персонажи"]),
+      `W=${w}: основная строка — 4 ссылки`
     );
-    console.log(`NAV_OVERFLOW_${w}:`, ov, "px, ссылок в строке:", visible);
-    await p2.close();
+    ok(state.galleryVisible, `W=${w}: кнопка «Галерея» видна`);
+    ok(state.moreVisible, `W=${w}: кнопка «Ещё» видна`);
+    await p.close();
   }
 
-  /* --- 3. Мобайл 390: группы + галерея первой --- */
+  /* --- 2. Панель «Ещё»: 4 группы, 10 ссылок --- */
+  const d = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+  d.on("pageerror", (e) => errors.push(String(e)));
+  await d.goto(`${BASE}/`, { waitUntil: "networkidle" });
+  await d.locator('nav button:has-text("Ещё")').click();
+  await d.waitForTimeout(350);
+  const panel = await d.evaluate(() => {
+    const content = document.querySelector('[data-slot="dropdown-menu-content"]');
+    const links = [...content.querySelectorAll("a")].map((a) => a.getAttribute("href"));
+    const titles = [...content.querySelectorAll("p")].map((p) => p.textContent.trim());
+    return { links, titles };
+  });
+  console.log("MORE_TITLES:", JSON.stringify(panel.titles));
+  console.log("MORE_LINKS:", JSON.stringify(panel.links));
+  ok(panel.titles.length === 4, "панель «Ещё»: 4 группы");
+  ok(panel.links.length === 10, "панель «Ещё»: 10 ссылок");
+  await d.screenshot({ path: "/tmp/render/nav-more-panel.png" });
+  await d.keyboard.press("Escape");
+
+  /* активное состояние «Ещё» на странице из панели (импланты) */
+  await d.goto(`${BASE}/implants/`, { waitUntil: "networkidle" });
+  const moreActive = await d.evaluate(() => {
+    const b = [...document.querySelectorAll("nav button")].find((x) =>
+      x.textContent.includes("Ещё")
+    );
+    return b ? b.getAttribute("data-active") : null;
+  });
+  ok(moreActive === "true", "«Ещё» подсвечена на /implants");
+
+  /* контейнер контента: 1280 (7xl) */
+  await d.goto(`${BASE}/gallery/`, { waitUntil: "networkidle" });
+  const wrap = await d.evaluate(() => {
+    const el = [...document.querySelectorAll("div")].find((x) =>
+      x.className.includes("max-w-7xl")
+    );
+    return el ? el.className.includes("lg:px-8") : false;
+  });
+  ok(wrap, "контейнеры контента: max-w-7xl + lg:px-8");
+  await d.screenshot({ path: "/tmp/render/nav-gallery-1280.png" });
+
+  /* --- 3. Мобайл 390: группы + галерея первой, все 15 маршрутов --- */
+  const ALL_ROUTES = [
+    "/books","/excerpts","/story","/chronicles","/world","/corporations",
+    "/characters","/author","/gallery","/implants","/armory","/map",
+    "/timeline","/glossary","/support",
+  ];
   const m = await browser.newPage({ viewport: { width: 390, height: 844 } });
   await m.goto(`${BASE}/`, { waitUntil: "networkidle" });
   await m.locator('button[aria-label="Открыть меню"]').click();
   await m.waitForTimeout(400);
   const mobile = await m.evaluate(() => {
-    const first = document.querySelector('div[aria-hidden] , header div')
-      ? [...document.querySelectorAll('header a')].map((a) => a.textContent.trim()).find((t) => t.includes("Галерея"))
-      : null;
-    const groups = [...document.querySelectorAll('header p')].map((p) => p.textContent.trim());
-    const items = [...document.querySelectorAll("header li a")].length;
-    return { galleryFirst: first, groups, items };
+    const header = document.querySelector("header");
+    const hrefs = [...header.querySelectorAll("a")].map((a) =>
+      a
+        .getAttribute("href")
+        .replace(/^.*\/History-of-Daro/, "")
+        .replace(/\/$/, "")
+    );
+    const groups = [...header.querySelectorAll("p")].map((p) => p.textContent.trim());
+    return { hrefs, groups };
   });
-  console.log("MOBILE_GALLERY:", JSON.stringify(mobile.galleryFirst));
+  ok(
+    ALL_ROUTES.every((r) => mobile.hrefs.includes(r)),
+    `мобильное меню покрывает все 15 маршрутов (нашло ${ALL_ROUTES.filter((r) => mobile.hrefs.includes(r)).length})`
+  );
+  const firstLink = mobile.hrefs.find((h) => h === "/gallery");
+  ok(!!firstLink, "«Галерея» есть в мобильном меню");
   console.log("MOBILE_GROUPS:", JSON.stringify(mobile.groups));
-  console.log("MOBILE_ITEMS:", mobile.items);
   await m.screenshot({ path: "/tmp/render/nav-mobile-menu.png" });
 
-  /* --- 4. Блоки «куда дальше» на страницах --- */
-  const pages = ["story","map","timeline","implants","chronicles","glossary","excerpts","books","author","support","characters","gallery"];
-  for (const p of pages) {
+  /* --- 4. Блоки «куда дальше» остаются на страницах --- */
+  for (const p of ["story", "characters", "gallery"]) {
     await d.goto(`${BASE}/${p}/`, { waitUntil: "load" });
     const n = await d.evaluate(
-      () => document.querySelectorAll('section[aria-label="Перекрёстные ссылки: куда дальше"]').length
+      () =>
+        document.querySelectorAll('section[aria-label="Перекрёстные ссылки: куда дальше"]')
+          .length
     );
-    const links = await d.evaluate(() => {
-      const s = document.querySelector('section[aria-label="Перекрёстные ссылки: куда дальше"]');
-      return s ? [...s.querySelectorAll("a")].map((a) => a.getAttribute("href")) : [];
-    });
-    console.log(`CROSS[${p}]:`, n, JSON.stringify(links));
+    ok(n >= 1, `перекрёстные ссылки на /${p}`);
   }
 
   console.log("CONSOLE_ERRORS:", errors.length ? errors.slice(0, 4) : "none");
+  if (errors.length) fails++;
+  console.log(fails === 0 ? "ALL NAV V3 CHECKS PASSED" : `FAILED: ${fails}`);
   await browser.close();
+  process.exit(fails === 0 ? 0 : 1);
 })();

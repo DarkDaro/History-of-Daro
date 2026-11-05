@@ -39,7 +39,7 @@ export default function ChroniclesPage() {
       {/* список хроник */}
       <section className="relative py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             kicker="Расшифрованные файлы"
             title="Архив фрагментов"

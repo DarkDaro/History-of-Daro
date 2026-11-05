@@ -13,39 +13,60 @@ import { asset } from "@/lib/content";
 /* ============================================================
    Общая «обвязка» сайта: навигация + футер.
 
-   Структура навигации:
-   • основная строка (lg+) — цикл и мир, в порядке чтения;
-   • «Галерея» — отдельная неоновая кнопка (маджента), всегда
-     на виду на десктопе и первой в мобильном меню;
-   • «Ещё» — выпадающий индекс: кодекс и служебные разделы;
-   • мобильное меню сгруппировано по разделам.
+   Структура навигации (намеренно короткая):
+   • основная строка (lg+) — 4 ключевых раздела, без перегруза;
+   • «Галерея» — отдельная неоновая кнопка (маджента) рядом с
+     основной строкой; первая в мобильном меню;
+   • «Ещё» — кнопка с панелью-индексом, сгруппированным по
+     темам (панель 2×2, те же группы в мобильном меню);
+   • справа — поиск, «Эфир», подписка: без лишних слов на узких
+     десктопах (подписи всплывают только на xl+).
    ============================================================ */
 
-export const NAV_LINKS: { href: string; label: string }[] = [
+/** Основная строка (lg+): курс — от книг к героям. */
+export const NAV_MAIN: { href: string; label: string }[] = [
   { href: "/books", label: "Книги" },
-  { href: "/excerpts", label: "Фрагменты" },
   { href: "/story", label: "Суть" },
-  { href: "/chronicles", label: "Хроники" },
   { href: "/world", label: "Мир" },
-  { href: "/corporations", label: "Корпорации" },
   { href: "/characters", label: "Персонажи" },
-  { href: "/author", label: "Автор" },
-  // Импланты и Вооружение — в «Ещё» (NAV_EXTRA): при 10+2 ссылках
-  // шапка переполняется на xl (проверено: +79px) и 2xl (+128px).
 ];
 
-/** Индексные/служебные разделы вне основной строки (lg+). */
-export const NAV_EXTRA = [
-  { href: "/implants", label: "Импланты" },
-  { href: "/armory", label: "Вооружение" },
-  { href: "/map", label: "Карта города" },
-  { href: "/timeline", label: "Таймлайн 2147" },
-  { href: "/glossary", label: "Глоссарий" },
-  { href: "/support", label: "Поддержать автора" },
+/** Панель «Ещё»: сгруппированный индекс остальных разделов. */
+export const NAV_MORE: { title: string; links: { href: string; label: string }[] }[] = [
+  {
+    title: "Читать",
+    links: [
+      { href: "/excerpts", label: "Фрагменты" },
+      { href: "/chronicles", label: "Хроники" },
+    ],
+  },
+  {
+    title: "Мир",
+    links: [
+      { href: "/corporations", label: "Корпорации" },
+      { href: "/map", label: "Карта города" },
+      { href: "/timeline", label: "Таймлайн 2147" },
+    ],
+  },
+  {
+    title: "Кодекс",
+    links: [
+      { href: "/implants", label: "Импланты" },
+      { href: "/armory", label: "Вооружение" },
+      { href: "/glossary", label: "Глоссарий" },
+    ],
+  },
+  {
+    title: "Автор",
+    links: [
+      { href: "/author", label: "Об авторе" },
+      { href: "/support", label: "Поддержать" },
+    ],
+  },
 ];
 
-/** Мобильное меню: те же маршруты, сгруппированные по разделам. */
-const NAV_GROUPS: { title: string; links: { href: string; label: string }[] }[] = [
+/** Мобильное меню: все 15 маршрутов, сгруппированные по темам. */
+const NAV_MOBILE_GROUPS: { title: string; links: { href: string; label: string }[] }[] = [
   {
     title: "Цикл",
     links: [
@@ -53,7 +74,6 @@ const NAV_GROUPS: { title: string; links: { href: string; label: string }[] }[] 
       { href: "/excerpts", label: "Фрагменты" },
       { href: "/story", label: "Суть" },
       { href: "/chronicles", label: "Хроники" },
-      { href: "/author", label: "Автор" },
     ],
   },
   {
@@ -75,10 +95,25 @@ const NAV_GROUPS: { title: string; links: { href: string; label: string }[] }[] 
     ],
   },
   {
-    title: "Прочее",
-    links: [{ href: "/support", label: "Поддержать автора" }],
+    title: "Автор",
+    links: [
+      { href: "/author", label: "Об авторе" },
+      { href: "/support", label: "Поддержать автора" },
+    ],
   },
 ];
+
+/** Все маршруты навигации — для проверки полноты в тестах. */
+export const NAV_ROUTES = [
+  ...NAV_MAIN.map((l) => l.href),
+  "/gallery",
+  ...NAV_MORE.flatMap((g) => g.links.map((l) => l.href)),
+];
+
+/** Активна ли панель «Ещё» (текущий маршрут внутри её групп). */
+function isMoreActive(pathname: string): boolean {
+  return NAV_MORE.some((g) => g.links.some((l) => isActive(pathname, l.href)));
+}
 
 function isActive(pathname: string, href: string): boolean {
   if (href === "/") return pathname === "/";
@@ -121,7 +156,7 @@ export function SiteNav() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#05050a]/85 text-white backdrop-blur-md">
       <nav
-        className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6"
+        className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8"
         aria-label="Основная навигация"
       >
         <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="ДАРО// — на главную">
@@ -131,65 +166,83 @@ export function SiteNav() {
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-3 font-mono-cyber text-[11px] uppercase tracking-[0.15em] text-white/70 lg:flex xl:gap-2">
-          {NAV_LINKS.map((l) => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                className="nav-link"
-                data-active={isActive(pathname, l.href) ? "true" : "false"}
-                onMouseEnter={() => sfx("hover")}
-                onClick={() => sfx("click")}
-              >
-                {l.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        {/* Галерея — выделенная кнопка (всегда на виду на десктопе). */}
-        <Link
-          href="/gallery"
-          data-active={isActive(pathname, "/gallery") ? "true" : undefined}
-          className={`btn-beam neon-border-magenta hidden items-center gap-2 px-3.5 py-2 font-mono-cyber text-[11px] uppercase tracking-[0.2em] text-[var(--neon-magenta)] transition-colors hover:bg-[var(--neon-magenta)]/10 lg:inline-flex ${
-            isActive(pathname, "/gallery") ? "bg-[var(--neon-magenta)]/15" : ""
-          }`}
-          onMouseEnter={() => sfx("hover")}
-          onClick={() => sfx("click")}
-        >
-          <Images className="h-4 w-4" aria-hidden />
-          Галерея
-        </Link>
-
-        {/* Ещё — индекс: кодекс, карта, таймлайн, глоссарий, поддержка. */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button
-              type="button"
-              onClick={() => sfx("click")}
-              className="hidden items-center gap-1.5 font-mono-cyber text-[11px] uppercase tracking-[0.15em] text-white/70 transition-colors hover:text-[var(--neon-cyan)] lg:inline-flex"
-            >
-              Ещё
-              <ChevronDown className="h-3 w-3" aria-hidden />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            align="end"
-            sideOffset={10}
-            className="border border-white/10 bg-[#0a0d14]/95 backdrop-blur-md"
-          >
-            {NAV_EXTRA.map((l) => (
-              <DropdownMenuItem key={l.href} asChild>
+        {/* Центр: 4 ссылки + «Галерея» + «Ещё» — единым блоком, без расталкивания. */}
+        <div className="hidden items-center gap-1.5 lg:flex">
+          <ul className="hidden items-center gap-5 font-mono-cyber text-[11px] uppercase tracking-[0.15em] text-white/70 lg:flex">
+            {NAV_MAIN.map((l) => (
+              <li key={l.href}>
                 <Link
                   href={l.href}
-                  className="font-mono-cyber cursor-pointer text-[11px] uppercase tracking-[0.2em] text-white/70 outline-none data-[highlighted]:text-[var(--neon-cyan)]"
+                  className="nav-link"
+                  data-active={isActive(pathname, l.href) ? "true" : "false"}
+                  onMouseEnter={() => sfx("hover")}
+                  onClick={() => sfx("click")}
                 >
                   {l.label}
                 </Link>
-              </DropdownMenuItem>
+              </li>
             ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+          </ul>
+
+          <span aria-hidden className="mx-1.5 h-4 w-px bg-white/15" />
+
+          {/* Галерея — выделенная неоновая кнопка (всегда на виду на десктопе). */}
+          <Link
+            href="/gallery"
+            data-active={isActive(pathname, "/gallery") ? "true" : undefined}
+            className={`btn-beam neon-border-magenta hidden items-center gap-2 px-3.5 py-2 font-mono-cyber text-[11px] uppercase tracking-[0.2em] text-[var(--neon-magenta)] transition-colors hover:bg-[var(--neon-magenta)]/10 lg:inline-flex ${
+              isActive(pathname, "/gallery") ? "bg-[var(--neon-magenta)]/15" : ""
+            }`}
+            onMouseEnter={() => sfx("hover")}
+            onClick={() => sfx("click")}
+          >
+            <Images className="h-4 w-4" aria-hidden />
+            Галерея
+          </Link>
+
+          {/* Ещё — панель-индекс: чтение, мир, кодекс, автор. */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type="button"
+                onClick={() => sfx("click")}
+                data-active={isMoreActive(pathname) ? "true" : undefined}
+                aria-label="Ещё разделы"
+                className="hidden items-center gap-2 border border-white/15 bg-white/[0.03] px-3 py-2 font-mono-cyber text-[10px] uppercase tracking-[0.2em] text-white/60 transition-colors hover:border-[var(--neon-cyan)]/50 hover:text-[var(--neon-cyan)] data-[active=true]:border-[var(--neon-cyan)]/60 data-[active=true]:text-[var(--neon-cyan)] lg:inline-flex"
+              >
+                Ещё
+                <ChevronDown className="h-3.5 w-3.5" aria-hidden />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              sideOffset={12}
+              className="w-[min(26rem,calc(100vw-2rem))] border border-white/10 bg-[#0a0d14]/95 p-4 backdrop-blur-md"
+            >
+              <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                {NAV_MORE.map((g) => (
+                  <div key={g.title}>
+                    <p className="font-mono-cyber px-1 text-[9px] uppercase tracking-[0.35em] text-white/35">
+                      {g.title}
+                    </p>
+                    <ul className="mt-1.5">
+                      {g.links.map((l) => (
+                        <DropdownMenuItem key={l.href} asChild>
+                          <Link
+                            href={l.href}
+                            className="font-mono-cyber cursor-pointer rounded-none px-1 py-2 text-[11px] uppercase tracking-[0.2em] text-white/70 outline-none transition-colors data-[highlighted]:text-[var(--neon-cyan)]"
+                          >
+                            {l.label}
+                          </Link>
+                        </DropdownMenuItem>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
 
         <div className="flex items-center gap-2">
           <button
@@ -210,7 +263,7 @@ export function SiteNav() {
           <CyberAmbientButton />
           <Link
             href="/#subscribe"
-            className="btn-beam neon-border-cyan hidden px-3.5 py-2 font-mono-cyber text-xs uppercase tracking-widest text-[var(--neon-cyan)] transition-colors hover:bg-[var(--neon-cyan)]/10 xl:inline-flex"
+            className="btn-beam neon-border-cyan hidden px-3.5 py-2 font-mono-cyber text-xs uppercase tracking-widest text-[var(--neon-cyan)] transition-colors hover:bg-[var(--neon-cyan)]/10 lg:inline-flex"
           >
             Подписаться
           </Link>
@@ -246,7 +299,7 @@ export function SiteNav() {
               Галерея
             </Link>
           </div>
-          {NAV_GROUPS.map((g) => (
+          {NAV_MOBILE_GROUPS.map((g) => (
             <div key={g.title} className="px-4 pb-2 pt-4">
               <p className="font-mono-cyber px-2 text-[9px] uppercase tracking-[0.35em] text-white/40">
                 {g.title}
@@ -285,7 +338,7 @@ export function SiteFooter() {
         aria-hidden
         className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--neon-cyan)] to-transparent"
       />
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           <div>
             <p className="font-display text-lg tracking-widest">

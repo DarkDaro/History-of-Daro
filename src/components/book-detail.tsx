@@ -66,7 +66,7 @@ export function BookDetail({
       />
 
       <section className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[300px_1fr]">
             {/* обложка + факты */}
             <Reveal className="space-y-6">
@@ -192,14 +192,14 @@ export function BookDetail({
 
       {/* цитата */}
       <section className="relative border-t border-white/10 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <TerminalQuote text={book.terminalQuote.text} source={book.terminalQuote.source} accent={book.accent} />
         </div>
       </section>
 
       {/* навигация по циклу */}
       <section className="relative border-t border-white/10 py-10">
-        <div className="mx-auto grid max-w-6xl gap-4 px-4 sm:grid-cols-2 sm:px-6">
+        <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:px-8">
           {prev ? (
             <Link
               href={prev.href}

@@ -6,7 +6,7 @@
 const { chromium } = require("/home/z/.npm-global/lib/node_modules/playwright/index.js");
 const fs = require("fs");
 const axeSource = fs.readFileSync(
-  "/home/z/.npm-global/lib/node_modules/axe-core/axe.min.js",
+  "/home/z/my-project/node_modules/axe-core/axe.min.js",
   "utf8",
 );
 

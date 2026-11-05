@@ -29,7 +29,7 @@ export default function ImplantsPage() {
 
       {/* реконструкция: позвоночный интерфейс */}
       <section className="relative pb-6 pt-14">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SceneBanner
             src={VISUALS.implants}
             alt="Крупный план кибернетического импланта позвоночника со светящимися нейропортами"
@@ -42,7 +42,7 @@ export default function ImplantsPage() {
 
       <section className="relative py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Каталог технологий" title="Записи о вживлении" num="01" accent="magenta" />
 
           <Reveal className="-mt-6 mb-12 text-center">

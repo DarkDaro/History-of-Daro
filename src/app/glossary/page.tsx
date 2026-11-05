@@ -52,7 +52,7 @@ export default function GlossaryPage() {
           className={`relative py-20 sm:py-24 ${li > 0 ? "border-t border-white/10" : ""}`}
         >
           {li % 2 === 1 && <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />}
-          <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <SectionHeading kicker={level.kicker} title={level.title} num={level.num} accent={level.accent as Accent} />
             <Reveal>
               <p className="mt-6 max-w-3xl font-cyber text-sm leading-relaxed text-white/60 sm:text-base">
@@ -115,7 +115,7 @@ export default function GlossaryPage() {
 
       {/* готовится */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Заявлено автором · записи появятся после редакции тома III" title="Готовится" num="05" accent="magenta" />
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {GLOSSARY_PLANNED.map((p) => (
@@ -132,7 +132,7 @@ export default function GlossaryPage() {
 
       {/* финальная цитата */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
             <p className="font-cyber text-xl italic leading-relaxed text-white/85 sm:text-2xl">
               «Система идентификации целей активирована».

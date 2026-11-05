@@ -143,7 +143,7 @@ export default function Home() {
 
         <motion.div
           style={{ opacity: opacityHero }}
-          className="relative z-10 mx-auto max-w-5xl px-4 pb-20 pt-28 text-center sm:px-6"
+          className="relative z-10 mx-auto max-w-7xl px-4 pb-20 pt-28 text-center sm:px-6 lg:px-8"
         >
           <motion.p
             initial={{ opacity: 0 }}
@@ -250,7 +250,7 @@ export default function Home() {
 
       {/* ======================= СУТЬ (тизер) ======================= */}
       <section id="essence" className="relative py-24 sm:py-28">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, y: 32 }}
@@ -318,7 +318,7 @@ export default function Home() {
 
       {/* ======================= ПОЧЕМУ ЧИТАТЬ (крючки) ======================= */}
       <section className="relative border-t border-white/10 py-24 sm:py-28">
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -381,7 +381,7 @@ export default function Home() {
       {/* ======================= КНИГИ (полоса) ======================= */}
       <section className="relative border-t border-white/10 py-24 sm:py-28">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -458,7 +458,7 @@ export default function Home() {
 
       {/* ======================= РАЗДЕЛЫ САЙТА ======================= */}
       <section className="relative border-t border-white/10 py-24 sm:py-28">
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -553,7 +553,7 @@ export default function Home() {
       {/* ======================= ХРОНИКИ (тизер) ======================= */}
       <section className="relative border-t border-white/10 py-24 sm:py-28">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, y: 32 }}
@@ -636,7 +636,7 @@ export default function Home() {
         <div aria-hidden className="aurora-blob cyan left-[8%] top-[10%] h-72 w-72" />
         <div aria-hidden className="aurora-blob magenta bottom-[5%] right-[6%] h-80 w-80" />
         <FogBand className="opacity-60" />
-        <div className="relative mx-auto max-w-2xl px-4 text-center sm:px-6">
+        <div className="relative mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -661,7 +661,7 @@ export default function Home() {
 
       {/* ======================= АВТОР (тизер) ======================= */}
       <section className="relative border-t border-white/10 py-20">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 text-center sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 text-center sm:px-6 lg:px-8">
           <Feather className="neon-cyan h-7 w-7" aria-hidden />
           <p className="font-cyber max-w-2xl text-sm leading-relaxed text-white/60">
             Пишу о городе, которого нет, — о людях, которые в нём очень даже

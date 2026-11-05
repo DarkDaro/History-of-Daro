@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Download } from "lucide-react";
-import { PageHero, SectionHeading, MoreLink } from "@/components/blocks";
+import { PageHero, SectionHeading, CrossLinks } from "@/components/blocks";
 import { Corners, Reveal } from "@/components/cyber";
 import { GalleryGrid } from "@/components/gallery-grid";
 import {
@@ -123,7 +123,7 @@ export default function GalleryPage() {
       {/* архив */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             kicker="Файлы-визуализация"
             title="Записи архива"
@@ -144,7 +144,7 @@ export default function GalleryPage() {
       {/* стена «Артефакты»: обои на память (BACKLOG п.16/п.24) */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div aria-hidden className="aurora-blob magenta right-[3%] top-[4%] h-72 w-72" />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             kicker="Забери с собой"
             title="Артефакты · обои"
@@ -195,21 +195,15 @@ export default function GalleryPage() {
       </section>
 
       {/* куда дальше */}
-      <section className="relative border-t border-white/10 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
-          <Reveal>
-            <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
-              За каждым изображением стоит файл: тома с логлайнами, личные
-              дела героев и досье мира, из которого архив и вытащен.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <MoreLink href="/books">Тома трилогии</MoreLink>
-              <MoreLink href="/characters">Личные дела</MoreLink>
-              <MoreLink href="/world">Досье мира · Хи-Мигата</MoreLink>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <CrossLinks
+        intro="За каждым изображением стоит файл: тома с логлайнами, личные
+              дела героев и досье мира, из которого архив и вытащен."
+        links={[
+          { href: "/books", label: "Тома трилогии" },
+          { href: "/characters", label: "Личные дела" },
+          { href: "/world", label: "Досье мира · Хи-Мигата" },
+        ]}
+      />
     </main>
   );
 }

@@ -36,7 +36,7 @@ export default function CorporationsPage() {
 
       {/* реконструкция: зал совета семи */}
       <section className="relative pb-6 pt-14">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SceneBanner
             src={VISUALS.corporations}
             alt="Зал совета семи корпораций: длинный стол и голограммы города, поднимающиеся из столешницы"
@@ -49,7 +49,7 @@ export default function CorporationsPage() {
 
       {/* как устроена власть */}
       <section className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 lg:grid-cols-3">
             <Reveal>
               <div className="beam-border-static h-full p-7">
@@ -94,7 +94,7 @@ export default function CorporationsPage() {
       {/* реестр */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             kicker="Файлы-codeкс"
             title="Семь корпораций"
@@ -115,7 +115,7 @@ export default function CorporationsPage() {
 
       {/* сопротивление и независимые */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             kicker="Те, кто вне консорциума"
             title="Сопротивление и независимые"
@@ -138,7 +138,7 @@ export default function CorporationsPage() {
 
       {/* куда дальше */}
       <section className="relative border-t border-white/10 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
             <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
               У консорциума есть лица, оружие и хронология решений: люди,

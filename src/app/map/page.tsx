@@ -28,7 +28,7 @@ export default function MapPage() {
 
       {/* реконструкция: тактический стол сопротивления */}
       <section className="relative pb-6 pt-14">
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SceneBanner
             src={VISUALS.map}
             alt="Тактический стол сопротивления: голограммная каркасная карта купольного города"
@@ -41,7 +41,7 @@ export default function MapPage() {
 
       <section className="relative py-16 sm:py-20">
         <div className="cyber-grid absolute inset-0 opacity-[0.04]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <CityMap />
         </div>
       </section>

@@ -62,7 +62,7 @@ export function ExcerptReader({
       />
 
       <section className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[300px_1fr]">
             {/* карточка файла */}
             <Reveal className="space-y-6">
@@ -219,14 +219,14 @@ export function ExcerptReader({
 
       {/* цитата */}
       <section className="relative border-t border-white/10 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <TerminalQuote text={e.terminalQuote.text} source={e.terminalQuote.source} accent={e.accent} />
         </div>
       </section>
 
       {/* навигация по фрагментам */}
       <section className="relative border-t border-white/10 py-10">
-        <div className="mx-auto grid max-w-6xl gap-4 px-4 sm:grid-cols-2 sm:px-6">
+        <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:px-8">
           {prev ? (
             <Link
               href={prev.href}

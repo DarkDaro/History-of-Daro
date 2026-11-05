@@ -50,7 +50,7 @@ export default function BooksPage() {
 
       {/* панорама Хи-Мигаты — город, в котором всё происходит */}
       <section className="relative pb-6 pt-14">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SceneBanner
             src={VISUALS.city}
             alt="Ночная панорама Хи-Мигаты: башни консорциума, неон и вечный дождь"
@@ -63,7 +63,7 @@ export default function BooksPage() {
 
       {/* анонс цикла — краткий синопсис от автора */}
       <section className="relative pb-4 pt-16">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="beam-border-static p-7 sm:p-10">
               <p className="font-mono-cyber text-[10px] uppercase tracking-[0.35em] neon-cyan">
@@ -87,7 +87,7 @@ export default function BooksPage() {
       </section>
 
       <section className="relative py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl space-y-12 px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl space-y-12 px-4 sm:px-6 lg:px-8">
           {BOOKS.map((book, i) => (
             <Reveal key={book.slug} delay={i * 0.05}>
               <article className="group relative grid gap-8 border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-colors hover:border-white/25 sm:p-8 lg:grid-cols-[280px_1fr]">
@@ -157,7 +157,7 @@ export default function BooksPage() {
       </section>
 
       <section className="relative border-t border-white/10 py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <TerminalQuote
             text="Война не окончена. Она просто сменила владельца."
             source="ПЕПЕЛ И НЕОН · ТИЗЕР"

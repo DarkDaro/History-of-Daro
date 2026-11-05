@@ -39,7 +39,7 @@ export default function ExcerptsPage() {
 
       {/* широкая реконструкция сцены: чужой терминал (кадр «Перехват») */}
       <section className="relative pb-4 pt-14 sm:pt-16">
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SceneBanner
             src={VISUALS.excerpts}
             alt="Реконструкция сцены: терминал с расшифровываемым файлом"
@@ -53,7 +53,7 @@ export default function ExcerptsPage() {
       {/* список фрагментов */}
       <section className="relative py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             kicker="Дешифрованные эпизоды"
             title="Архив чтения"

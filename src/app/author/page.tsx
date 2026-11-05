@@ -40,7 +40,7 @@ export default function AuthorPage() {
       />
 
       <section className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="relative">
               <Corners color="cyan" />
@@ -120,7 +120,7 @@ export default function AuthorPage() {
       <section id="subscribe" className="relative overflow-hidden border-t border-white/10 py-20 sm:py-24">
         <div aria-hidden className="aurora-blob cyan left-[8%] top-[10%] h-72 w-72" />
         <div aria-hidden className="aurora-blob magenta bottom-[5%] right-[6%] h-80 w-80" />
-        <div className="relative mx-auto max-w-2xl px-4 text-center sm:px-6">
+        <div className="relative mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
             <p className="font-mono-cyber text-xs uppercase tracking-[0.4em] neon-cyan">Канал связи</p>
             <h2 className="font-display mt-3 text-3xl uppercase tracking-wide text-white sm:text-5xl">

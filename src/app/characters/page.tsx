@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { PageHero, SectionHeading, MoreLink, SceneBanner } from "@/components/blocks";
+import { PageHero, SectionHeading, MoreLink, SceneBanner, CrossLinks } from "@/components/blocks";
 import { CharacterDossier } from "@/components/character-dossier";
 import { Corners, Reveal } from "@/components/cyber";
 import { CHARACTERS, VISUALS } from "@/lib/content";
@@ -31,7 +31,7 @@ export default function CharactersPage() {
 
       {/* реконструкция архива личных дел */}
       <section className="relative pb-6 pt-14">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SceneBanner
             src={VISUALS.characters}
             alt="Архив личных дел: тёмное хранилище со светящимися голографическими досье"
@@ -44,7 +44,7 @@ export default function CharactersPage() {
 
       {/* главный герой — отдельной карточкой */}
       <section className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div id={hero.id} className="grid scroll-mt-28 gap-8 border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm sm:p-10 lg:grid-cols-[1fr_320px]">
               <div>
@@ -113,7 +113,7 @@ export default function CharactersPage() {
       {/* остальные */}
       <section className="relative border-t border-white/10 py-20 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading kicker="Файлы-codeкс" title="Соперники и соратники" num="01" accent="magenta" />
           <Reveal className="mb-10">
             <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
@@ -127,22 +127,16 @@ export default function CharactersPage() {
       </section>
 
       {/* куда дальше */}
-      <section className="relative border-t border-white/10 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
-          <Reveal>
-            <p className="font-cyber mx-auto max-w-2xl text-sm leading-relaxed text-white/60">
-              Визуальные записи этих дел вынесены в отдельный архив — там
-              же сцены города и обложки томов с подписями из реестра.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <MoreLink href="/gallery">Галерея · визуальный архив</MoreLink>
-              <MoreLink href="/world">Досье мира</MoreLink>
-              <MoreLink href="/armory">Вооружение · владельцы</MoreLink>
-              <MoreLink href="/chronicles">Хроники · судьбы</MoreLink>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <CrossLinks
+        intro="Визуальные записи этих дел вынесены в отдельный архив — там
+              же сцены города и обложки томов с подписями из реестра."
+        links={[
+          { href: "/gallery", label: "Галерея · визуальный архив" },
+          { href: "/world", label: "Досье мира" },
+          { href: "/armory", label: "Вооружение · владельцы" },
+          { href: "/chronicles", label: "Хроники · судьбы" },
+        ]}
+      />
     </main>
   );
 }

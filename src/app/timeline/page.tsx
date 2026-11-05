@@ -30,7 +30,7 @@ export default function TimelinePage() {
 
       <section className="relative py-16 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             kicker="Линия времени"
             title="Хронология событий"
@@ -45,7 +45,7 @@ export default function TimelinePage() {
 
       <section className="relative border-t border-white/10 py-16 sm:py-24">
         <div className="cyber-grid absolute inset-0 opacity-[0.05]" aria-hidden />
-        <div className="relative mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             kicker="Год без пауз"
             title="Календарь событий мира"

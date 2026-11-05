@@ -459,15 +459,16 @@ export function CyberAmbientButton() {
           {playing || armed ? (
             <>
               <Volume2 className="h-4 w-4" aria-hidden />
-              <span className="eq-bars hidden sm:inline-flex" aria-hidden>
+              <span className="eq-bars hidden xl:inline-flex" aria-hidden>
                 <i /><i /><i /><i />
               </span>
-              <span className="hidden sm:inline">{label}</span>
+              {/* подпись — только на xl+: на lg экономим место шапки */}
+              <span className="hidden xl:inline">{label}</span>
             </>
           ) : (
             <>
               <VolumeX className="h-4 w-4" aria-hidden />
-              <span className="hidden sm:inline">Эфир OFF</span>
+              <span className="hidden xl:inline">Эфир OFF</span>
             </>
           )}
         </button>

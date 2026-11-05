@@ -1,18 +1,18 @@
 {
-  "generated": "2026-11-01",
+  "generated": "2026-11-05",
   "static": {
     "file": "daro-site-static.zip",
-    "size": 3689245,
-    "sha256": "94a6a7a03349989a01d3da9ed70578e4b99ae2bb13b347653be2cb85cd2479ba"
+    "size": 14946985,
+    "sha256": "4c30cdc082ffeb37fe160bc853af4d2e5abf5c3ab3f55d69376d01797d19fcd7"
   },
   "source": {
     "file": "daro-site-source.zip",
-    "size": 2847264,
-    "sha256": "2f81a5949a95905a6b5a07b03b7480f845ab11dcb59aa83fe1e89218260b83d7"
+    "size": 13737125,
+    "sha256": "58f19add5df6fd96affa79cc020f2dc4dc032cf76c9b13584fb80276b1450cea"
   },
   "standalone": {
     "file": "daro-site-standalone.zip",
-    "size": 27002622,
-    "sha256": "7653f2612d3c1e8770d5816b7e425eedd8b3a83445344a0caf9b1af4f37a5934"
+    "size": 38476826,
+    "sha256": "e014e970185316673e425226fe87d790a86fc11890262e0ca55cf1153b642887"
   }
 }

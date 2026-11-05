@@ -26,6 +26,16 @@ JOBS = [
     ("img/scenes/armory.webp",    "wp-desktop-armory",   "desktop"),
     ("img/scenes/story.webp",     "wp-desktop-story",    "desktop"),
     ("img/scenes/pobeg.webp",     "wp-desktop-pobeg",    "desktop"),
+    # — рабочий стол: сцены, батч 4 —
+    ("img/scenes/scene-kotel.webp",        "wp-desktop-kotel",        "desktop"),
+    ("img/scenes/scene-cleaners.webp",     "wp-desktop-cleaners",     "desktop"),
+    ("img/scenes/scene-hunter.webp",       "wp-desktop-hunter",       "desktop"),
+    ("img/scenes/scene-perimeter.webp",    "wp-desktop-perimeter",    "desktop"),
+    ("img/scenes/scene-technodominus.webp","wp-desktop-technodominus","desktop"),
+    ("img/scenes/scene-dominator.webp",    "wp-desktop-dominator",    "desktop"),
+    ("img/scenes/scene-lab.webp",          "wp-desktop-lab",          "desktop"),
+    ("img/scenes/scene-conveyor.webp",     "wp-desktop-conveyor",     "desktop"),
+    ("img/scenes/scene-skybridge.webp",    "wp-desktop-skybridge",    "desktop"),
     # — телефон: портреты —
     ("img/chars/daro.webp",       "wp-phone-daro",       "phone"),
     ("img/chars/ohotnik.webp",    "wp-phone-ohotnik",    "phone"),

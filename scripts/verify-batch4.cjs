@@ -15,12 +15,6 @@ const BASE = "http://localhost:8901/History-of-Daro";
   await page.goto(`${BASE}/story/`, { waitUntil: "networkidle" });
   const lead = await page.locator("main p").first().textContent();
   console.log("STORY_LEAD:", (lead ?? "").slice(0, 120));
-  const hunterBanner = await page
-    .locator('img[src*="scene-hunter"]')
-    .evaluateAll((imgs) =>
-      imgs.map((i) => ({ loaded: i.complete && i.naturalWidth > 0, w: i.naturalWidth }))
-    );
-  console.log("HUNTER_BANNER:", JSON.stringify(hunterBanner));
   await page.screenshot({ path: "/tmp/render/story-top.png" });
   const bannerBox = await page.locator('img[src*="scene-hunter"]').first().boundingBox();
   if (bannerBox) {
@@ -28,6 +22,14 @@ const BASE = "http://localhost:8901/History-of-Daro";
     await page.waitForTimeout(700);
     await page.screenshot({ path: "/tmp/render/story-hunter.png" });
   }
+  // Ленивая загрузка: состояние баннера снимаем ПОСЛЕ прокрутки к нему,
+  // иначе loading="lazy" честно рапортует loaded:false (w:0) без дефекта.
+  const hunterBanner = await page
+    .locator('img[src*="scene-hunter"]')
+    .evaluateAll((imgs) =>
+      imgs.map((i) => ({ loaded: i.complete && i.naturalWidth > 0, w: i.naturalWidth }))
+    );
+  console.log("HUNTER_BANNER:", JSON.stringify(hunterBanner));
 
   /* --- /gallery --- */
   await page.goto(`${BASE}/gallery/`, { waitUntil: "networkidle" });

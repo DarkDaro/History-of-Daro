@@ -36,7 +36,6 @@ const HARD = new Set(["critical", "serious"]);
     await page.goto(`${BASE}${path}`, { waitUntil: "load", timeout: 60000 });
     await page.waitForTimeout(1200);
     const out = await page.evaluate(async (src) => {
-      /* eslint-disable no-eval */
       (0, eval)(src);
       const axe = window.axe;
       const r2 = await axe.run(document, {

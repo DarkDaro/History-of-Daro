@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 # Сборка трёх релизных архивов «История Даро» (static / source / standalone).
 # Не трогает .next основного проекта — там живёт dev-сервер площадки:
-# клонирует репозиторий в /tmp/build и собирает в клоне.
+# клонирует репозиторий в _archive/build (тот же диск ради cp -al) и
+# собирает в клоне. Клон удаляется при любом исходе (trap), иначе он
+# ломает typecheck основного проекта: tsconfig исключает examples/skills
+# в корне, но не внутри клона.
 set -euo pipefail
 
 PROJ=/home/z/my-project
 REL=/tmp/rel
 BUILD="$PROJ/_archive/build"
+trap 'rm -rf "$BUILD"' EXIT
 
 rm -rf "$REL" "$BUILD"
 mkdir -p "$REL"
@@ -22,9 +26,14 @@ cd "$BUILD" && npm run build:static > /tmp/build-static.log 2>&1 || { tail -25 /
 tail -3 /tmp/build-static.log
 
 echo "=== 4/6 zip статики ==="
-( cd "$BUILD/out" && find . -type f -printf '%P\n' | zip -qX "$REL/daro-site-static.zip" -@ )
+# releases/ исключаем: Next копирует public/ в out/, и старые zip
+# рекурсивно попадали внутрь нового архива (48 МБ вместо 15).
+( cd "$BUILD/out" && find . -type f -printf '%P\n' | grep -v '^releases/' | zip -qX "$REL/daro-site-static.zip" -@ )
 
 echo "=== 5/6 Серверная сборка (standalone) ==="
+# Сбрасываем .next от статического экспорта: Turbopack-кэш одной конфигурации
+# ломает следующую (прецедент 2026-11-05: next/font/google — import map).
+rm -rf "$BUILD/.next"
 cd "$BUILD" && npm run build > /tmp/build-server.log 2>&1 || { tail -25 /tmp/build-server.log; exit 1; }
 tail -3 /tmp/build-server.log
 ( cd "$BUILD/.next/standalone" && find . -type f -printf '%P\n' | grep -v '^public/releases/' | zip -qX "$REL/daro-site-standalone.zip" -@ )
@@ -39,7 +48,7 @@ unzip -t "$REL/daro-site-source.zip" > /dev/null && echo "source ZIP OK: $(unzip
 
 echo "=== manifest.json ==="
 python3 - <<'PY'
-import hashlib, json, os
+import hashlib, json, os, datetime
 rel = "/tmp/rel"
 def info(name):
     p = os.path.join(rel, name)
@@ -49,7 +58,7 @@ def info(name):
             h.update(chunk)
     return {"file": name, "size": os.path.getsize(p), "sha256": h.hexdigest()}
 m = {
-    "generated": "2026-11-01",
+    "generated": datetime.date.today().isoformat(),
     "static": info("daro-site-static.zip"),
     "source": info("daro-site-source.zip"),
     "standalone": info("daro-site-standalone.zip"),

@@ -75,7 +75,7 @@ export function SectionHeading({
       >
         {num} / {kicker}
       </p>
-      <h2 className="font-display relative mt-3 text-3xl uppercase tracking-wide text-white sm:text-5xl">
+      <h2 className="font-display title-breathe relative mt-3 text-3xl uppercase tracking-wide text-white sm:text-5xl">
         {title}
       </h2>
       <div className={`data-line relative mx-auto mt-5 h-px w-24 ${ACCENT_LINE[accent]}`} />
@@ -158,6 +158,8 @@ export function PageHero({
       <div className="cyber-grid absolute inset-0 opacity-[0.06]" aria-hidden />
       <div className="aurora-blob cyan left-[6%] top-[8%] h-64 w-64 opacity-60" aria-hidden />
       <div className="aurora-blob magenta bottom-[-10%] right-[4%] h-72 w-72 opacity-50" aria-hidden />
+      {/* туманная вуаль: цветные пятна света дрейфуют за контентом (ATMO v5) */}
+      <div aria-hidden className="hero-fog" />
       {rainGlass && <GlassVeil />}
       <FogBand />
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6">

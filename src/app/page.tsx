@@ -187,6 +187,18 @@ export default function Home() {
             за куполом — имя Даро.
           </motion.p>
 
+          {/* строка терминала: печатается по символу, курсор едет с краем (ATMO v5) */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.9, duration: 0.2 }}
+            className="hero-typeline"
+          >
+            <span className="typewriter">
+              &gt; доступ к архиву: «История Даро» — восстановлено 98.4%
+            </span>
+          </motion.p>
+
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}

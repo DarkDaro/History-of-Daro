@@ -947,3 +947,101 @@ body {
 .cm-marker:focus-visible .cm-focus {
   opacity: 0.9;
 }
+
+/* =====================================================================
+   ATMO v5 (2026-11-05): восстановление потерянного чанка — дыхание
+   заголовков секций, туманная вуаль PageHero, глитч-наведение на
+   карточках, печатная машинка в hero главной. Такты редкие,
+   амплитуды малые; prefers-reduced-motion гасит всё движущееся.
+   ===================================================================== */
+
+/* --- Дыхание заголовков секций: тёплый ореол вокруг белого текста --- */
+@keyframes title-breathe {
+  0%, 100% { text-shadow: 0 0 0 rgba(0, 240, 255, 0); }
+  50%      { text-shadow: 0 0 22px rgba(0, 240, 255, 0.32), 0 0 56px rgba(255, 42, 109, 0.16); }
+}
+.title-breathe {
+  animation: title-breathe 7s ease-in-out infinite;
+}
+
+/* --- Туманная вуаль PageHero: цветные пятна света дрейфуют за
+       контентом (кейфреймы fog-drift из ATMO v3 переиспользованы;
+       слой ставится в JSX до FogBand и контента — красится под ними) --- */
+.hero-fog {
+  position: absolute;
+  inset: -20% -30%;
+  background:
+    radial-gradient(45% 35% at 30% 60%, rgba(0, 240, 255, 0.07), transparent 70%),
+    radial-gradient(40% 30% at 70% 40%, rgba(255, 42, 109, 0.06), transparent 70%);
+  pointer-events: none;
+  animation: fog-drift 56s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* --- Глитч-наведение на карточках: RGB-разрыв заголовка.
+       Хук — .group:hover (галерея, стена обоев, кодекс-карточки);
+       подъём и тень даёт существующий .lift-card (ATMO v4). --- */
+@keyframes glitch-flick {
+  0%, 100% { transform: translate(0, 0) skewX(0); }
+  25%      { transform: translate(-1px, 0) skewX(-0.6deg); }
+  50%      { transform: translate(1px, 0) skewX(0.5deg); }
+  75%      { transform: translate(-1px, 0) skewX(-0.3deg); }
+}
+.glitch-title {
+  transition: text-shadow 0.25s ease;
+}
+.group:hover .glitch-title {
+  text-shadow:
+    1px 0 0 rgba(255, 42, 109, 0.75),
+    -1px 0 0 rgba(0, 240, 255, 0.75);
+  animation: glitch-flick 0.32s steps(2, jump-none) 1;
+}
+
+/* --- Печатная машинка в hero главной: строка терминала.
+       Шрифт моноширинный (Geist Mono, кириллица есть) → ширина
+       55ch совпадает с длиной строки, steps(55) печатает по
+       символу; курсор едет с краем печати (border-right), после
+       набора мигает. letter-spacing у .typewriter нулевой —
+       иначе 55ch короче строки с разрядкой. --- */
+.hero-typeline {
+  margin: 1.1rem auto 0;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--neon-cyan) 60%, white);
+}
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  letter-spacing: normal;
+  border-right: 1px solid var(--neon-cyan);
+  animation:
+    typing 2.8s steps(55, end) 1.1s both,
+    cursor-blink 1.05s step-end 3.9s infinite;
+}
+@keyframes typing {
+  from { width: 0; }
+  to   { width: 55ch; }
+}
+@keyframes cursor-blink {
+  0%, 100% { border-right-color: var(--neon-cyan); }
+  50%      { border-right-color: transparent; }
+}
+
+/* --- reduced motion: всё движущееся гасится; строка машинки
+       показывается целиком, без курсора (без анимации ширины
+       inline-block сворачивается в полную ширину сам) --- */
+@media (prefers-reduced-motion: reduce) {
+  .title-breathe, .hero-fog {
+    animation: none !important;
+  }
+  .group:hover .glitch-title {
+    animation: none !important;
+  }
+  .typewriter {
+    animation: none !important;
+    border-right-color: transparent;
+  }
+}

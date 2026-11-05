@@ -127,7 +127,7 @@ export function GalleryGrid({ items }: { items: GalleryItem[] }) {
                     <p className="font-mono-cyber text-[9px] uppercase tracking-[0.3em] text-white/55">
                       {item.kind}
                     </p>
-                    <p className="font-display mt-1 text-base uppercase tracking-wide">{item.title}</p>
+                    <p className="font-display glitch-title mt-1 text-base uppercase tracking-wide">{item.title}</p>
                   </div>
                 </div>
               </article>

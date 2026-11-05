@@ -72,7 +72,7 @@ export function CodexCard({ r, accent }: { r: CodexEntry; accent: Accent }) {
         <div className="flex items-center justify-between">
           <Chip accent={accent}>{r.tag}</Chip>
         </div>
-        <h3 className="font-display mt-4 text-2xl uppercase tracking-wide">{r.name}</h3>
+        <h3 className="font-display glitch-title mt-4 text-2xl uppercase tracking-wide">{r.name}</h3>
         <p className={`font-mono-cyber mt-1.5 text-[10px] uppercase tracking-[0.2em] ${accentText}`}>
           {r.role}
         </p>

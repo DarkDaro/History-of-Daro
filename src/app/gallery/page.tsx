@@ -88,7 +88,7 @@ function WallpaperTile({
         />
       </div>
       <div className="flex flex-1 flex-col px-1.5 pb-1 pt-3">
-        <p className="font-display truncate text-sm uppercase tracking-wide">
+        <p className="font-display glitch-title truncate text-sm uppercase tracking-wide">
           {item.title}
         </p>
         <a

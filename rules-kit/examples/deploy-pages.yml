@@ -1,0 +1,67 @@
+# Автодеплой статики на GitHub Pages с гейтами.
+# Перенос практики «Истории Даро»: проверка ломает деплой ДО публикации.
+#
+# Подходит сайту без сборщика: чек-аут → гейты → чистая копия в out/ → Pages.
+# Чистая копия обязательна: служебные папки (rules/, scripts/, метафайлы,
+# черновики) не должны уезжать на прод — см. rules/no-traces.md, раздел «Деплой».
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Gate — внутренние ссылки, якоря, картинки
+        run: node scripts/check-links.mjs site
+
+      - name: Gate — тексты без слопа и следов генерации
+        run: python3 scripts/check-slop.py site
+
+      # Сайт лежит в site/ (рекомендация для нового проекта: код сайта
+      # отдельно от служебных файлов репо). Если старый сайт живёт в
+      # корне — замени rsync на копию с исключениями:
+      #   rsync -a . out/ --exclude '.git*' --exclude 'rules' \
+      #     --exclude 'scripts' --exclude '*.md' --exclude 'examples'
+      - name: Чистая копия для публикации
+        run: |
+          mkdir out
+          rsync -a site/ out/
+          touch out/.nojekyll
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

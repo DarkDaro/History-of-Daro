@@ -185,9 +185,7 @@
       "daily-notes:Сегодняшняя заметка": false,
       "templates:Вставить шаблон": false,
       "command-palette:Открыть палитру команд": false,
-      "bases:Создать новую базу": false,
-      "obsidian-excalidraw-plugin:Создать новый чертеж": false,
-      "obsidian-git:Open Git source control": false
+      "bases:Создать новую базу": false
     }
   },
   "active": "e5d57b1e4c573d5a",

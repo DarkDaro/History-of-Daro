@@ -56,3 +56,5 @@ test
 upload/
 yarn-debug.log*
 yarn-error.log*
+# Obsidian: служебные файлы хранилища (workspace, конфиги плагинов) — только локально
+vault/.obsidian/

@@ -56,13 +56,15 @@ SLOP = [
 ]
 
 # --- плейсхолдеры и следы недоделки: всегда ошибки ---
+# конвенция проекта: «ПРЕФИКС-???» (EV-???, MX-???) — закрытый файл,
+# художественный маркер, не заглушка — поэтому ??? после дефиса/КАПС-кода не ловится
 PLACEHOLDER = [
     r"\bTODO\b",
     r"\bFIXME\b",
     r"\bXXX\b",
     r"【[^】]*】",
     r"[Ll]orem [Ii]psum",
-    r"\?{3,}",
+    r"(?<![A-Z-])\?{3,}",
     r"\bundefined\b",
     r"\bNaN\b",
 ]
@@ -84,12 +86,38 @@ AI_TRACE = [
 
 # метафайлы проекта рассказывают О правилах и стоп-листе — цитаты в них
 # не считаются находками; при необходимости выключается через --keep-meta
-IGNORE_DIRS_DEFAULT = {".git", "node_modules", "out", ".github", "scripts", "rules", "vendor"}
+# rules-kit — сам комплект правил: он вправе называть плейсхолдеры и штампы,
+# которые проверяет (иначе линтер падает на собственной документации)
+# vault — сгенерированная база канона: «ЗАКРЫТЫЙ ФАЙЛ», «данные изъяты»,
+# id с «???» — художественный замысел, а не след недоделки
+# .next, skills и DaroSite — артефакты сборки, служебная папка песочницы
+# и отдельный репозиторий рядом — не тексты этого проекта
+IGNORE_DIRS_DEFAULT = {".git", "node_modules", "out", ".next", ".github", "scripts", "rules", "rules-kit", "vendor", "skills", "vault", "DaroSite"}
 IGNORE_FILES_DEFAULT = {"AGENTS.md", "PROJECT-META.md", "SESSIONS.md", "BACKLOG.md"}
 TEXT_EXT = {".html", ".htm", ".md", ".txt"}
 
 HTML_TAGS = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.S | re.I)
 HTML_COMMENTS = re.compile(r"<!--.*?-->", re.S)
+MD_CODE_SPAN = re.compile(r"`[^`]*`")
+MD_FENCE = re.compile(r"^\s*(```|~~~)")
+
+
+def md_logical_lines(text: str):
+    """Строки md без код-блоков и без inline-кода.
+
+    Документация вправе называть плейсхолдеры и штампы в backtick-ах
+    (`TODO`, `【…】`) — это цитата правила, а не след недоделки. Реальный
+    TODO пишут без разметки — он по-прежнему ловится.
+    """
+    out = []
+    fence = False
+    for line in text.split("\n"):
+        if MD_FENCE.match(line):
+            fence = not fence
+            out.append(" ")
+            continue
+        out.append(" " if fence else MD_CODE_SPAN.sub(" ", line))
+    return out
 
 
 def visible_text(html: str) -> str:
@@ -146,9 +174,10 @@ def main() -> int:
                         counts[label] += 1
 
         # штампы — по видимому тексту (комментарии и код не считаются);
-        # плейсхолдеры и следы — по сырому: TODO в комментарии тоже след.
-        hit(re_slop, warns, "штамп", visible_text(raw).split("\n") if is_html else raw.split("\n"))
-        raw_lines = raw.split("\n")
+        # плейсхолдеры и следы — по сырому: TODO в комментарии тоже след;
+        # в md «сырое» — это текст без код-блоков и inline-кода
+        raw_lines = md_logical_lines(raw) if not is_html else raw.split("\n")
+        hit(re_slop, warns, "штамп", visible_text(raw).split("\n") if is_html else raw_lines)
         hit(re_ph, errors, "плейсхолдер", raw_lines)
         if is_html:
             hit(re_ai, errors, "след генерации", raw_lines)

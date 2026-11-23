@@ -58,3 +58,6 @@ yarn-debug.log*
 yarn-error.log*
 # Obsidian: служебные файлы хранилища (workspace, конфиги плагинов) — только локально
 vault/.obsidian/
+# DaroSite — отдельный репозиторий (github.com/DarkDaro/DaroSite), живёт локально рядом; .gt — файл токена CI, никогда не трекается
+/DaroSite/
+.gt

@@ -347,10 +347,6 @@ export function SiteFooter() {
             <p className="font-mono-cyber mt-3 max-w-xs text-[10px] uppercase leading-relaxed tracking-[0.25em] text-white/50">
               Цикл романов · город Хи-Мигата · 2147 год · дождь не заканчивается
             </p>
-            {/* версия сборки: sha+дата инжектятся в next.config.ts при билде */}
-            <p className="font-mono-cyber mt-2 text-[9px] uppercase tracking-[0.25em] text-white/50">
-              сборка {process.env.NEXT_PUBLIC_BUILD_SHA} · {process.env.NEXT_PUBLIC_BUILD_DATE}
-            </p>
           </div>
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
             <div>
@@ -385,7 +381,6 @@ export function SiteFooter() {
                 <li><Link href="/support" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Поддержать автора</Link></li>
                 <li><Link href="/#subscribe" className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Подписка</Link></li>
                 <li><a href={asset("/feed.xml")} className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">RSS-лента</a></li>
-                <li><a href={asset("/download.html")} className="inline-block py-1.5 -my-1.5 hover:text-[var(--neon-cyan)]">Скачать сборку</a></li>
               </ul>
             </div>
           </div>

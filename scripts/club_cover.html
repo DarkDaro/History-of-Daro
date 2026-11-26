@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    @page { size: 794px 1123px; margin: 0; }
+    :root {
+      --c-bg: #0a1628;
+      --c-accent: #4da8da;
+      --c-text: #e8f0f8;
+      --c-muted: #7a9bb8;
+      --c-glow: #2d7ab3;
+    }
+    html, body { margin: 0; padding: 0; width: 794px; height: 1123px;
+      background: var(--c-bg); color: var(--c-text);
+      font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+    @media screen {
+      html { height: auto; display: flex; justify-content: center; min-height: 100vh; background: var(--c-bg); }
+      body { transform-origin: top center; scale: min(1, calc(100vw / 794), calc(100vh / 1123)); margin: 0 auto; box-shadow: 0 0 60px rgba(0,0,0,0.3); }
+    }
+    .cover { width: 794px; height: 1123px; position: relative; box-sizing: border-box;
+      border: none; outline: none; box-shadow: none; }
+    /* Layer 1 — фон, свечение */
+    .bg-layer { position: absolute; inset: 0; overflow: hidden; z-index: 1; }
+    .glow-a { position: absolute; top: -120px; left: -80px; width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(45,122,179,0.08) 0%, rgba(45,122,179,0) 70%); }
+    .glow-b { position: absolute; bottom: -140px; right: -60px; width: 620px; height: 620px;
+      background: radial-gradient(circle, rgba(45,122,179,0.07) 0%, rgba(45,122,179,0) 70%); }
+    /* Layer 2 — рамка */
+    .frame { position: absolute; top: 80px; bottom: 80px; left: 60px; right: 60px;
+      border: 2px solid var(--c-accent); z-index: 2; }
+    /* Layer 3 — текст */
+    .content { position: absolute; inset: 0; z-index: 3; }
+    .kicker { position: absolute; left: 105px; top: 135px;
+      font-size: 11pt; font-weight: 300; color: var(--c-accent);
+      letter-spacing: 5px; text-transform: uppercase; }
+    .title { position: absolute; left: 105px; top: 236px;
+      font-size: 50pt; font-weight: 900; line-height: 1.15;
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      color: var(--c-text); max-width: 560px;
+      text-shadow: 0 0 24px rgba(45,122,179,0.35); }
+    .summary { position: absolute; left: 105px; top: 505px;
+      font-size: 15pt; line-height: 1.7; color: var(--c-muted); max-width: 520px; }
+    .org { position: absolute; left: 105px; top: 719px;
+      font-size: 18pt; color: var(--c-text); font-weight: 400; }
+    .org-sub { position: absolute; left: 105px; top: 762px;
+      font-size: 11pt; color: var(--c-muted); font-weight: 300; }
+    .date { position: absolute; left: 105px; top: 968px;
+      font-size: 10pt; color: var(--c-muted); letter-spacing: 3px; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <div class="cover">
+    <div class="bg-layer">
+      <div class="glow-a"></div>
+      <div class="glow-b"></div>
+    </div>
+    <div class="frame"></div>
+    <div class="content">
+      <div class="kicker">Проект клуба · Вариант А</div>
+      <div class="title">Клуб<br>«История Даро»</div>
+      <div class="summary">Вход по одноразовым кодам и пропуску Boosty — без паролей
+        и собственной кассы. Boosty принимает подписки и хранит полный текст романа,
+        витрина остаётся статикой, а клуб открывает закрытую ленту вопросов и ответов.</div>
+      <div class="org">Решение автора</div>
+      <div class="org-sub">27 ноября 2026 · статус: проект, код не начат</div>
+      <div class="date">История Даро · 2147 · Хи-Мигата</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -67,3 +67,20 @@ npm run dev        # http://localhost:3000
 npm run build:static   # готовый сайт в out/
 npm run build          # серверная версия (.next/standalone, запуск: npm start)
 ```
+
+## Фаза 2 — VPS + Coolify (отложена)
+
+Запускается только вместе с бэкендом клуба (BACKEND-PLAN.md,
+чанк Б-7; CLUB-DESIGN.md §13). Эскиз схемы:
+
+- VPS 2 vCPU / 4 GB / 30+ GB, ориентир ~300–600 ₽/мес у РФ-провайдера
+  (Timeweb, Beget, Selectel, VDSina) + домен ~200–400 ₽/год.
+- Coolify — self-hosted (бесплатно, без подписки Coolify Cloud):
+  деплой из Git, Docker-сборка полной версии сайта с /club/*.
+- SQLite в volume (custom.db), cron-дамп в бэкапы; Postgres-контейнер —
+  опционально позже.
+- Секреты — только в env-переменных Coolify, не в репо.
+- Traefik + Let's Encrypt: HTTPS из коробки; кастомный домен, как и
+  в фазе 1, автоматически снимает basePath.
+
+До явной команды автора ничего не меняется: сайт живёт на Pages.
